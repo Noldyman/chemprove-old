@@ -37,4 +37,4 @@ const AppBar: React.FC<AppBarProps> = ({ isDarkTheme, onThemeToggle }) => {
   )
 }
 
-export default AppBar
+export { AppBar }

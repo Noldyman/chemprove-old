@@ -1,5 +1,5 @@
 import React from 'react'
-import ResidueCalculator from './ResidueCalculator'
+import { ResidueCalculator } from './ResidueCalculator'
 
 interface NmrResiduePageProps {}
 
@@ -7,4 +7,4 @@ const NmrResiduePage: React.FC<NmrResiduePageProps> = () => {
   return <ResidueCalculator />
 }
 
-export default NmrResiduePage
+export { NmrResiduePage }

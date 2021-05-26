@@ -74,4 +74,4 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
   )
 }
 
-export default ResidueCalculator
+export { ResidueCalculator }
