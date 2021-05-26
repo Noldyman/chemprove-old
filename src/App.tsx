@@ -3,6 +3,7 @@ import { ThemeProvider } from '@material-ui/styles'
 import { CssBaseline } from '@material-ui/core'
 import AppBar from './components/general/AppBar'
 import { lightTheme, darkTheme } from './themesAndStyles/themes'
+import NmrResiduePage from './components/nmr/NmrResiduePage'
 
 function App() {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false)
@@ -16,6 +17,9 @@ function App() {
       <CssBaseline />
       <div className="App">
         <AppBar isDarkTheme={isDarkTheme} onThemeToggle={handleThemeToggle} />
+        <div className="content">
+          <NmrResiduePage />
+        </div>
       </div>
     </ThemeProvider>
   )
