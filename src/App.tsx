@@ -6,7 +6,7 @@ import { lightTheme, darkTheme } from './themesAndStyles/themes'
 import { NmrResiduePage } from './components/nmr/NmrResiduePage'
 
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(false)
+  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
 
   const handleThemeToggle = () => {
     setIsDarkTheme((prevValue) => !prevValue)
