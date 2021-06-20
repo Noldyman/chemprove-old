@@ -1,15 +1,15 @@
 import React from 'react'
 import { TableBody, TableCell, TableRow } from '@material-ui/core'
-import { IColumnObj, IDataObj } from './AppTable'
+import { IColumnObj } from './AppTable'
 import _ from 'lodash'
 
 interface AppTableBodyProps {
   columns: IColumnObj[]
-  data: IDataObj[]
+  data: any[]
 }
 
 const AppTableBody: React.FC<AppTableBodyProps> = ({ columns, data }) => {
-  const renderCell = (item: IDataObj, column: IColumnObj) => {
+  const renderCell = (item: any, column: IColumnObj) => {
     if (column.content) {
       if (column.path) {
         return column.content(item, _.get(item, column.path))

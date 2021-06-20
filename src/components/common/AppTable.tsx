@@ -3,22 +3,18 @@ import { Table } from '@material-ui/core'
 import { AppTableHead } from './AppTableHead'
 import { AppTableBody } from './AppTableBody'
 
-export interface IDataObj {
-  id: string
-}
-
 export interface IColumnObj {
   label?: string
   path?: string
   content?: (
-    item: IDataObj,
+    item: any,
     value?: string | number | boolean
   ) => JSX.Element | React.FC
 }
 
 interface AppTableProps {
   columns: IColumnObj[]
-  data: IDataObj[]
+  data: any[]
 }
 
 const AppTable: React.FC<AppTableProps> = ({ columns, data }) => {
