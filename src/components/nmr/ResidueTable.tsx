@@ -4,7 +4,6 @@ import { Delete } from '@material-ui/icons'
 import { AppTable } from '../common/AppTable'
 import { IColumnObj } from '../common/AppTable'
 import { IResidue } from './ResidueCalculator'
-import { iteratorSymbol } from 'immer/dist/internal'
 
 interface ResidueTableProps {
   data: IResidue[]

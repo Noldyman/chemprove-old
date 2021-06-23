@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core'
 import { AddCircleOutline } from '@material-ui/icons'
 import { produce } from 'immer'
+import { v4 as uuidv4 } from 'uuid'
 import { ContentBox } from '../common/ContentBox'
 import { ResidueTable } from './ResidueTable'
 
@@ -53,7 +54,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
   })
   const [residues, setResidues] = useState<IResidue[]>([
     {
-      id: new Date().toString(),
+      id: uuidv4(),
       residue: 'unknown',
       molWeight: 0,
       numOfProtons: 1,
@@ -77,7 +78,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
     const nextProduct = produce(product, (draftProduct) => {
       const nextResidues = produce(residues, (draftResidues) => {
         draftResidues.push({
-          id: new Date().toString(),
+          id: uuidv4(),
           residue: 'unknown',
           molWeight: 0,
           numOfProtons: 1,
@@ -185,6 +186,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
         >
           Add new residue
         </Button>
+        {console.log(residues)}
       </div>
     </ContentBox>
   )
