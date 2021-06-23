@@ -186,7 +186,6 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
         >
           Add new residue
         </Button>
-        {console.log(residues)}
       </div>
     </ContentBox>
   )
