@@ -4,6 +4,7 @@ import { Delete } from '@material-ui/icons'
 import { AppTable } from '../common/AppTable'
 import { IColumnObj } from '../common/AppTable'
 import { IResidue } from './ResidueCalculator'
+import { iteratorSymbol } from 'immer/dist/internal'
 
 interface ResidueTableProps {
   data: IResidue[]
@@ -81,8 +82,24 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
         />
       ),
     },
-    { label: 'mol%', path: 'purity.molPercent' },
-    { label: 'wt%', path: 'purity.wtPercent' },
+    {
+      label: 'mol%',
+      path: 'purity.molPercent',
+      content: (item, value) => (
+        <span>
+          {typeof value === 'number' && !isNaN(value) ? value.toFixed(2) : '-'}
+        </span>
+      ),
+    },
+    {
+      label: 'wt%',
+      path: 'purity.wtPercent',
+      content: (item, value) => (
+        <span>
+          {typeof value === 'number' && !isNaN(value) ? value.toFixed(2) : '-'}
+        </span>
+      ),
+    },
     {
       content: (item) => (
         <IconButton onClick={() => onDelete(item)}>
