@@ -6,17 +6,16 @@ import { lightTheme, darkTheme } from './themesAndStyles/themes'
 import { NmrResiduePage } from './components/nmr/NmrResiduePage'
 
 function App() {
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
-
-  const handleThemeToggle = () => {
-    setIsDarkTheme((prevValue) => !prevValue)
-  }
+  const [isThemeDark, setIsThemeDark] = useState(false)
 
   return (
-    <ThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+    <ThemeProvider theme={isThemeDark ? darkTheme : lightTheme}>
       <CssBaseline />
       <div className="App">
-        <AppBar isDarkTheme={isDarkTheme} onThemeToggle={handleThemeToggle} />
+        <AppBar
+          isDarkTheme={isThemeDark}
+          onThemeToggle={() => setIsThemeDark((prevValue) => !prevValue)}
+        />
         <div className="content">
           <NmrResiduePage />
         </div>

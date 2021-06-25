@@ -25,7 +25,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
       path: 'residue',
       content: (item, value) => {
         return (
-          <Select value={value}>
+          <Select value={value} color="secondary">
             <MenuItem value="unknown">
               <em>Unknown</em>
             </MenuItem>
@@ -38,6 +38,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
       path: 'molWeight',
       content: (item, value) => (
         <TextField
+          color="secondary"
           size="small"
           type="number"
           name="molWeight"
@@ -54,6 +55,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
       path: 'numOfProtons',
       content: (item, value) => (
         <TextField
+          color="secondary"
           size="small"
           type="number"
           name="numOfProtons"
@@ -70,6 +72,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
       path: 'integral',
       content: (item, value) => (
         <TextField
+          color="secondary"
           size="small"
           type="number"
           name="integral"
@@ -101,7 +104,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
     },
     {
       content: (item) => (
-        <IconButton onClick={() => onDelete(item)}>
+        <IconButton onClick={() => onDelete(item)} color="secondary">
           <Delete />
         </IconButton>
       ),
