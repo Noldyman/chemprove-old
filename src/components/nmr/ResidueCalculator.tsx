@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React from 'react'
 import {
   makeStyles,
   Typography,
@@ -7,10 +7,10 @@ import {
   Button,
 } from '@material-ui/core'
 import { AddCircleOutline } from '@material-ui/icons'
-import { produce } from 'immer'
 import { v4 as uuidv4 } from 'uuid'
 import { ContentBox } from '../common/ContentBox'
 import { ResidueTable } from './ResidueTable'
+import { useImmerReducer } from 'use-immer'
 
 const useStyles = makeStyles({
   product: {
@@ -30,8 +30,6 @@ const useStyles = makeStyles({
   },
 })
 
-interface ResidueCalculatorProps {}
-
 export interface IResidue {
   id: string
   residue: string
@@ -41,110 +39,101 @@ export interface IResidue {
   purity: { molPercent: number; wtPercent: number }
 }
 
-interface IProduct {
-  molWeight: number
-  purity: { molPercent: number; wtPercent: number }
+interface IState {
+  product: {
+    molWeight: number
+    purity: { molPercent: number; wtPercent: number }
+  }
+  residues: IResidue[]
 }
 
-const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
-  const classes = useStyles()
-  const [product, setProduct] = useState({
+interface IAction {
+  type: string
+  payload?: any
+}
+
+const newResidue = (residueName: string) => {
+  return {
+    id: uuidv4(),
+    residue: residueName,
+    molWeight: 0,
+    numOfProtons: 1,
+    integral: 0,
+    purity: { molPercent: 0, wtPercent: 0 },
+  }
+}
+
+const initialState: IState = {
+  product: {
     molWeight: 0,
     purity: { molPercent: 0, wtPercent: 0 },
+  },
+  residues: [newResidue('unknown')],
+}
+
+const ACTIONS = {
+  CHANGE_MOLWEIGHT: 'change-molweight',
+  ADD_RESIDUE: 'add-residue',
+  CHANGE_RESIDUE: 'change-residue',
+  DELETE_RESIDUE: 'delete-residue',
+}
+
+const reducer = (draftState: IState, action: IAction) => {
+  switch (action.type) {
+    case ACTIONS.CHANGE_MOLWEIGHT:
+      draftState.product.molWeight = parseFloat(
+        action.payload.event.target.value
+      )
+      calculatePurities(draftState)
+      break
+    case ACTIONS.ADD_RESIDUE:
+      draftState.residues.push(newResidue(action.payload.residueName))
+      calculatePurities(draftState)
+      break
+    case ACTIONS.CHANGE_RESIDUE:
+      const changeIndex = draftState.residues.findIndex(
+        (r) => r.id === action.payload.item.id
+      )
+      draftState.residues[changeIndex] = {
+        ...draftState.residues[changeIndex],
+        [action.payload.event.target.name]: action.payload.event.target.value,
+      }
+      calculatePurities(draftState)
+      break
+    case ACTIONS.DELETE_RESIDUE:
+      const deleteIndex = draftState.residues.findIndex(
+        (r) => r.id === action.payload.item.id
+      )
+      draftState.residues.splice(deleteIndex, 1)
+      calculatePurities(draftState)
+      break
+    default:
+      return draftState
+  }
+}
+
+const calculatePurities = (draftState: IState) => {
+  let totalIntegral = 1
+  let totalWeightPerMol = draftState.product.molWeight
+  draftState.residues.forEach((r) => {
+    totalIntegral += r.integral / r.numOfProtons
+    totalWeightPerMol += (r.integral / r.numOfProtons) * r.molWeight
   })
-  const [residues, setResidues] = useState<IResidue[]>([
-    {
-      id: uuidv4(),
-      residue: 'unknown',
-      molWeight: 0,
-      numOfProtons: 1,
-      integral: 0,
-      purity: { molPercent: 0, wtPercent: 0 },
-    },
-  ])
 
-  const handleMolWeightChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const nextProduct = produce(product, (draftProduct) => {
-      draftProduct.molWeight = parseFloat(event.target.value)
-      const nextResidues = produce(residues, (draftResidues) => {
-        calculatePurities(draftProduct, draftResidues)
-      })
-      setResidues(nextResidues)
-    })
-    setProduct(nextProduct)
-  }
+  draftState.product.purity.molPercent = (1 / totalIntegral) * 100
+  draftState.product.purity.wtPercent =
+    (draftState.product.molWeight / totalWeightPerMol) * 100
 
-  const handleAddResidue = () => {
-    const nextProduct = produce(product, (draftProduct) => {
-      const nextResidues = produce(residues, (draftResidues) => {
-        draftResidues.push({
-          id: uuidv4(),
-          residue: 'unknown',
-          molWeight: 0,
-          numOfProtons: 1,
-          integral: 0,
-          purity: { molPercent: 0, wtPercent: 0 },
-        })
-        calculatePurities(draftProduct, draftResidues)
-      })
-      setResidues(nextResidues)
-    })
-    setProduct(nextProduct)
-  }
+  draftState.residues.forEach((r) => {
+    r.purity.molPercent = (r.integral / r.numOfProtons / totalIntegral) * 100
+    r.purity.wtPercent =
+      (((r.integral / r.numOfProtons) * r.molWeight) / totalWeightPerMol) * 100
+  })
+}
 
-  const handleChangeResidue = (
-    event: ChangeEvent<HTMLInputElement>,
-    item: IResidue
-  ) => {
-    const nextProduct = produce(product, (draftProduct) => {
-      const nextResidues = produce(residues, (draftResidues) => {
-        const index = residues.findIndex((r) => r.id === item.id)
-        draftResidues[index] = {
-          ...item,
-          purity: { ...item.purity },
-          [event.target.name]: event.target.value,
-        }
-        calculatePurities(draftProduct, draftResidues)
-      })
-      setResidues(nextResidues)
-    })
-    setProduct(nextProduct)
-  }
-
-  const handleDeleteResidue = (item: IResidue) => {
-    const nextProduct = produce(product, (draftProduct) => {
-      const nextResidues = produce(residues, (draftResidues) => {
-        const index = draftResidues.findIndex((r) => r.id === item.id)
-        draftResidues.splice(index, 1)
-        calculatePurities(draftProduct, draftResidues)
-      })
-      setResidues(nextResidues)
-    })
-    setProduct(nextProduct)
-  }
-
-  const calculatePurities = (
-    draftProduct: IProduct,
-    draftResidues: IResidue[]
-  ) => {
-    let totalIntegral = 1
-    let totalWeightPerMol = draftProduct.molWeight
-    draftResidues.forEach((r) => {
-      totalIntegral += r.integral / r.numOfProtons
-      totalWeightPerMol += (r.integral / r.numOfProtons) * r.molWeight
-    })
-
-    draftProduct.purity.molPercent = (1 / totalIntegral) * 100
-    draftProduct.purity.wtPercent =
-      (draftProduct.molWeight / totalWeightPerMol) * 100
-
-    draftResidues.forEach((r) => {
-      r.purity.molPercent = (r.integral / r.numOfProtons / totalIntegral) * 100
-      r.purity.wtPercent =
-        (((r.integral / r.numOfProtons) * r.molWeight) / totalWeightPerMol) *
-        100
-    })
-  }
+const ResidueCalculator: React.FC = () => {
+  const classes = useStyles()
+  const [state, dispatch] = useImmerReducer(reducer, initialState)
 
   return (
     <ContentBox title="NMR residue calculator">
@@ -159,21 +148,43 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
           variant="outlined"
           size="small"
           color="secondary"
-          value={product.molWeight}
-          onChange={handleMolWeightChange}
+          value={state.product.molWeight}
+          onChange={(event) =>
+            dispatch({
+              type: ACTIONS.CHANGE_MOLWEIGHT,
+              payload: { event: event },
+            })
+          }
           onFocus={(event) => event.target.select()}
         />
         <span>
-          Purity: {product.purity.molPercent.toFixed(2)} mol%;{' '}
-          {product.purity.wtPercent.toFixed(2)} wt%
+          {`Purity: ${
+            !isNaN(state.product.purity.molPercent)
+              ? state.product.purity.molPercent.toFixed(2)
+              : '-'
+          }
+          mol%
+          ${
+            !isNaN(state.product.purity.wtPercent)
+              ? state.product.purity.wtPercent.toFixed(2)
+              : '-'
+          }
+          wt%`}
         </span>
       </div>
       <Divider />
       <div className={classes.table}>
         <ResidueTable
-          data={residues}
-          onResidueChange={handleChangeResidue}
-          onDelete={handleDeleteResidue}
+          data={state.residues}
+          onResidueChange={(event, item) =>
+            dispatch({
+              type: ACTIONS.CHANGE_RESIDUE,
+              payload: { event: event, item: item },
+            })
+          }
+          onDelete={(item) =>
+            dispatch({ type: ACTIONS.DELETE_RESIDUE, payload: { item: item } })
+          }
         />
       </div>
       <div className={classes.button}>
@@ -182,7 +193,12 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = () => {
           variant="contained"
           color="secondary"
           startIcon={<AddCircleOutline />}
-          onClick={handleAddResidue}
+          onClick={() =>
+            dispatch({
+              type: ACTIONS.ADD_RESIDUE,
+              payload: { residueName: 'unknown' },
+            })
+          }
         >
           Add new residue
         </Button>
