@@ -6,10 +6,7 @@ import { AppTableBody } from './AppTableBody'
 export interface IColumnObj {
   label?: string
   path?: string
-  content?: (
-    item: any,
-    value?: string | number | boolean
-  ) => JSX.Element | React.FC
+  content?: (item: any, value?: any) => JSX.Element | React.FC | null
 }
 
 interface AppTableProps {
