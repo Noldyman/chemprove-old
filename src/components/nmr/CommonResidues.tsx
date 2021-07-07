@@ -12,9 +12,11 @@ const useStyles = makeStyles({
   },
 })
 
-interface CommonResiduesProps {}
+interface CommonResiduesProps {
+  onAddResidue: () => void
+}
 
-const CommonResidues: React.FC<CommonResiduesProps> = () => {
+const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
   const classes = useStyles()
 
   return (
@@ -28,7 +30,7 @@ const CommonResidues: React.FC<CommonResiduesProps> = () => {
         </Typography>
         <Divider />
         <div className={classes.table}>
-          <CommonResiduesTable />
+          <CommonResiduesTable onAddResidue={onAddResidue} />
         </div>
       </ContentBox>
     </div>
