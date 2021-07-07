@@ -3,15 +3,12 @@ import { Select, MenuItem, TextField, IconButton } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 import { AppTable } from '../common/AppTable'
 import { IColumnObj } from '../common/AppTable'
-import { IResidue } from './ResidueCalculator'
+import { IResidue } from './NmrResiduePage'
 
 interface ResidueTableProps {
   data: IResidue[]
   onDelete: (item: IResidue) => void
-  onResidueChange: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    item: IResidue
-  ) => void
+  onResidueChange: (event: React.ChangeEvent, item: IResidue) => void
 }
 
 const ResidueTable: React.FC<ResidueTableProps> = ({
@@ -43,9 +40,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
           type="number"
           name="molWeight"
           value={value}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onResidueChange(event, item)
-          }
+          onChange={(event) => onResidueChange(event, item)}
           onFocus={(event) => event.target.select()}
         />
       ),
@@ -60,9 +55,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
           type="number"
           name="numOfProtons"
           value={value}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onResidueChange(event, item)
-          }
+          onChange={(event) => onResidueChange(event, item)}
           onFocus={(event) => event.target.select()}
         />
       ),
@@ -77,9 +70,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
           type="number"
           name="integral"
           value={value}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            onResidueChange(event, item)
-          }
+          onChange={(event) => onResidueChange(event, item)}
           onFocus={(event) => event.target.select()}
         />
       ),
