@@ -1,4 +1,5 @@
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { IconButton } from '@material-ui/core'
 import { PlaylistAdd } from '@material-ui/icons'
 import { AppTable, IColumnObj } from '../common/AppTable'
@@ -13,7 +14,7 @@ const renderStackableValues = (value: ISignalObj[], path: string) => {
   return (
     <div>
       {value.map((signal) => (
-        <span>
+        <span key={uuidv4()}>
           {_.get(signal, path)}
           <br />
         </span>
