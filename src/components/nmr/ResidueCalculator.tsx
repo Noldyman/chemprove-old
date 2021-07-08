@@ -9,7 +9,7 @@ import {
 import { AddCircleOutline } from '@material-ui/icons'
 import { ContentBox } from '../common/ContentBox'
 import { ResidueTable } from './ResidueTable'
-import { IState } from './NmrResiduePage'
+import { IState, IResidue } from './NmrResiduePage'
 
 const useStyles = makeStyles({
   product: {
@@ -35,6 +35,7 @@ interface ResidueCalculatorProps {
   onChangeResidue: (event: React.ChangeEvent, item: any) => void
   onDeleteResidue: (item: any) => void
   onAddResidue: () => void
+  onSelectResidue: (event: any, item: IResidue) => void
 }
 
 const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
@@ -43,6 +44,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
   onChangeResidue,
   onDeleteResidue,
   onAddResidue,
+  onSelectResidue,
 }) => {
   const classes = useStyles()
 
@@ -84,6 +86,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
           data={state.residues}
           onResidueChange={onChangeResidue}
           onDelete={onDeleteResidue}
+          onSelectResidue={onSelectResidue}
         />
       </div>
       <div className={classes.button}>

@@ -3,7 +3,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { useImmerReducer } from 'use-immer'
 import { ResidueCalculator } from './ResidueCalculator'
 import { CommonResidues } from './CommonResidues'
-import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
+import {
+  H_NMR_COMMON_RESIDUES,
+  ICommonResidue,
+} from '../../data/H_NMR_RESIDUES'
 
 export interface IResidue {
   id: string
@@ -35,7 +38,7 @@ const newResidue = (
 ) => {
   return {
     id: id || uuidv4(),
-    residue: residueName,
+    residue: residueName.toLocaleLowerCase(),
     molWeight: molWeight || 0,
     numOfProtons: numOfProtons || 1,
     integral: 0,
@@ -55,6 +58,7 @@ const ACTIONS = {
   CHANGE_MOLWEIGHT: 'change-molweight',
   ADD_RESIDUE: 'add-residue',
   ADD_COMMON_RESIDUE: 'add-common-residue',
+  AUTOFILL_RESIDUE: 'autofill-residue',
   CHANGE_RESIDUE: 'change-residue',
   DELETE_RESIDUE: 'delete-residue',
 }
@@ -72,11 +76,20 @@ const reducer = (draftState: IState, action: IAction) => {
       calculatePurities(draftState)
       break
     case ACTIONS.ADD_COMMON_RESIDUE:
-      const [residueName, id, molWeight, numOfProtons] = action.payload
-      draftState.residues.push(
-        newResidue(residueName, id, molWeight, numOfProtons)
-      )
+      const [id, molWeight, numOfProtons] = action.payload
+      draftState.residues.push(newResidue(id, id, molWeight, numOfProtons))
       calculatePurities(draftState)
+      break
+    case ACTIONS.AUTOFILL_RESIDUE:
+      const { index, newItem } = action.payload
+
+      draftState.residues[index] = {
+        ...draftState.residues[index],
+        residue: newItem.resId,
+        molWeight: newItem.resMolWeight,
+        numOfProtons: newItem.resNumOfProtons,
+      }
+
       break
     case ACTIONS.CHANGE_RESIDUE:
       const changeIndex = draftState.residues.findIndex(
@@ -140,21 +153,50 @@ const NmrResiduePage: React.FC = () => {
     dispatch({ type: ACTIONS.DELETE_RESIDUE, payload: { item: item } })
   }
 
-  const handleAddResidue = (residue?: ICommonResidue) => {
-    if (residue) {
-      const { compound: residueName, id, molWeight } = residue
-      const numOfProtons = residue.signals[0].proton.amount
+  const handleAddResidue = () => {
+    dispatch({
+      type: ACTIONS.ADD_RESIDUE,
+      payload: { residueName: 'unknown' },
+    })
+  }
 
-      dispatch({
-        type: ACTIONS.ADD_COMMON_RESIDUE,
-        payload: [residueName, id, molWeight, numOfProtons],
-      })
+  const handleAddCommonResidue = (residue: ICommonResidue) => {
+    const { id, molWeight } = residue
+    const numOfProtons = residue.signals[0].proton.amount
+
+    dispatch({
+      type: ACTIONS.ADD_COMMON_RESIDUE,
+      payload: [id, molWeight, numOfProtons],
+    })
+  }
+
+  const handleSelectResidue = (event: any, item: IResidue) => {
+    const residueIndex = state.residues.findIndex((r) => r.id === item.id)
+    const selectedResidueId = event.target.value
+
+    let newItem = {}
+
+    if (selectedResidueId === 'unknown') {
+      newItem = {
+        resId: selectedResidueId,
+        resMolWeight: 0,
+        resNumOfProtons: 1,
+      }
     } else {
-      dispatch({
-        type: ACTIONS.ADD_RESIDUE,
-        payload: { residueName: 'unknown' },
-      })
+      const selectedResidue = H_NMR_COMMON_RESIDUES.find(
+        (r) => r.id === selectedResidueId
+      )
+      newItem = {
+        resId: selectedResidueId,
+        resMolWeight: selectedResidue?.molWeight,
+        resNumOfProtons: selectedResidue!.signals[0].proton.amount,
+      }
     }
+
+    dispatch({
+      type: ACTIONS.AUTOFILL_RESIDUE,
+      payload: { index: residueIndex, newItem: newItem },
+    })
   }
 
   return (
@@ -165,8 +207,9 @@ const NmrResiduePage: React.FC = () => {
         onChangeResidue={handleChangeResidue}
         onDeleteResidue={handleDeleteResidue}
         onAddResidue={handleAddResidue}
+        onSelectResidue={handleSelectResidue}
       />
-      <CommonResidues onAddResidue={handleAddResidue} />
+      <CommonResidues onAddResidue={handleAddCommonResidue} />
     </div>
   )
 }

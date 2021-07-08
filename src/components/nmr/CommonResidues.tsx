@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles, Typography, Divider } from '@material-ui/core'
 import { ContentBox } from '../common/ContentBox'
 import { CommonResiduesTable } from './CommonResiduesTable'
+import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
 
 const useStyles = makeStyles({
   root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
 })
 
 interface CommonResiduesProps {
-  onAddResidue: () => void
+  onAddResidue: (residue: ICommonResidue) => void
 }
 
 const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
