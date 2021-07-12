@@ -3,6 +3,7 @@ import { makeStyles, Typography, Divider } from '@material-ui/core'
 import { ContentBox } from '../common/ContentBox'
 import { CommonResiduesTable } from './CommonResiduesTable'
 import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
+import { CommonResidueFilters } from './CommonResidueFilters'
 
 const useStyles = makeStyles({
   root: {
@@ -22,13 +23,14 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
 
   return (
     <div className={classes.root}>
-      <ContentBox title="Residues in common NMR solvents">
+      <ContentBox title="Common residues in standard NMR solvents">
         <Typography align="center">
           The table below shows the chemical shifts of different residues in
           common NMR solvents. Use the inputfields to filter the data. The
           residues can be added to the NMR residue calculator by clicking the
           add icon.
         </Typography>
+        <CommonResidueFilters />
         <Divider />
         <div className={classes.table}>
           <CommonResiduesTable onAddResidue={onAddResidue} />
