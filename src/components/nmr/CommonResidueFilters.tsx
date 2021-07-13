@@ -11,9 +11,23 @@ const useStyles = makeStyles({
   },
 })
 
-interface CommonResidueFiltersProps {}
+interface CommonResidueFiltersProps {
+  filters: {
+    residueName: string
+    solvent: string
+    chemShift: string
+    deviation: string
+    multiplicity: string
+  }
+  onChangeFilters: (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => void
+}
 
-const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = () => {
+const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
+  filters,
+  onChangeFilters,
+}) => {
   const classes = useStyles()
 
   const nmrSolvents = [
@@ -26,19 +40,20 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = () => {
     'Water d2',
   ]
 
-  const multiplicities = ['m', 's', 'd', 't', 'q', 'dd']
+  const multiplicities = ['s', 'd', 't', 'q', 'm']
 
   const renderMenuItems = (Arr: string[]) => {
-    return (
-      <span>
-        <MenuItem value="" key={uuidv4()}></MenuItem>
-        {Arr.map((c) => (
-          <MenuItem value={c.toLocaleLowerCase()} key={uuidv4()}>
-            {c}
-          </MenuItem>
-        ))}
-      </span>
-    )
+    const menuItems = Arr.map((c) => (
+      <MenuItem value={c.toLocaleLowerCase()} key={uuidv4()}>
+        {c}
+      </MenuItem>
+    ))
+    return [
+      <MenuItem value="none" key={uuidv4()}>
+        <em>None</em>
+      </MenuItem>,
+      ...menuItems,
+    ]
   }
 
   return (
@@ -48,6 +63,9 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = () => {
         size="small"
         color="secondary"
         label="Residue name"
+        name="residueName"
+        value={filters.residueName}
+        onChange={(event) => onChangeFilters(event)}
       />
       <TextField
         select
@@ -55,6 +73,9 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = () => {
         size="small"
         color="secondary"
         label="Solvent"
+        name="solvent"
+        value={filters.solvent}
+        onChange={(event) => onChangeFilters(event)}
       >
         {renderMenuItems(nmrSolvents)}
       </TextField>
@@ -64,6 +85,9 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = () => {
         color="secondary"
         type="number"
         label="Chemical shift"
+        name="chemShift"
+        value={filters.chemShift}
+        onChange={(event) => onChangeFilters(event)}
       />
       <TextField
         variant="outlined"
@@ -71,6 +95,9 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = () => {
         color="secondary"
         type="number"
         label="Deviation"
+        name="deviation"
+        value={filters.deviation}
+        onChange={(event) => onChangeFilters(event)}
       />
       <TextField
         select
@@ -78,6 +105,9 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = () => {
         size="small"
         color="secondary"
         label="Multiplicity"
+        name="multiplicity"
+        value={filters.multiplicity}
+        onChange={(event) => onChangeFilters(event)}
       >
         {renderMenuItems(multiplicities)}
       </TextField>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles, Typography, Divider } from '@material-ui/core'
 import { ContentBox } from '../common/ContentBox'
 import { CommonResiduesTable } from './CommonResiduesTable'
@@ -21,6 +21,22 @@ interface CommonResiduesProps {
 const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
   const classes = useStyles()
 
+  const [filters, setFilters] = useState({
+    residueName: '',
+    solvent: 'none',
+    chemShift: '',
+    deviation: '',
+    multiplicity: 'none',
+  })
+
+  const handleChangeFilters = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setFilters((prevValue) => {
+      return { ...prevValue, [event.target.name]: event.target.value }
+    })
+  }
+
   return (
     <div className={classes.root}>
       <ContentBox title="Common residues in standard NMR solvents">
@@ -30,12 +46,16 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
           residues can be added to the NMR residue calculator by clicking the
           add icon.
         </Typography>
-        <CommonResidueFilters />
+        <CommonResidueFilters
+          filters={filters}
+          onChangeFilters={handleChangeFilters}
+        />
         <Divider />
         <div className={classes.table}>
           <CommonResiduesTable onAddResidue={onAddResidue} />
         </div>
       </ContentBox>
+      {console.log(filters)}
     </div>
   )
 }
