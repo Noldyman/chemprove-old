@@ -9,6 +9,12 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
+  resName: {
+    width: '35%',
+  },
+  chemShifts: {
+    width: '13%',
+  },
 })
 
 interface CommonResidueFiltersProps {
@@ -65,6 +71,7 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
   return (
     <div className={classes.root}>
       <TextField
+        className={classes.resName}
         variant="outlined"
         size="small"
         color="secondary"
@@ -74,6 +81,7 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
         onChange={(event) => onChangeFilters(event)}
       />
       <TextField
+        className={classes.chemShifts}
         select
         variant="outlined"
         size="small"
@@ -86,16 +94,18 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
         {renderMenuItems(nmrSolvents)}
       </TextField>
       <TextField
+        className={classes.chemShifts}
         variant="outlined"
         size="small"
         color="secondary"
         type="number"
-        label="Chemical shift"
+        label="Chem. shift"
         name="chemShift"
         value={filters.chemShift}
         onChange={(event) => onChangeFilters(event)}
       />
       <TextField
+        className={classes.chemShifts}
         variant="outlined"
         size="small"
         color="secondary"
@@ -106,6 +116,7 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
         onChange={(event) => onChangeFilters(event)}
       />
       <TextField
+        className={classes.chemShifts}
         select
         variant="outlined"
         size="small"
