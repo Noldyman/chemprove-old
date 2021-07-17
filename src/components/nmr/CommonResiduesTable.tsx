@@ -3,11 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { IconButton } from '@material-ui/core'
 import { PlaylistAdd } from '@material-ui/icons'
 import { AppTable, IColumnObj } from '../common/AppTable'
-import {
-  H_NMR_COMMON_RESIDUES,
-  ICommonResidue,
-  ISignalObj,
-} from '../../data/H_NMR_RESIDUES'
+import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
 import _ from 'lodash'
 
 const renderStackableValues = (value: ISignalObj[], path: string) => {
@@ -25,10 +21,12 @@ const renderStackableValues = (value: ISignalObj[], path: string) => {
 
 interface CommonResiduesTableProps {
   onAddResidue: (item: ICommonResidue) => void
+  filteredData: ICommonResidue[]
 }
 
 const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
   onAddResidue,
+  filteredData,
 }) => {
   const columns: IColumnObj[] = [
     {
@@ -107,7 +105,7 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     },
   ]
 
-  return <AppTable columns={columns} data={H_NMR_COMMON_RESIDUES} />
+  return <AppTable columns={columns} data={filteredData} />
 }
 
 export { CommonResiduesTable }

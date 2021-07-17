@@ -31,25 +31,31 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
   const classes = useStyles()
 
   const nmrSolvents = [
-    'Chloroform d',
-    'Acetone d6',
-    'DMSO d6',
-    'Benzene d6',
-    'Acetonitrile d3',
-    'Methanol d4',
-    'Water d2',
+    { name: 'Chloroform d', value: 'chloroform_d' },
+    { name: 'Acetone d6', value: 'acetone_d6' },
+    { name: 'DMSO d6', value: 'dmso_d6' },
+    { name: 'Benzene d6', value: 'benzene_d6' },
+    { name: 'Acetonitrile d3', value: 'acetonitrile_d3' },
+    { name: 'Methanol d4', value: 'methanol_d4' },
+    { name: 'Water d2', value: 'water_d2' },
   ]
 
-  const multiplicities = ['s', 'd', 't', 'q', 'm']
+  const multiplicities = [
+    { name: 's', value: 's' },
+    { name: 'd', value: 'd' },
+    { name: 't', value: 't' },
+    { name: 'q', value: 'q' },
+    { name: 'm', value: 'm' },
+  ]
 
-  const renderMenuItems = (Arr: string[]) => {
+  const renderMenuItems = (Arr: { name: string; value: string }[]) => {
     const menuItems = Arr.map((c) => (
-      <MenuItem value={c.toLocaleLowerCase()} key={uuidv4()}>
-        {c}
+      <MenuItem value={c.value} key={uuidv4()}>
+        {c.name}
       </MenuItem>
     ))
     return [
-      <MenuItem value="none" key={uuidv4()}>
+      <MenuItem value="" key={uuidv4()}>
         <em>None</em>
       </MenuItem>,
       ...menuItems,
