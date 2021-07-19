@@ -28,12 +28,14 @@ type NmrSolvents =
   | 'methanol_d4'
   | 'water_d2'
 
+type Multiplicities = '' | 's' | 'd' | 't' | 'q' | 'm'
+
 interface IFilters {
   residueName: string
   solvent: NmrSolvents
   chemShift: string
   deviation: string
-  multiplicity: string
+  multiplicity: Multiplicities
 }
 
 interface CommonResiduesProps {
@@ -54,6 +56,15 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
   const handleChangeFilters = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
+    if (event.target.name === 'chemShift' && !filters.deviation) {
+      setFilters((prevValue) => {
+        return {
+          ...prevValue,
+          chemShift: event.target.value,
+          deviation: '0.02',
+        }
+      })
+    }
     setFilters((prevValue) => {
       return { ...prevValue, [event.target.name]: event.target.value }
     })
