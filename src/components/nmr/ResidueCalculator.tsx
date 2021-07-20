@@ -13,11 +13,14 @@ import { IState, IResidue } from './NmrResiduePage'
 
 const useStyles = makeStyles({
   product: {
-    width: '50%',
+    width: '55%',
     margin: '20px auto 15px auto',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+  },
+  molWeight: {
+    width: '220px',
   },
   table: {
     margin: '20px auto 20px auto',
@@ -56,6 +59,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
       </Typography>
       <div className={classes.product}>
         <TextField
+          className={classes.molWeight}
           type="number"
           label="Molecular weight (g/mol)"
           variant="outlined"
@@ -67,14 +71,14 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
         />
         <span>
           {`Purity: ${
-            !isNaN(state.product.purity.molPercent)
-              ? state.product.purity.molPercent.toFixed(2)
+            !isNaN(parseFloat(state.product.purity.molPercent))
+              ? parseFloat(state.product.purity.molPercent).toFixed(2)
               : '-'
           }
           mol%
           ${
-            !isNaN(state.product.purity.wtPercent)
-              ? state.product.purity.wtPercent.toFixed(2)
+            !isNaN(parseFloat(state.product.purity.wtPercent))
+              ? parseFloat(state.product.purity.wtPercent).toFixed(2)
               : '-'
           }
           wt%`}

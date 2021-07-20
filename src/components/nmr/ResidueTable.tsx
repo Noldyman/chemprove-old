@@ -99,18 +99,18 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
     {
       label: 'mol%',
       path: 'purity.molPercent',
-      content: (item, value) => (
+      content: (item, value: string) => (
         <span>
-          {typeof value === 'number' && !isNaN(value) ? value.toFixed(2) : '-'}
+          {!isNaN(parseFloat(value)) ? parseFloat(value).toFixed(2) : '-'}
         </span>
       ),
     },
     {
       label: 'wt%',
       path: 'purity.wtPercent',
-      content: (item, value) => (
+      content: (item, value: string) => (
         <span>
-          {typeof value === 'number' && !isNaN(value) ? value.toFixed(2) : '-'}
+          {!isNaN(parseFloat(value)) ? parseFloat(value).toFixed(2) : '-'}
         </span>
       ),
     },

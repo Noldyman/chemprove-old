@@ -11,16 +11,16 @@ import {
 export interface IResidue {
   id: string
   residue: string
-  molWeight: number
-  numOfProtons: number
-  integral: number
-  purity: { molPercent: number; wtPercent: number }
+  molWeight: string
+  numOfProtons: string
+  integral: string
+  purity: { molPercent: string; wtPercent: string }
 }
 
 export interface IState {
   product: {
-    molWeight: number
-    purity: { molPercent: number; wtPercent: number }
+    molWeight: string
+    purity: { molPercent: string; wtPercent: string }
   }
   residues: IResidue[]
 }
@@ -33,23 +33,23 @@ interface IAction {
 const newResidue = (
   residueName: string,
   id?: string,
-  molWeight?: number,
-  numOfProtons?: number
+  molWeight?: string,
+  numOfProtons?: string
 ) => {
   return {
     id: id || uuidv4(),
     residue: residueName.toLocaleLowerCase(),
-    molWeight: molWeight || 0,
-    numOfProtons: numOfProtons || 1,
-    integral: 0,
-    purity: { molPercent: 0, wtPercent: 0 },
+    molWeight: molWeight || '0',
+    numOfProtons: numOfProtons || '1',
+    integral: '0',
+    purity: { molPercent: '0', wtPercent: '0' },
   }
 }
 
 const initialState: IState = {
   product: {
-    molWeight: 0,
-    purity: { molPercent: 0, wtPercent: 0 },
+    molWeight: '',
+    purity: { molPercent: '0', wtPercent: '0' },
   },
   residues: [newResidue('unknown')],
 }
@@ -66,9 +66,8 @@ const ACTIONS = {
 const reducer = (draftState: IState, action: IAction) => {
   switch (action.type) {
     case ACTIONS.CHANGE_MOLWEIGHT:
-      draftState.product.molWeight = parseFloat(
-        action.payload.event.target.value
-      )
+      draftState.product.molWeight = action.payload.event.target.value
+
       calculatePurities(draftState)
       break
     case ACTIONS.ADD_RESIDUE:
@@ -114,21 +113,46 @@ const reducer = (draftState: IState, action: IAction) => {
 }
 
 const calculatePurities = (draftState: IState) => {
+  if (!draftState.product.molWeight || draftState.product.molWeight === '0') {
+    draftState.product.purity.molPercent = 'NaN'
+    draftState.product.purity.wtPercent = 'NaN'
+    draftState.residues.forEach((r) => {
+      r.purity.molPercent = 'NaN'
+      r.purity.wtPercent = 'NaN'
+    })
+    return
+  }
+
   let totalIntegral = 1
-  let totalWeightPerMol = draftState.product.molWeight
+  let totalWeightPerMol = parseFloat(draftState.product.molWeight)
   draftState.residues.forEach((r) => {
-    totalIntegral += r.integral / r.numOfProtons
-    totalWeightPerMol += (r.integral / r.numOfProtons) * r.molWeight
+    const numOfProtonsFloat = parseFloat(r.numOfProtons)
+    const integralFloat = parseFloat(r.integral)
+    const molWeightFloat = parseFloat(r.molWeight)
+
+    totalIntegral += integralFloat / numOfProtonsFloat
+    totalWeightPerMol += (integralFloat / numOfProtonsFloat) * molWeightFloat
   })
-
-  draftState.product.purity.molPercent = (1 / totalIntegral) * 100
-  draftState.product.purity.wtPercent =
-    (draftState.product.molWeight / totalWeightPerMol) * 100
+  draftState.product.purity.molPercent = ((1 / totalIntegral) * 100).toString()
+  draftState.product.purity.wtPercent = (
+    (parseFloat(draftState.product.molWeight) / totalWeightPerMol) *
+    100
+  ).toString()
 
   draftState.residues.forEach((r) => {
-    r.purity.molPercent = (r.integral / r.numOfProtons / totalIntegral) * 100
-    r.purity.wtPercent =
-      (((r.integral / r.numOfProtons) * r.molWeight) / totalWeightPerMol) * 100
+    const numOfProtonsFloat = parseFloat(r.numOfProtons)
+    const integralFloat = parseFloat(r.integral)
+    const molWeightFloat = parseFloat(r.molWeight)
+
+    r.purity.molPercent = (
+      (integralFloat / numOfProtonsFloat / totalIntegral) *
+      100
+    ).toString()
+    r.purity.wtPercent = (
+      (((integralFloat / numOfProtonsFloat) * molWeightFloat) /
+        totalWeightPerMol) *
+      100
+    ).toString()
   })
 }
 
