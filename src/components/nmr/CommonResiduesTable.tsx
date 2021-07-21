@@ -1,33 +1,98 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { IconButton } from '@material-ui/core'
+import { makeStyles, IconButton } from '@material-ui/core'
 import { PlaylistAdd } from '@material-ui/icons'
 import { AppTable, IColumnObj } from '../common/AppTable'
 import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
 import _ from 'lodash'
+import { IFilters } from './CommonResidues'
 
-const renderStackableValues = (value: ISignalObj[], path: string) => {
-  return (
-    <div>
-      {value.map((signal) => (
-        <span key={uuidv4()}>
-          {_.get(signal, path)}
-          <br />
-        </span>
-      ))}
-    </div>
-  )
-}
+const useStyles = makeStyles((theme) => ({
+  filterHit: {
+    padding: '3px',
+    borderRadius: '5px',
+    backgroundColor: 'yellow',
+  },
+  standardValue: {
+    padding: '3px',
+  },
+}))
 
 interface CommonResiduesTableProps {
   onAddResidue: (item: ICommonResidue) => void
   filteredData: ICommonResidue[]
+  filters: IFilters
 }
 
 const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
   onAddResidue,
   filteredData,
+  filters,
 }) => {
+  const classes = useStyles()
+
+  const checkFilterHit = (signal: ISignalObj, path: string) => {
+    if (filters.chemShift) {
+      const currentValue = _.get(signal, path)
+      const shift = parseFloat(filters.chemShift)
+      const dev = parseFloat(filters.deviation) || 0
+
+      if (filters.solvent && filters.multiplicity) {
+        if (
+          path.includes(filters.solvent) &&
+          signal.proton.multiplicity === filters.multiplicity &&
+          currentValue &&
+          currentValue >= shift - dev &&
+          currentValue <= shift + dev
+        )
+          return true
+      } else if (filters.solvent) {
+        if (
+          path.includes(filters.solvent) &&
+          currentValue &&
+          currentValue >= shift - dev &&
+          currentValue <= shift + dev
+        )
+          return true
+      } else if (filters.multiplicity) {
+        if (
+          signal.proton.multiplicity === filters.multiplicity &&
+          currentValue &&
+          currentValue >= shift - dev &&
+          currentValue <= shift + dev
+        )
+          return true
+      } else {
+        if (
+          currentValue &&
+          currentValue >= shift - dev &&
+          currentValue <= shift + dev
+        )
+          return true
+      }
+    }
+  }
+
+  const renderStackableValues = (item: ICommonResidue, path: string) => {
+    return (
+      <div>
+        {item.signals.map((signal) => (
+          <span
+            key={uuidv4()}
+            className={
+              item.compound !== 'Solvent peaks' && checkFilterHit(signal, path)
+                ? classes.filterHit
+                : classes.standardValue
+            }
+          >
+            {_.get(signal, path)}
+            <br />
+          </span>
+        ))}
+      </div>
+    )
+  }
+
   const columns: IColumnObj[] = [
     {
       label: 'Residue',
@@ -36,55 +101,55 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     {
       label: 'Proton',
       path: 'signals',
-      content: (item, value) => renderStackableValues(value, 'proton.formula'),
+      content: (item, value) => renderStackableValues(item, 'proton.formula'),
     },
     {
       label: 'Mult.',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'proton.multiplicity'),
+        renderStackableValues(item, 'proton.multiplicity'),
     },
     {
       label: `Chloroform d`,
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'chemShifts.chloroform_d'),
+        renderStackableValues(item, 'chemShifts.chloroform_d'),
     },
     {
       label: 'Acetone d6',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'chemShifts.acetone_d6'),
+        renderStackableValues(item, 'chemShifts.acetone_d6'),
     },
     {
       label: 'DMSO d6',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'chemShifts.dmso_d6'),
+        renderStackableValues(item, 'chemShifts.dmso_d6'),
     },
     {
       label: 'Benzene d6',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'chemShifts.benzene_d6'),
+        renderStackableValues(item, 'chemShifts.benzene_d6'),
     },
     {
       label: 'Acetonitrile d3',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'chemShifts.acetonitrile_d3'),
+        renderStackableValues(item, 'chemShifts.acetonitrile_d3'),
     },
     {
       label: 'Methanol d4',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'chemShifts.methanol_d4'),
+        renderStackableValues(item, 'chemShifts.methanol_d4'),
     },
     {
       label: 'Water d2',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(value, 'chemShifts.water_d2'),
+        renderStackableValues(item, 'chemShifts.water_d2'),
     },
     {
       content: (item) => {

@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 })
 
-type NmrSolvents =
+export type NmrSolvents =
   | ''
   | 'chloroform_d'
   | 'acetone_d6'
@@ -30,7 +30,7 @@ type NmrSolvents =
 
 type Multiplicities = '' | 's' | 'd' | 't' | 'q' | 'm'
 
-interface IFilters {
+export interface IFilters {
   residueName: string
   solvent: NmrSolvents
   chemShift: string
@@ -182,6 +182,7 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
           <CommonResiduesTable
             onAddResidue={onAddResidue}
             filteredData={filterData()}
+            filters={filters}
           />
         </div>
       </ContentBox>
