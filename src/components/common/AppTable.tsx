@@ -1,7 +1,14 @@
 import React from 'react'
-import { Table } from '@material-ui/core'
+import { makeStyles, Table } from '@material-ui/core'
 import { AppTableHead } from './AppTableHead'
 import { AppTableBody } from './AppTableBody'
+
+const useStyles = makeStyles({
+  root: {
+    maxHeight: '650px',
+    overflow: 'auto',
+  },
+})
 
 export interface IColumnObj {
   label?: string
@@ -15,11 +22,15 @@ interface AppTableProps {
 }
 
 const AppTable: React.FC<AppTableProps> = ({ columns, data }) => {
+  const classes = useStyles()
+
   return (
-    <Table stickyHeader>
-      <AppTableHead columns={columns} />
-      <AppTableBody columns={columns} data={data} />
-    </Table>
+    <div className={classes.root}>
+      <Table className={classes.root} stickyHeader>
+        <AppTableHead columns={columns} />
+        <AppTableBody columns={columns} data={data} />
+      </Table>
+    </div>
   )
 }
 
