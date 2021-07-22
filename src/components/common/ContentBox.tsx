@@ -3,7 +3,10 @@ import { makeStyles, Paper, Divider, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
   root: {
+    margin: '35px auto',
     padding: '20px',
+    minWidth: '1200px',
+    maxWidth: '1350px',
   },
   title: {
     fontWeight: 'bold',
