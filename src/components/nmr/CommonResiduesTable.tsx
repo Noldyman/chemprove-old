@@ -4,17 +4,18 @@ import { makeStyles, IconButton } from '@material-ui/core'
 import { PlaylistAdd } from '@material-ui/icons'
 import { AppTable, IColumnObj } from '../common/AppTable'
 import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
-import _ from 'lodash'
+import _, { values } from 'lodash'
 import { IFilters } from './CommonResidues'
 
 const useStyles = makeStyles((theme) => ({
   filterHit: {
-    padding: '3px',
+    padding: '2px',
     borderRadius: '5px',
-    backgroundColor: 'yellow',
+    border: '2px solid',
+    borderColor: theme.palette.warning.main,
   },
   standardValue: {
-    padding: '3px',
+    padding: '4px',
   },
 }))
 
@@ -85,7 +86,9 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
                 : classes.standardValue
             }
           >
-            {_.get(signal, path)}
+            {!isNaN(parseFloat(_.get(signal, path)))
+              ? parseFloat(_.get(signal, path)).toFixed(2)
+              : _.get(signal, path)}
             <br />
           </span>
         ))}
