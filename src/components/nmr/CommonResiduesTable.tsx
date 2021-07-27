@@ -4,7 +4,7 @@ import { makeStyles, IconButton } from '@material-ui/core'
 import { PlaylistAdd } from '@material-ui/icons'
 import { AppTable, IColumnObj } from '../common/AppTable'
 import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
-import _, { values } from 'lodash'
+import _ from 'lodash'
 import { IFilters } from './CommonResidues'
 
 const useStyles = makeStyles((theme) => ({
@@ -86,8 +86,8 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
                 : classes.standardValue
             }
           >
-            {!isNaN(parseFloat(_.get(signal, path)))
-              ? parseFloat(_.get(signal, path)).toFixed(2)
+            {typeof _.get(signal, path) === 'number'
+              ? _.get(signal, path).toFixed(2)
               : _.get(signal, path)}
             <br />
           </span>

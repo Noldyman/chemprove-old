@@ -26,7 +26,7 @@ const AppTable: React.FC<AppTableProps> = ({ columns, data }) => {
 
   return (
     <div className={classes.root}>
-      <Table className={classes.root} stickyHeader>
+      <Table stickyHeader>
         <AppTableHead columns={columns} />
         <AppTableBody columns={columns} data={data} />
       </Table>

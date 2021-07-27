@@ -67,7 +67,6 @@ const reducer = (draftState: IState, action: IAction) => {
   switch (action.type) {
     case ACTIONS.CHANGE_MOLWEIGHT:
       draftState.product.molWeight = action.payload.event.target.value
-
       calculatePurities(draftState)
       break
     case ACTIONS.ADD_RESIDUE:
@@ -81,14 +80,13 @@ const reducer = (draftState: IState, action: IAction) => {
       break
     case ACTIONS.AUTOFILL_RESIDUE:
       const { index, newItem } = action.payload
-
       draftState.residues[index] = {
         ...draftState.residues[index],
         residue: newItem.resId,
         molWeight: newItem.resMolWeight,
         numOfProtons: newItem.resNumOfProtons,
       }
-
+      calculatePurities(draftState)
       break
     case ACTIONS.CHANGE_RESIDUE:
       const changeIndex = draftState.residues.findIndex(
