@@ -167,10 +167,10 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
     <div className={classes.root}>
       <ContentBox title="Common residues in standard NMR solvents">
         <Typography align="center">
-          The table below shows the chemical shifts of different residues in
-          commonly used NMR solvents. Use the input fields below to filter the
-          data. The residues can be added to the NMR residue calculator by
-          clicking the add icon.
+          This table shows the chemical shifts of different residues in commonly
+          used NMR solvents. The input fields below can be used to filter the
+          data. Residues can be added to the NMR residue calculator by clicking
+          the add icon.
         </Typography>
         <CommonResidueFilters
           filters={filters}

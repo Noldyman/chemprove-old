@@ -55,7 +55,12 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
     <ContentBox title="NMR residue calculator">
       <Typography align="center">
         Fill in the molecular weight of your product and add residues to
-        calculate the purity.
+        calculate the purity of your product and the percentages of each
+        residue. <br />
+        Make sure that the number of protons of each residue correspond with the
+        signal of which you use the integral. The common residue table below can
+        be used to determine the number of protons that correspond with each
+        signal.
       </Typography>
       <div className={classes.product}>
         <TextField
