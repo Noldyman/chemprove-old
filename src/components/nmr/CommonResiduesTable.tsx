@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
   standardValue: {
     padding: '4px',
   },
+  protonField: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 }))
 
 interface CommonResiduesTableProps {
@@ -96,6 +100,24 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     )
   }
 
+  const renderMultiplicities = (item: ICommonResidue) => {
+    return (
+      <div>
+        {item.signals.map((signal) => {
+          if (item.compound !== 'Solvent peaks') {
+            return (
+              <span key={uuidv4()}>
+                {signal.proton.multiplicity} ({signal.proton.amount}H)
+                <br />
+              </span>
+            )
+          }
+          return null
+        })}
+      </div>
+    )
+  }
+
   const columns: IColumnObj[] = [
     {
       label: 'Residue',
@@ -109,8 +131,8 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     {
       label: 'Mult.',
       path: 'signals',
-      content: (item, value) =>
-        renderStackableValues(item, 'proton.multiplicity'),
+
+      content: (item, value) => renderMultiplicities(item),
     },
     {
       label: `Chloroform d`,

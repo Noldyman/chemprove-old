@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export interface ISignalObj {
   proton: {
-    formula: string | null
+    formula: any
     multiplicity: string | null
     amount: number | null
   }
@@ -32,7 +32,7 @@ export interface ICommonResidue {
 //   molWeight: ,
 //   signals: [
 //     {
-//       proton: { formula: , multiplicity: , amount:  },
+//       proton: { formula: <span><sub></sub></span>, multiplicity: , amount:  },
 //       chemShifts: {
 //         chloroform_d: ,
 //         acetone_d6: ,
@@ -46,7 +46,7 @@ export interface ICommonResidue {
 //   ],
 // },
 
-// Source: J . Org. Ch em ., Vol. 62, N o. 21, 1997
+export const sources: string[] = ['J. Org. Chem., Vol. 62, No. 21, 1997']
 
 export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   {
@@ -76,7 +76,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     molWeight: 18.015,
     signals: [
       {
-        proton: { formula: 'OH2', multiplicity: 's', amount: 2 },
+        proton: {
+          multiplicity: 's',
+          amount: 2,
+          formula: (
+            <span>
+              OH<sub>2</sub>
+            </span>
+          ),
+        },
         chemShifts: {
           chloroform_d: 1.56,
           acetone_d6: 2.84,
@@ -96,7 +104,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     molWeight: 60.052,
     signals: [
       {
-        proton: { formula: 'CH3', multiplicity: 's', amount: 3 },
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
         chemShifts: {
           chloroform_d: 2.1,
           acetone_d6: 1.96,
@@ -116,7 +132,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     molWeight: 58.08,
     signals: [
       {
-        proton: { formula: 'CH3', multiplicity: 's', amount: 6 },
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
         chemShifts: {
           chloroform_d: 2.17,
           acetone_d6: 2.09,
@@ -136,7 +160,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     molWeight: 41.05,
     signals: [
       {
-        proton: { formula: 'CH3', multiplicity: 's', amount: 3 },
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
         chemShifts: {
           chloroform_d: 2.1,
           acetone_d6: 2.05,
@@ -177,7 +209,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     molWeight: 74.12,
     signals: [
       {
-        proton: { formula: 'CH3', multiplicity: 's', amount: 9 },
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 9,
+        },
         chemShifts: {
           chloroform_d: 1.28,
           acetone_d6: 1.18,
@@ -209,7 +249,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     molWeight: 88.15,
     signals: [
       {
-        proton: { formula: 'CCH3', multiplicity: 's', amount: 9 },
+        proton: {
+          formula: (
+            <span>
+              CCH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 9,
+        },
         chemShifts: {
           chloroform_d: 1.19,
           acetone_d6: 1.13,
@@ -221,7 +269,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
         },
       },
       {
-        proton: { formula: 'OCH3', multiplicity: 's', amount: 3 },
+        proton: {
+          formula: (
+            <span>
+              OCH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
         chemShifts: {
           chloroform_d: 3.22,
           acetone_d6: 3.13,
@@ -266,7 +322,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
         },
       },
       {
-        proton: { formula: 'ArCH3', multiplicity: 's', amount: 6 },
+        proton: {
+          formula: (
+            <span>
+              ArCH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
         chemShifts: {
           chloroform_d: 2.27,
           acetone_d6: 2.22,
@@ -278,7 +342,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
         },
       },
       {
-        proton: { formula: 'Ar(CH3)3', multiplicity: 's', amount: 9 },
+        proton: {
+          formula: (
+            <span>
+              Ar(CH<sub>3</sub>)<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 9,
+        },
         chemShifts: {
           chloroform_d: 1.43,
           acetone_d6: 1.41,
@@ -298,7 +370,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     molWeight: 101.193,
     signals: [
       {
-        proton: { formula: 'CH3', multiplicity: 't', amount: 3 },
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 3,
+        },
         chemShifts: {
           chloroform_d: 1.03,
           acetone_d6: 0.96,
@@ -310,7 +390,15 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
         },
       },
       {
-        proton: { formula: 'CH2', multiplicity: 'q', amount: 2 },
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'q',
+          amount: 2,
+        },
         chemShifts: {
           chloroform_d: 2.53,
           acetone_d6: 2.45,
