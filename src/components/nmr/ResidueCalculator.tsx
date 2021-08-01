@@ -5,19 +5,24 @@ import {
   TextField,
   Divider,
   Button,
+  Paper,
 } from '@material-ui/core'
 import { AddCircleOutline } from '@material-ui/icons'
 import { ContentBox } from '../common/ContentBox'
 import { ResidueTable } from './ResidueTable'
 import { IState, IResidue } from './NmrResiduePage'
 
-const useStyles = makeStyles({
-  product: {
-    width: '55%',
-    margin: '20px auto 15px auto',
+const useStyles = makeStyles((theme) => ({
+  productPaper: {
+    padding: '10px',
+    margin: '20px auto 20px auto',
+    width: '500px',
+  },
+  productDiv: {
+    margin: 'auto',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
   },
   molWeight: {
     width: '220px',
@@ -30,7 +35,7 @@ const useStyles = makeStyles({
     margin: 'auto',
     width: '50%',
   },
-})
+}))
 
 interface ResidueCalculatorProps {
   state: IState
@@ -62,24 +67,25 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
         be used to determine the number of protons that correspond with each
         signal.
       </Typography>
-      <div className={classes.product}>
-        <TextField
-          className={classes.molWeight}
-          type="number"
-          label="Molecular weight (g/mol)"
-          variant="outlined"
-          size="small"
-          color="secondary"
-          value={state.product.molWeight}
-          onChange={onChangeMolWeight}
-          onFocus={(event) => event.target.select()}
-        />
-        <span>
-          {`Purity: ${
-            !isNaN(parseFloat(state.product.purity.molPercent))
-              ? parseFloat(state.product.purity.molPercent).toFixed(2)
-              : '-'
-          }
+      <Paper variant="outlined" className={classes.productPaper}>
+        <div className={classes.productDiv}>
+          <TextField
+            className={classes.molWeight}
+            type="number"
+            label="Molecular weight (g/mol)"
+            variant="outlined"
+            size="small"
+            color="secondary"
+            value={state.product.molWeight}
+            onChange={onChangeMolWeight}
+            onFocus={(event) => event.target.select()}
+          />
+          <span>
+            {`Purity: ${
+              !isNaN(parseFloat(state.product.purity.molPercent))
+                ? parseFloat(state.product.purity.molPercent).toFixed(2)
+                : '-'
+            }
           mol%
           ${
             !isNaN(parseFloat(state.product.purity.wtPercent))
@@ -87,8 +93,9 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
               : '-'
           }
           wt%`}
-        </span>
-      </div>
+          </span>
+        </div>
+      </Paper>
       <Divider />
       <div className={classes.table}>
         <ResidueTable
