@@ -21,10 +21,14 @@ function App() {
           <Alert
             severity="error"
             variant="outlined"
-            style={{ marginTop: '35px' }}
+            style={{
+              margin: '35px auto auto auto',
+              minWidth: '1200px',
+              maxWidth: '1350px',
+            }}
           >
-            This website is not yet finished and is still under construction.
-            Keep this in mind when using the site.
+            Keep in mind that this website is still under construction. The site
+            will be regularly updated.
           </Alert>
           <NmrResiduePage />
         </div>
