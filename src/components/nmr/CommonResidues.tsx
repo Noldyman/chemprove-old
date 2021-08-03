@@ -102,13 +102,24 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
           res.signals.forEach((sig) => {
             if (filters.solvent === '') return
             const chemShiftAtSolvent = sig.chemShifts[filters.solvent]
-            if (
-              sig.proton.multiplicity === filters.multiplicity &&
-              chemShiftAtSolvent &&
-              chemShiftAtSolvent >= shift - dev &&
-              chemShiftAtSolvent <= shift + dev
-            ) {
-              matchingResidueId.push(res.id)
+            if (typeof chemShiftAtSolvent === 'object') {
+              if (
+                sig.proton.multiplicity === filters.multiplicity &&
+                chemShiftAtSolvent &&
+                chemShiftAtSolvent.highShift >= shift - dev &&
+                chemShiftAtSolvent.lowShift <= shift + dev
+              ) {
+                matchingResidueId.push(res.id)
+              }
+            } else {
+              if (
+                sig.proton.multiplicity === filters.multiplicity &&
+                chemShiftAtSolvent &&
+                chemShiftAtSolvent >= shift - dev &&
+                chemShiftAtSolvent <= shift + dev
+              ) {
+                matchingResidueId.push(res.id)
+              }
             }
           })
         })
@@ -117,12 +128,22 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
           res.signals.forEach((sig) => {
             if (filters.solvent === '') return
             const chemShiftAtSolvent = sig.chemShifts[filters.solvent]
-            if (
-              chemShiftAtSolvent &&
-              chemShiftAtSolvent >= shift - dev &&
-              chemShiftAtSolvent <= shift + dev
-            ) {
-              matchingResidueId.push(res.id)
+            if (typeof chemShiftAtSolvent === 'object') {
+              if (
+                chemShiftAtSolvent &&
+                chemShiftAtSolvent.highShift >= shift - dev &&
+                chemShiftAtSolvent.lowShift <= shift + dev
+              ) {
+                matchingResidueId.push(res.id)
+              }
+            } else {
+              if (
+                chemShiftAtSolvent &&
+                chemShiftAtSolvent >= shift - dev &&
+                chemShiftAtSolvent <= shift + dev
+              ) {
+                matchingResidueId.push(res.id)
+              }
             }
           })
         })
@@ -130,13 +151,24 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
         data.forEach((res) => {
           res.signals.forEach((sig) => {
             _.values(sig.chemShifts).forEach((chemShift) => {
-              if (
-                sig.proton.multiplicity === filters.multiplicity &&
-                chemShift &&
-                chemShift >= shift - dev &&
-                chemShift <= shift + dev
-              ) {
-                matchingResidueId.push(res.id)
+              if (typeof chemShift === 'object') {
+                if (
+                  sig.proton.multiplicity === filters.multiplicity &&
+                  chemShift &&
+                  chemShift.highShift >= shift - dev &&
+                  chemShift.lowShift <= shift + dev
+                ) {
+                  matchingResidueId.push(res.id)
+                }
+              } else {
+                if (
+                  sig.proton.multiplicity === filters.multiplicity &&
+                  chemShift &&
+                  chemShift >= shift - dev &&
+                  chemShift <= shift + dev
+                ) {
+                  matchingResidueId.push(res.id)
+                }
               }
             })
           })
@@ -145,12 +177,22 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
         data.forEach((res) => {
           res.signals.forEach((sig) => {
             _.values(sig.chemShifts).forEach((chemShift) => {
-              if (
-                chemShift &&
-                chemShift >= shift - dev &&
-                chemShift <= shift + dev
-              ) {
-                matchingResidueId.push(res.id)
+              if (typeof chemShift === 'object') {
+                if (
+                  chemShift &&
+                  chemShift.highShift >= shift - dev &&
+                  chemShift.lowShift <= shift + dev
+                ) {
+                  matchingResidueId.push(res.id)
+                }
+              } else {
+                if (
+                  chemShift &&
+                  chemShift >= shift - dev &&
+                  chemShift <= shift + dev
+                ) {
+                  matchingResidueId.push(res.id)
+                }
               }
             })
           })

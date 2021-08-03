@@ -7,13 +7,13 @@ export interface ISignalObj {
     amount: number | null
   }
   chemShifts: {
-    chloroform_d: number | null
-    acetone_d6: number | null
-    dmso_d6: number | null
-    benzene_d6: number | null
-    acetonitrile_d3: number | null
-    methanol_d4: number | null
-    water_d2: number | null
+    chloroform_d: number | { lowShift: number; highShift: number } | null
+    acetone_d6: number | { lowShift: number; highShift: number } | null
+    dmso_d6: number | { lowShift: number; highShift: number } | null
+    benzene_d6: number | { lowShift: number; highShift: number } | null
+    acetonitrile_d3: number | { lowShift: number; highShift: number } | null
+    methanol_d4: number | { lowShift: number; highShift: number } | null
+    water_d2: number | { lowShift: number; highShift: number } | null
   }
 }
 
@@ -365,6 +365,74 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Toluene',
+    trivialNames: 'MeBn toluol methylbenzene',
+    molWeight: 92.141,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 2.36,
+          acetone_d6: 2.32,
+          dmso_d6: 2.3,
+          benzene_d6: 2.11,
+          acetonitrile_d3: 2.33,
+          methanol_d4: 2.32,
+          water_d2: null,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH <em>(o/p)</em>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 7.17,
+          acetone_d6: { lowShift: 7.1, highShift: 7.2 },
+          dmso_d6: 7.18,
+          benzene_d6: 7.02,
+          acetonitrile_d3: { lowShift: 7.1, highShift: 7.3 },
+          methanol_d4: 7.16,
+          water_d2: null,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH <em>(m)</em>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 7.25,
+          acetone_d6: { lowShift: 7.1, highShift: 7.2 },
+          dmso_d6: 7.25,
+          benzene_d6: 7.13,
+          acetonitrile_d3: { lowShift: 7.1, highShift: 7.3 },
+          methanol_d4: 7.16,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Triethylamine',
     trivialNames: 'TEA',
     molWeight: 101.193,
@@ -377,7 +445,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
             </span>
           ),
           multiplicity: 't',
-          amount: 3,
+          amount: 9,
         },
         chemShifts: {
           chloroform_d: 1.03,
@@ -397,7 +465,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
             </span>
           ),
           multiplicity: 'q',
-          amount: 2,
+          amount: 6,
         },
         chemShifts: {
           chloroform_d: 2.53,

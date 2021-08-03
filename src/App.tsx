@@ -23,8 +23,6 @@ function App() {
             variant="outlined"
             style={{
               margin: '35px auto auto auto',
-              minWidth: '1200px',
-              maxWidth: '1350px',
             }}
           >
             Keep in mind that this website is still under construction. The site

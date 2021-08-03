@@ -1,6 +1,6 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { makeStyles, IconButton } from '@material-ui/core'
+import { makeStyles, IconButton, Tooltip } from '@material-ui/core'
 import { PlaylistAdd } from '@material-ui/icons'
 import { AppTable, IColumnObj } from '../common/AppTable'
 import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
@@ -43,37 +43,77 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
       const dev = parseFloat(filters.deviation) || 0
 
       if (filters.solvent && filters.multiplicity) {
-        if (
-          path.includes(filters.solvent) &&
-          signal.proton.multiplicity === filters.multiplicity &&
-          currentValue &&
-          currentValue >= shift - dev &&
-          currentValue <= shift + dev
-        )
-          return true
+        if (typeof currentValue === 'object') {
+          if (
+            path.includes(filters.solvent) &&
+            signal.proton.multiplicity === filters.multiplicity &&
+            currentValue &&
+            currentValue.highShift >= shift - dev &&
+            currentValue.lowShift <= shift + dev
+          )
+            return true
+        } else {
+          if (
+            path.includes(filters.solvent) &&
+            signal.proton.multiplicity === filters.multiplicity &&
+            currentValue &&
+            currentValue >= shift - dev &&
+            currentValue <= shift + dev
+          )
+            return true
+        }
       } else if (filters.solvent) {
-        if (
-          path.includes(filters.solvent) &&
-          currentValue &&
-          currentValue >= shift - dev &&
-          currentValue <= shift + dev
-        )
-          return true
+        if (typeof currentValue === 'object') {
+          if (
+            path.includes(filters.solvent) &&
+            currentValue &&
+            currentValue.highShift >= shift - dev &&
+            currentValue.lowShift <= shift + dev
+          )
+            return true
+        } else {
+          if (
+            path.includes(filters.solvent) &&
+            currentValue &&
+            currentValue >= shift - dev &&
+            currentValue <= shift + dev
+          )
+            return true
+        }
       } else if (filters.multiplicity) {
-        if (
-          signal.proton.multiplicity === filters.multiplicity &&
-          currentValue &&
-          currentValue >= shift - dev &&
-          currentValue <= shift + dev
-        )
-          return true
+        if (typeof currentValue === 'object') {
+          if (
+            signal.proton.multiplicity === filters.multiplicity &&
+            currentValue &&
+            currentValue.highShift >= shift - dev &&
+            currentValue.lowShift <= shift + dev
+          )
+            return true
+        } else {
+          if (
+            signal.proton.multiplicity === filters.multiplicity &&
+            currentValue &&
+            currentValue >= shift - dev &&
+            currentValue <= shift + dev
+          )
+            return true
+        }
       } else {
-        if (
-          currentValue &&
-          currentValue >= shift - dev &&
-          currentValue <= shift + dev
-        )
-          return true
+        if (typeof currentValue === 'object') {
+          if (
+            currentValue &&
+            currentValue.highShift >= shift - dev &&
+            currentValue.lowShift <= shift + dev
+          )
+            return true
+        } else {
+          if (
+            currentValue &&
+            currentValue >= shift - dev &&
+            currentValue <= shift + dev
+          )
+            return true
+        }
       }
     }
   }
@@ -81,21 +121,69 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
   const renderStackableValues = (item: ICommonResidue, path: string) => {
     return (
       <div>
-        {item.signals.map((signal) => (
-          <span
-            key={uuidv4()}
-            className={
-              item.compound !== 'Solvent peaks' && checkFilterHit(signal, path)
-                ? classes.filterHit
-                : classes.standardValue
-            }
-          >
-            {typeof _.get(signal, path) === 'number'
-              ? _.get(signal, path).toFixed(2)
-              : _.get(signal, path)}
-            <br />
-          </span>
-        ))}
+        {item.signals.map((signal) => {
+          const value = _.get(signal, path)
+          if (value && typeof value === 'object') {
+            return (
+              <Tooltip
+                key={uuidv4()}
+                arrow
+                placement="top"
+                title={`${value.highShift.toFixed(
+                  2
+                )} - ${value.lowShift.toFixed(2)}`}
+              >
+                <span
+                  key={uuidv4()}
+                  className={
+                    item.compound !== 'Solvent peaks' &&
+                    checkFilterHit(signal, path)
+                      ? classes.filterHit
+                      : classes.standardValue
+                  }
+                >
+                  <em>
+                    {' '}
+                    <u>{((value.lowShift + value.highShift) / 2).toFixed(2)}</u>
+                  </em>
+                  <br />
+                </span>
+              </Tooltip>
+            )
+          }
+          return (
+            <span
+              key={uuidv4()}
+              className={
+                item.compound !== 'Solvent peaks' &&
+                checkFilterHit(signal, path)
+                  ? classes.filterHit
+                  : classes.standardValue
+              }
+            >
+              {value ? value.toFixed(2) : null}
+              <br />
+            </span>
+          )
+        })}
+      </div>
+    )
+  }
+
+  const renderProtons = (item: ICommonResidue) => {
+    return (
+      <div>
+        {item.signals.map((signal) => {
+          if (item.compound !== 'Solvent peaks') {
+            return (
+              <span key={uuidv4()}>
+                {signal.proton.formula}
+                <br />
+              </span>
+            )
+          }
+          return null
+        })}
       </div>
     )
   }
@@ -126,7 +214,7 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     {
       label: 'Proton',
       path: 'signals',
-      content: (item, value) => renderStackableValues(item, 'proton.formula'),
+      content: (item, value) => renderProtons(item),
     },
     {
       label: 'Mult. (#H)',
