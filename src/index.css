@@ -9,5 +9,22 @@ body {
 
 .content {
   margin: auto;
-  width: 90%;
+  width: 95%;
+  max-width: 1350px;
+}
+
+@media screen and (max-width: 1390px) {
+  html {
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 1300px) {
+  html {
+    font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 1205px) {
+  html {
+    font-size: 0.7rem;
+  }
 }

@@ -129,7 +129,7 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
       content: (item, value) => renderStackableValues(item, 'proton.formula'),
     },
     {
-      label: 'Mult.',
+      label: 'Mult. (#H)',
       path: 'signals',
 
       content: (item, value) => renderMultiplicities(item),
