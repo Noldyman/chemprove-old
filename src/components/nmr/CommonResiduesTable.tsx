@@ -120,7 +120,7 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
 
   const renderStackableValues = (item: ICommonResidue, path: string) => {
     return (
-      <div>
+      <div style={{ lineHeight: 1.8 }}>
         {item.signals.map((signal) => {
           const value = _.get(signal, path)
           if (value && typeof value === 'object') {
