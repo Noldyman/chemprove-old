@@ -268,14 +268,21 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
       content: (item) => {
         if (item.compound !== 'Solvent peaks') {
           return (
-            <IconButton
-              onClick={() => {
-                onAddResidue(item)
-              }}
-              color="secondary"
+            <Tooltip
+              key={uuidv4()}
+              arrow
+              placement="left"
+              title="Add to NMR residue calculator"
             >
-              <PlaylistAdd />
-            </IconButton>
+              <IconButton
+                onClick={() => {
+                  onAddResidue(item)
+                }}
+                color="secondary"
+              >
+                <PlaylistAdd />
+              </IconButton>
+            </Tooltip>
           )
         }
         return null

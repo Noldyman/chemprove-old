@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { Snackbar } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import { useImmerReducer } from 'use-immer'
 import { ResidueCalculator } from './ResidueCalculator'
 import { CommonResidues } from './CommonResidues'
@@ -156,6 +158,10 @@ const calculatePurities = (draftState: IState) => {
 
 const NmrResiduePage: React.FC = () => {
   const [state, dispatch] = useImmerReducer(reducer, initialState)
+  const [addedResidue, setAddedResidue] = useState({
+    open: false,
+    residueName: '',
+  })
 
   const handleMolWeightChange = (event: React.ChangeEvent) => {
     dispatch({
@@ -190,6 +196,7 @@ const NmrResiduePage: React.FC = () => {
       type: ACTIONS.ADD_COMMON_RESIDUE,
       payload: [id, molWeight, numOfProtons],
     })
+    setAddedResidue({ open: true, residueName: residue.compound })
   }
 
   const handleSelectResidue = (event: any, item: IResidue) => {
@@ -220,6 +227,10 @@ const NmrResiduePage: React.FC = () => {
       payload: { index: residueIndex, newItem: newItem },
     })
   }
+  const handleCloseAddSnackbar = () => {
+    setAddedResidue((prevValue) => ({ ...prevValue, open: false }))
+    setTimeout(() => setAddedResidue({ open: false, residueName: '' }), 100)
+  }
 
   return (
     <div>
@@ -232,6 +243,15 @@ const NmrResiduePage: React.FC = () => {
         onSelectResidue={handleSelectResidue}
       />
       <CommonResidues onAddResidue={handleAddCommonResidue} />
+      <Snackbar
+        open={addedResidue.open}
+        autoHideDuration={1500}
+        onClose={handleCloseAddSnackbar}
+      >
+        <Alert severity="success" onClose={handleCloseAddSnackbar}>
+          {addedResidue.residueName} was added to the NMR residue calculator.
+        </Alert>
+      </Snackbar>
     </div>
   )
 }
