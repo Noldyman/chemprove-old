@@ -365,6 +365,158 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Chloroform',
+    trivialNames: 'trichloromethane TCM Methyl trichloride',
+    molWeight: 119.37,
+    signals: [
+      {
+        proton: { formula: 'CH', multiplicity: 's', amount: 1 },
+        chemShifts: {
+          chloroform_d: 7.26,
+          acetone_d6: 8.02,
+          dmso_d6: 8.32,
+          benzene_d6: 6.15,
+          acetonitrile_d3: 7.58,
+          methanol_d4: 7.9,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Cyclohexane',
+    trivialNames: 'Hexanaphthene',
+    molWeight: 84.162,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 12,
+        },
+        chemShifts: {
+          chloroform_d: 1.43,
+          acetone_d6: 1.43,
+          dmso_d6: 1.4,
+          benzene_d6: 1.4,
+          acetonitrile_d3: 1.44,
+          methanol_d4: 1.45,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: '1,2-Dichloroethane',
+    trivialNames: 'ethylene dichloride EDC',
+    molWeight: 98.95,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 3.73,
+          acetone_d6: 3.87,
+          dmso_d6: 3.9,
+          benzene_d6: 2.9,
+          acetonitrile_d3: 3.81,
+          methanol_d4: 3.78,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Dichloromethane',
+    trivialNames: 'DCM methylene chloride',
+    molWeight: 84.93,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 5.3,
+          acetone_d6: 5.63,
+          dmso_d6: 5.76,
+          benzene_d6: 4.27,
+          acetonitrile_d3: 5.44,
+          methanol_d4: 5.49,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Diethyl ether',
+    trivialNames: 'ethoxy ethane',
+    molWeight: 74.123,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 1.21,
+          acetone_d6: 1.11,
+          dmso_d6: 1.09,
+          benzene_d6: 1.11,
+          acetonitrile_d3: 1.12,
+          methanol_d4: 1.18,
+          water_d2: 1.17,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'q',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 3.48,
+          acetone_d6: 3.41,
+          dmso_d6: 3.38,
+          benzene_d6: 3.26,
+          acetonitrile_d3: 3.42,
+          methanol_d4: 3.49,
+          water_d2: 3.56,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Toluene',
     trivialNames: 'MeBn toluol methylbenzene',
     molWeight: 92.141,
@@ -393,7 +545,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
         proton: {
           formula: (
             <span>
-              CH <em>(o/p)</em>
+              CH (<em>o/p</em>)
             </span>
           ),
           multiplicity: 'm',
@@ -413,7 +565,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
         proton: {
           formula: (
             <span>
-              CH <em>(m)</em>
+              CH (<em>m</em>)
             </span>
           ),
           multiplicity: 'm',
