@@ -66,7 +66,11 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
           })}
           onChange={(event, params) => onSelectResidue(params, item)}
           renderInput={(params) => (
-            <TextField {...params} placeholder="Select residue" />
+            <TextField
+              {...params}
+              placeholder="Select residue"
+              color="secondary"
+            />
           )}
         />
       ),
