@@ -10,7 +10,8 @@ import {
 import { AddCircleOutline } from '@material-ui/icons'
 import { ContentBox } from '../common/ContentBox'
 import { ResidueTable } from './ResidueTable'
-import { IState, IResidue } from './NmrResiduePage'
+import { IResidue, IState } from './NmrResiduePage'
+import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
 
 const useStyles = makeStyles((theme) => ({
   productPaper: {
@@ -43,7 +44,7 @@ interface ResidueCalculatorProps {
   onChangeResidue: (event: React.ChangeEvent, item: any) => void
   onDeleteResidue: (item: any) => void
   onAddResidue: () => void
-  onSelectResidue: (event: any, item: IResidue) => void
+  onSelectResidue: (residue: ICommonResidue | null, item: IResidue) => void
 }
 
 const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({

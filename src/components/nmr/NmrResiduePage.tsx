@@ -5,10 +5,7 @@ import { Alert } from '@material-ui/lab'
 import { useImmerReducer } from 'use-immer'
 import { ResidueCalculator } from './ResidueCalculator'
 import { CommonResidues } from './CommonResidues'
-import {
-  H_NMR_COMMON_RESIDUES,
-  ICommonResidue,
-} from '../../data/H_NMR_RESIDUES'
+import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
 
 export interface IResidue {
   id: string
@@ -34,12 +31,12 @@ interface IAction {
 
 const newResidue = (
   residueName: string,
-  id?: string,
+  // id?: string,
   molWeight?: string,
   numOfProtons?: string
 ) => {
   return {
-    id: id || uuidv4(),
+    id: uuidv4(),
     residue: residueName.toLocaleLowerCase(),
     molWeight: molWeight || '0',
     numOfProtons: numOfProtons || '1',
@@ -77,7 +74,7 @@ const reducer = (draftState: IState, action: IAction) => {
       break
     case ACTIONS.ADD_COMMON_RESIDUE:
       const [id, molWeight, numOfProtons] = action.payload
-      draftState.residues.push(newResidue(id, id, molWeight, numOfProtons))
+      draftState.residues.push(newResidue(id, molWeight, numOfProtons))
       calculatePurities(draftState)
       break
     case ACTIONS.AUTOFILL_RESIDUE:
@@ -199,26 +196,24 @@ const NmrResiduePage: React.FC = () => {
     setAddedResidue({ open: true, residueName: residue.compound })
   }
 
-  const handleSelectResidue = (event: any, item: IResidue) => {
+  const handleSelectResidue = (
+    residue: ICommonResidue | null,
+    item: IResidue
+  ) => {
     const residueIndex = state.residues.findIndex((r) => r.id === item.id)
-    const selectedResidueId = event.target.value
 
     let newItem = {}
-
-    if (selectedResidueId === 'unknown') {
+    if (!residue) {
       newItem = {
-        resId: selectedResidueId,
+        resId: '',
         resMolWeight: 0,
         resNumOfProtons: 1,
       }
     } else {
-      const selectedResidue = H_NMR_COMMON_RESIDUES.find(
-        (r) => r.id === selectedResidueId
-      )
       newItem = {
-        resId: selectedResidueId,
-        resMolWeight: selectedResidue?.molWeight,
-        resNumOfProtons: selectedResidue!.signals[0].proton.amount,
+        resId: residue.id,
+        resMolWeight: residue.molWeight,
+        resNumOfProtons: residue.signals[0].proton.amount,
       }
     }
 
@@ -227,6 +222,7 @@ const NmrResiduePage: React.FC = () => {
       payload: { index: residueIndex, newItem: newItem },
     })
   }
+
   const handleCloseAddSnackbar = () => {
     setAddedResidue((prevValue) => ({ ...prevValue, open: false }))
     setTimeout(() => setAddedResidue({ open: false, residueName: '' }), 100)
@@ -248,7 +244,11 @@ const NmrResiduePage: React.FC = () => {
         autoHideDuration={1500}
         onClose={handleCloseAddSnackbar}
       >
-        <Alert severity="success" onClose={handleCloseAddSnackbar}>
+        <Alert
+          severity="success"
+          variant="filled"
+          onClose={handleCloseAddSnackbar}
+        >
           {addedResidue.residueName} was added to the NMR residue calculator.
         </Alert>
       </Snackbar>

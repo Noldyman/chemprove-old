@@ -1,19 +1,35 @@
 import React from 'react'
-import { Select, MenuItem, TextField, IconButton } from '@material-ui/core'
+import _ from 'lodash'
+import { makeStyles, TextField, IconButton } from '@material-ui/core'
+import Autocomplete, {
+  createFilterOptions,
+} from '@material-ui/lab/Autocomplete'
 import { Delete } from '@material-ui/icons'
 import { AppTable } from '../common/AppTable'
 import { IColumnObj } from '../common/AppTable'
 import { IResidue } from './NmrResiduePage'
-import { H_NMR_COMMON_RESIDUES } from '../../data/H_NMR_RESIDUES'
+import {
+  H_NMR_COMMON_RESIDUES,
+  ICommonResidue,
+} from '../../data/H_NMR_RESIDUES'
+
+const useStyles = makeStyles({
+  autocomplete: {
+    width: 300,
+    '@media (max-width: 1300px)': {
+      width: 250,
+    },
+    '@media (max-width: 1205px)': {
+      width: 220,
+    },
+  },
+})
 
 interface ResidueTableProps {
   data: IResidue[]
   onDelete: (item: IResidue) => void
   onResidueChange: (event: React.ChangeEvent, item: any) => void
-  onSelectResidue: (
-    event: React.ChangeEvent<{ value: unknown }>,
-    item: IResidue
-  ) => void
+  onSelectResidue: (residue: ICommonResidue | null, item: IResidue) => void
 }
 
 const ResidueTable: React.FC<ResidueTableProps> = ({
@@ -22,34 +38,38 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
   onResidueChange,
   onSelectResidue,
 }) => {
+  const classes = useStyles()
+  const selectableResidues = _.tail(H_NMR_COMMON_RESIDUES)
+
+  const getAutocompleteValue = (resId: string) => {
+    const residue = selectableResidues.filter((r) => r.id === resId)[0]
+    if (residue) {
+      return residue
+    }
+    return null
+  }
+
   const columns: IColumnObj[] = [
     {
       label: 'Residue',
       path: 'residue',
-      content: (item, value) => {
-        return (
-          <Select
-            value={value}
-            color="secondary"
-            onChange={(event) => onSelectResidue(event, item)}
-          >
-            <MenuItem value="unknown" key="unknown">
-              <em>Unknown</em>
-            </MenuItem>
-            {H_NMR_COMMON_RESIDUES.map((r) => {
-              if (r.compound === 'Solvent peaks') {
-                return null
-              } else {
-                return (
-                  <MenuItem value={r.id} key={r.id}>
-                    {r.compound}
-                  </MenuItem>
-                )
-              }
-            })}
-          </Select>
-        )
-      },
+      content: (item, value) => (
+        <Autocomplete
+          className={classes.autocomplete}
+          size="small"
+          id={value}
+          value={getAutocompleteValue(value)}
+          options={selectableResidues}
+          getOptionLabel={(option) => option.compound}
+          filterOptions={createFilterOptions({
+            stringify: (option) => option.compound + option.trivialNames,
+          })}
+          onChange={(event, params) => onSelectResidue(params, item)}
+          renderInput={(params) => (
+            <TextField {...params} placeholder="Select residue" />
+          )}
+        />
+      ),
     },
     {
       label: 'Mol. weight (g/mol)',
