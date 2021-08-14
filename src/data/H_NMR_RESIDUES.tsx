@@ -25,6 +25,12 @@ export interface ICommonResidue {
   signals: ISignalObj[]
 }
 
+export interface ISource {
+  label: string
+  url: string
+  dateAccessed?: string
+}
+
 // {
 //   id: uuidv4(),
 //   compound: '',
@@ -46,7 +52,12 @@ export interface ICommonResidue {
 //   ],
 // },
 
-export const sources: string[] = ['J. Org. Chem., Vol. 62, No. 21, 1997']
+export const sources: ISource[] = [
+  {
+    label: 'J. Org. Chem., Vol. 62, No. 21, 1997',
+    url: 'https://pubs.acs.org/doi/10.1021/jo971176v',
+  },
+]
 
 export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   {

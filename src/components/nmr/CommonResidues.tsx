@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { makeStyles, Typography, Divider } from '@material-ui/core'
+import { makeStyles, Typography, Divider, Button } from '@material-ui/core'
+import { Bookmarks } from '@material-ui/icons'
 import { ContentBox } from '../common/ContentBox'
 import { CommonResiduesTable } from './CommonResiduesTable'
 import {
@@ -8,6 +9,7 @@ import {
 } from '../../data/H_NMR_RESIDUES'
 import { CommonResidueFilters } from './CommonResidueFilters'
 import _ from 'lodash'
+import { SourcesDialog } from './SourcesDialog'
 
 const useStyles = makeStyles({
   root: {
@@ -15,6 +17,13 @@ const useStyles = makeStyles({
   },
   table: {
     margin: '20px auto 20px auto',
+  },
+  divider: {
+    margin: '10px auto 10px auto',
+  },
+  sources: {
+    margin: 'auto',
+    width: '50%',
   },
 })
 
@@ -52,6 +61,7 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
     deviation: '',
     multiplicity: '',
   })
+  const [sourceDialogIsOpen, setSourceDialogIsOpen] = useState(false)
 
   const handleChangeFilters = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -61,7 +71,7 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
         return {
           ...prevValue,
           chemShift: event.target.value,
-          deviation: '0.02',
+          deviation: '0.05',
         }
       })
     }
@@ -226,8 +236,24 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
             filteredData={filterData()}
             filters={filters}
           />
+          <Divider className={classes.divider} />
+        </div>
+        <div className={classes.sources}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="secondary"
+            startIcon={<Bookmarks />}
+            onClick={() => setSourceDialogIsOpen(true)}
+          >
+            View sources
+          </Button>
         </div>
       </ContentBox>
+      <SourcesDialog
+        open={sourceDialogIsOpen}
+        onClose={() => setSourceDialogIsOpen(false)}
+      />
     </div>
   )
 }
