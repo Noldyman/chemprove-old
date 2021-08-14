@@ -172,7 +172,7 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
 
   const renderProtons = (item: ICommonResidue) => {
     return (
-      <div>
+      <div style={{ lineHeight: 1.8 }}>
         {item.signals.map((signal) => {
           if (item.compound !== 'Solvent peaks') {
             return (
@@ -190,7 +190,7 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
 
   const renderMultiplicities = (item: ICommonResidue) => {
     return (
-      <div>
+      <div style={{ lineHeight: 1.8 }}>
         {item.signals.map((signal) => {
           if (item.compound !== 'Solvent peaks') {
             return (
