@@ -6,6 +6,7 @@ import { useImmerReducer } from 'use-immer'
 import { ResidueCalculator } from './ResidueCalculator'
 import { CommonResidues } from './CommonResidues'
 import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
+import { SelectSignalDialog } from './SelectSignalDialog'
 
 export interface IResidue {
   id: string
@@ -31,7 +32,6 @@ interface IAction {
 
 const newResidue = (
   residueName: string,
-  // id?: string,
   molWeight?: string,
   numOfProtons?: string
 ) => {
@@ -155,6 +155,11 @@ const calculatePurities = (draftState: IState) => {
 
 const NmrResiduePage: React.FC = () => {
   const [state, dispatch] = useImmerReducer(reducer, initialState)
+  const [selectSignalResidue, setSelectSignalResidue] = useState<{
+    residue: ICommonResidue | null
+    isViaSelector: boolean
+    residueIndex?: number
+  }>({ residue: null, isViaSelector: false })
   const [addedResidue, setAddedResidue] = useState({
     open: false,
     residueName: '',
@@ -187,13 +192,18 @@ const NmrResiduePage: React.FC = () => {
 
   const handleAddCommonResidue = (residue: ICommonResidue) => {
     const { id, molWeight } = residue
-    const numOfProtons = residue.signals[0].proton.amount
 
-    dispatch({
-      type: ACTIONS.ADD_COMMON_RESIDUE,
-      payload: [id, molWeight, numOfProtons],
-    })
-    setAddedResidue({ open: true, residueName: residue.compound })
+    if (residue.signals.length > 1) {
+      setSelectSignalResidue({ residue: residue, isViaSelector: false })
+    } else {
+      const numOfProtons = residue.signals[0].proton.amount
+
+      dispatch({
+        type: ACTIONS.ADD_COMMON_RESIDUE,
+        payload: [id, molWeight, numOfProtons],
+      })
+      setAddedResidue({ open: true, residueName: residue.compound })
+    }
   }
 
   const handleSelectResidue = (
@@ -210,6 +220,15 @@ const NmrResiduePage: React.FC = () => {
         resNumOfProtons: 1,
       }
     } else {
+      if (residue.signals.length > 1) {
+        setSelectSignalResidue({
+          residue: residue,
+          isViaSelector: true,
+          residueIndex: residueIndex,
+        })
+        return
+      }
+
       newItem = {
         resId: residue.id,
         resMolWeight: residue.molWeight,
@@ -221,6 +240,36 @@ const NmrResiduePage: React.FC = () => {
       type: ACTIONS.AUTOFILL_RESIDUE,
       payload: { index: residueIndex, newItem: newItem },
     })
+  }
+
+  const handleSelectSignal = (residue: ICommonResidue, signalIndex: number) => {
+    if (selectSignalResidue.isViaSelector) {
+      const newItem = {
+        resId: residue.id,
+        resMolWeight: residue.molWeight,
+        resNumOfProtons: residue.signals[signalIndex].proton.amount,
+      }
+
+      dispatch({
+        type: ACTIONS.AUTOFILL_RESIDUE,
+        payload: { index: selectSignalResidue.residueIndex, newItem: newItem },
+      })
+    } else {
+      handleAddResidue()
+
+      const newItem = {
+        resId: residue.id,
+        resMolWeight: residue.molWeight,
+        resNumOfProtons: residue.signals[signalIndex].proton.amount,
+      }
+      dispatch({
+        type: ACTIONS.AUTOFILL_RESIDUE,
+        payload: { index: state.residues.length, newItem: newItem },
+      })
+      setAddedResidue({ open: true, residueName: residue.compound })
+    }
+
+    setSelectSignalResidue({ residue: null, isViaSelector: false })
   }
 
   const handleCloseAddSnackbar = () => {
@@ -239,6 +288,13 @@ const NmrResiduePage: React.FC = () => {
         onSelectResidue={handleSelectResidue}
       />
       <CommonResidues onAddResidue={handleAddCommonResidue} />
+      <SelectSignalDialog
+        residue={selectSignalResidue.residue}
+        onClose={() =>
+          setSelectSignalResidue({ residue: null, isViaSelector: false })
+        }
+        onSelectSignal={handleSelectSignal}
+      />
       <Snackbar
         open={addedResidue.open}
         autoHideDuration={1500}

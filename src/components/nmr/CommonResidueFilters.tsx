@@ -36,6 +36,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+export const nmrSolvents = [
+  { name: 'Chloroform d', value: 'chloroform_d' },
+  { name: 'Acetone d6', value: 'acetone_d6' },
+  { name: 'DMSO d6', value: 'dmso_d6' },
+  { name: 'Benzene d6', value: 'benzene_d6' },
+  { name: 'Acetonitrile d3', value: 'acetonitrile_d3' },
+  { name: 'Methanol d4', value: 'methanol_d4' },
+  { name: 'Water d2', value: 'water_d2' },
+]
+
+const multiplicities = [
+  { name: 's', value: 's' },
+  { name: 'd', value: 'd' },
+  { name: 't', value: 't' },
+  { name: 'q', value: 'q' },
+  { name: 'm', value: 'm' },
+]
+
 interface CommonResidueFiltersProps {
   filters: {
     residueName: string
@@ -56,24 +74,6 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
   onClearFilters,
 }) => {
   const classes = useStyles()
-
-  const nmrSolvents = [
-    { name: 'Chloroform d', value: 'chloroform_d' },
-    { name: 'Acetone d6', value: 'acetone_d6' },
-    { name: 'DMSO d6', value: 'dmso_d6' },
-    { name: 'Benzene d6', value: 'benzene_d6' },
-    { name: 'Acetonitrile d3', value: 'acetonitrile_d3' },
-    { name: 'Methanol d4', value: 'methanol_d4' },
-    { name: 'Water d2', value: 'water_d2' },
-  ]
-
-  const multiplicities = [
-    { name: 's', value: 's' },
-    { name: 'd', value: 'd' },
-    { name: 't', value: 't' },
-    { name: 'q', value: 'q' },
-    { name: 'm', value: 'm' },
-  ]
 
   const renderMenuItems = (Arr: { name: string; value: string }[]) => {
     const menuItems = Arr.map((c) => (
