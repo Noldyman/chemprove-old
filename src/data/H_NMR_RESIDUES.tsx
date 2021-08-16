@@ -528,6 +528,74 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Diglyme',
+    trivialNames: 'bis(2-methoxyethyl) ether Diethylene glycol dimethyl ether',
+    molWeight: 134.175,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 3.65,
+          acetone_d6: 3.56,
+          dmso_d6: 3.51,
+          benzene_d6: 3.46,
+          acetonitrile_d3: 3.53,
+          methanol_d4: 3.61,
+          water_d2: 3.67,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 3.57,
+          acetone_d6: 3.47,
+          dmso_d6: 3.38,
+          benzene_d6: 3.34,
+          acetonitrile_d3: 3.45,
+          methanol_d4: 3.58,
+          water_d2: 3.61,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              OCH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 3.39,
+          acetone_d6: 3.28,
+          dmso_d6: 3.24,
+          benzene_d6: 3.11,
+          acetonitrile_d3: 3.29,
+          methanol_d4: 3.35,
+          water_d2: 3.37,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Toluene',
     trivialNames: 'MeBn toluol methylbenzene',
     molWeight: 92.141,
