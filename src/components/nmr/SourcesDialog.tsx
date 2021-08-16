@@ -12,6 +12,7 @@ import {
   Button,
 } from '@material-ui/core'
 import { KeyboardArrowRight } from '@material-ui/icons'
+import { v4 as uuidv4 } from 'uuid'
 import { sources } from '../../data/H_NMR_RESIDUES'
 
 const useStyles = makeStyles({
@@ -46,7 +47,11 @@ const SourcesDialog: React.FC<SourcesDialogProps> = ({ open, onClose }) => {
         <Divider className={classes.divider} />
         <List>
           {sources.map((s) => (
-            <ListItem button onClick={() => window.open(s.url, '_blank')}>
+            <ListItem
+              key={uuidv4()}
+              button
+              onClick={() => window.open(s.url, '_blank')}
+            >
               <ListItemIcon>
                 <KeyboardArrowRight />
               </ListItemIcon>
