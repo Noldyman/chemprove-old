@@ -36,6 +36,10 @@ export const sources: ISource[] = [
     label: 'J. Org. Chem., Vol. 62, No. 21, 1997',
     url: 'https://pubs.acs.org/doi/10.1021/jo971176v',
   },
+  {
+    label: 'Organometallics, Vol. 29, No. 9, 2010',
+    url: 'https://pubs.acs.org/doi/10.1021/om100106e',
+  },
 ]
 
 export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
@@ -437,6 +441,34 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
           acetonitrile_d3: 7.58,
           methanol_d4: 7.9,
           water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: '16-Crown-6',
+    trivialNames: '',
+    molWeight: 264.32,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 24,
+        },
+        chemShifts: {
+          chloroform_d: 3.67,
+          acetone_d6: 3.59,
+          dmso_d6: 3.51,
+          benzene_d6: 3.39,
+          acetonitrile_d3: 3.51,
+          methanol_d4: 3.64,
+          water_d2: 3.8,
         },
       },
     ],
@@ -875,6 +907,34 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Ethane',
+    trivialNames: '',
+    molWeight: 30.07,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 0.87,
+          acetone_d6: 0.83,
+          dmso_d6: 0.82,
+          benzene_d6: 0.8,
+          acetonitrile_d3: 0.85,
+          methanol_d4: 0.85,
+          water_d2: 0.82,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Ethanol',
     trivialNames: 'EtOH alcohol ethyl alcohol',
     molWeight: 46.07,
@@ -1003,6 +1063,34 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Ethylene',
+    trivialNames: 'Ethene',
+    molWeight: 28.05,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 5.4,
+          acetone_d6: 5.38,
+          dmso_d6: 5.41,
+          benzene_d6: 5.25,
+          acetonitrile_d3: 5.41,
+          methanol_d4: 5.39,
+          water_d2: 5.44,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Ethylene glycol',
     trivialNames: 'Ethylene alcohol 1,2-Dihydroxyethane',
     molWeight: 62.07,
@@ -1025,6 +1113,90 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
           acetonitrile_d3: 3.51,
           methanol_d4: 3.59,
           water_d2: 3.65,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Hexamethylbenzene',
+    trivialNames: 'Mellitene',
+    molWeight: 162.28,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 18,
+        },
+        chemShifts: {
+          chloroform_d: 2.24,
+          acetone_d6: 2.17,
+          dmso_d6: 2.14,
+          benzene_d6: 2.13,
+          acetonitrile_d3: 2.19,
+          methanol_d4: 2.19,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Hexamethyldisiloxane',
+    trivialNames: 'HMDSO Bis(trimethylsilyl) ether',
+    molWeight: 162.38,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 18,
+        },
+        chemShifts: {
+          chloroform_d: 0.07,
+          acetone_d6: 0.07,
+          dmso_d6: 0.06,
+          benzene_d6: 0.12,
+          acetonitrile_d3: 0.07,
+          methanol_d4: 0.07,
+          water_d2: 0.28,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Hexamethylphosphoramide',
+    trivialNames: 'HMPA',
+    molWeight: 179.2,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 'd',
+          amount: 18,
+        },
+        chemShifts: {
+          chloroform_d: 2.65,
+          acetone_d6: 2.59,
+          dmso_d6: 2.53,
+          benzene_d6: 2.4,
+          acetonitrile_d3: 2.57,
+          methanol_d4: 2.64,
+          water_d2: 2.61,
         },
       },
     ],
@@ -1079,28 +1251,88 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
-    compound: 'Hexamethylphosphoramide',
-    trivialNames: 'HMPA',
-    molWeight: 179.2,
+    compound: 'Hydrogen',
+    trivialNames: 'H2',
+    molWeight: 2.02,
     signals: [
       {
         proton: {
           formula: (
             <span>
-              CH<sub>3</sub>
+              H<sub>2</sub>
             </span>
           ),
-          multiplicity: 'd',
-          amount: 18,
+          multiplicity: 's',
+          amount: 2,
         },
         chemShifts: {
-          chloroform_d: 2.65,
-          acetone_d6: 2.59,
-          dmso_d6: 2.53,
-          benzene_d6: 2.4,
-          acetonitrile_d3: 2.57,
-          methanol_d4: 2.64,
-          water_d2: 2.61,
+          chloroform_d: 4.62,
+          acetone_d6: 4.54,
+          dmso_d6: 4.61,
+          benzene_d6: 4.47,
+          acetonitrile_d3: 4.57,
+          methanol_d4: 4.56,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Imidazole',
+    trivialNames: '',
+    molWeight: 68.08,
+    signals: [
+      {
+        proton: { formula: 'CH (2)', multiplicity: 's', amount: 1 },
+        chemShifts: {
+          chloroform_d: 7.67,
+          acetone_d6: 7.62,
+          dmso_d6: 7.63,
+          benzene_d6: 7.33,
+          acetonitrile_d3: 7.57,
+          methanol_d4: 7.67,
+          water_d2: 7.78,
+        },
+      },
+      {
+        proton: { formula: 'CH (4,5)', multiplicity: 's', amount: 2 },
+        chemShifts: {
+          chloroform_d: 7.1,
+          acetone_d6: 7.04,
+          dmso_d6: 7.01,
+          benzene_d6: 6.9,
+          acetonitrile_d3: 7.01,
+          methanol_d4: 7.05,
+          water_d2: 7.14,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Methane',
+    trivialNames: '',
+    molWeight: 16.04,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>4</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 0.22,
+          acetone_d6: 0.17,
+          dmso_d6: 0.2,
+          benzene_d6: 0.16,
+          acetonitrile_d3: 0.2,
+          methanol_d4: 0.2,
+          water_d2: 0.18,
         },
       },
     ],
@@ -1223,6 +1455,54 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Propane',
+    trivialNames: '',
+    molWeight: 44.1,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 0.9,
+          acetone_d6: 0.88,
+          dmso_d6: 0.87,
+          benzene_d6: 0.86,
+          acetonitrile_d3: 0.9,
+          methanol_d4: 0.91,
+          water_d2: 0.88,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 1.32,
+          acetone_d6: 1.31,
+          dmso_d6: 1.29,
+          benzene_d6: 1.26,
+          acetonitrile_d3: 1.33,
+          methanol_d4: 1.34,
+          water_d2: 1.3,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: '2-Propanol',
     trivialNames: 'Isopropyl alcohol Isopropanol IPA',
     molWeight: 60.1,
@@ -1307,6 +1587,98 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Pyrrole',
+    trivialNames: 'Azole Imidole',
+    molWeight: 67.09,
+    signals: [
+      {
+        proton: { formula: 'NH', multiplicity: 't', amount: 1 },
+        chemShifts: {
+          chloroform_d: 8.4,
+          acetone_d6: 10.02,
+          dmso_d6: 10.75,
+          benzene_d6: 7.8,
+          acetonitrile_d3: 9.27,
+          methanol_d4: null,
+          water_d2: null,
+        },
+      },
+      {
+        proton: { formula: 'CH (2,5)', multiplicity: 'm', amount: 2 },
+        chemShifts: {
+          chloroform_d: 6.83,
+          acetone_d6: 6.77,
+          dmso_d6: 6.73,
+          benzene_d6: 6.48,
+          acetonitrile_d3: 6.75,
+          methanol_d4: 6.72,
+          water_d2: 6.93,
+        },
+      },
+      {
+        proton: { formula: 'CH (3,4)', multiplicity: 'm', amount: 2 },
+        chemShifts: {
+          chloroform_d: 6.26,
+          acetone_d6: 6.07,
+          dmso_d6: 6.01,
+          benzene_d6: 6.37,
+          acetonitrile_d3: 6.1,
+          methanol_d4: 6.08,
+          water_d2: 6.26,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Pyrrolidine',
+    trivialNames: 'Tetrahydropyrrole Azolidine Prolamine',
+    molWeight: 71.12,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub> (2,5)
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 2.87,
+          acetone_d6: null,
+          dmso_d6: 2.67,
+          benzene_d6: 2.54,
+          acetonitrile_d3: 2.75,
+          methanol_d4: 2.8,
+          water_d2: 3.07,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub> (3,4)
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 1.68,
+          acetone_d6: null,
+          dmso_d6: 1.55,
+          benzene_d6: 1.33,
+          acetonitrile_d3: 1.61,
+          methanol_d4: 1.72,
+          water_d2: 1.87,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Tetrahydrofuran',
     trivialNames: 'THF Oxolane',
     molWeight: 72.11,
@@ -1381,11 +1753,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
       },
       {
         proton: {
-          formula: (
-            <span>
-              CH (<em>o/p</em>)
-            </span>
-          ),
+          formula: 'CH (2,4,6)',
           multiplicity: 'm',
           amount: 3,
         },
@@ -1401,11 +1769,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
       },
       {
         proton: {
-          formula: (
-            <span>
-              CH (<em>m</em>)
-            </span>
-          ),
+          formula: 'CH (3,5)',
           multiplicity: 'm',
           amount: 2,
         },
