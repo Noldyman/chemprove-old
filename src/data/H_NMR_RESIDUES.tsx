@@ -31,27 +31,6 @@ export interface ISource {
   dateAccessed?: string
 }
 
-// {
-//   id: uuidv4(),
-//   compound: '',
-//   trivialNames: '' ,
-//   molWeight: ,
-//   signals: [
-//     {
-//       proton: { formula: <span><sub></sub></span>, multiplicity: , amount:  },
-//       chemShifts: {
-//         chloroform_d: ,
-//         acetone_d6: ,
-//         dmso_d6: ,
-//         benzene_d6: ,
-//         acetonitrile_d3: ,
-//         methanol_d4: ,
-//         water_d2: ,
-//       },
-//     },
-//   ],
-// },
-
 export const sources: ISource[] = [
   {
     label: 'J. Org. Chem., Vol. 62, No. 21, 1997',
@@ -84,7 +63,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Water',
     trivialNames: 'H2O',
-    molWeight: 18.015,
+    molWeight: 18.02,
     signals: [
       {
         proton: {
@@ -112,7 +91,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Acetic acid',
     trivialNames: 'AcOH glacial ethanoic',
-    molWeight: 60.052,
+    molWeight: 60.05,
     signals: [
       {
         proton: {
@@ -209,6 +188,74 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
           acetonitrile_d3: 7.37,
           methanol_d4: 7.33,
           water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: '2-Butanone',
+    trivialNames: 'Methylethylketone MEK Methylacetone Methylpropanone',
+    molWeight: 72.11,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>CO
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 2.14,
+          acetone_d6: 2.07,
+          dmso_d6: 2.07,
+          benzene_d6: 1.58,
+          acetonitrile_d3: 2.06,
+          methanol_d4: 2.12,
+          water_d2: 2.19,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 'q',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 2.46,
+          acetone_d6: 2.45,
+          dmso_d6: 2.43,
+          benzene_d6: 1.81,
+          acetonitrile_d3: 2.43,
+          methanol_d4: 2.5,
+          water_d2: 3.18,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 1.06,
+          acetone_d6: 0.96,
+          dmso_d6: 0.91,
+          benzene_d6: 0.85,
+          acetonitrile_d3: 0.96,
+          methanol_d4: 1.01,
+          water_d2: 1.26,
         },
       },
     ],
@@ -398,7 +445,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Cyclohexane',
     trivialNames: 'Hexanaphthene',
-    molWeight: 84.162,
+    molWeight: 84.16,
     signals: [
       {
         proton: {
@@ -482,7 +529,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Diethyl ether',
     trivialNames: 'ethoxy ethane',
-    molWeight: 74.123,
+    molWeight: 74.12,
     signals: [
       {
         proton: {
@@ -530,7 +577,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Diglyme',
     trivialNames: 'bis(2-methoxyethyl) ether Diethylene glycol dimethyl ether',
-    molWeight: 134.175,
+    molWeight: 134.18,
     signals: [
       {
         proton: {
@@ -596,9 +643,721 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: '1,2-Dimethoxyethane',
+    trivialNames: 'Glyme Monoglyme dimethyl glycol dimethyl ether DME',
+    molWeight: 90.12,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 3.4,
+          acetone_d6: 3.28,
+          dmso_d6: 3.24,
+          benzene_d6: 3.12,
+          acetonitrile_d3: 3.28,
+          methanol_d4: 3.35,
+          water_d2: 3.37,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 3.55,
+          acetone_d6: 3.46,
+          dmso_d6: 3.43,
+          benzene_d6: 3.33,
+          acetonitrile_d3: 3.45,
+          methanol_d4: 3.52,
+          water_d2: 3.6,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Dimethylacetamide',
+    trivialNames: 'DMAc DMA N,N-Dimethylacetamide',
+    molWeight: 87.12,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>CO
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 2.09,
+          acetone_d6: 1.97,
+          dmso_d6: 1.96,
+          benzene_d6: 1.6,
+          acetonitrile_d3: 1.97,
+          methanol_d4: 2.07,
+          water_d2: 2.08,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              NCH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 3.02,
+          acetone_d6: 3.0,
+          dmso_d6: 2.94,
+          benzene_d6: 2.57,
+          acetonitrile_d3: 2.96,
+          methanol_d4: 3.31,
+          water_d2: 3.06,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              NCH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 2.94,
+          acetone_d6: 2.83,
+          dmso_d6: 2.78,
+          benzene_d6: 2.05,
+          acetonitrile_d3: 2.83,
+          methanol_d4: 2.92,
+          water_d2: 2.9,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Dimethylformamide',
+    trivialNames: 'DMF N,N-Dimethylformamide',
+    molWeight: 73.1,
+    signals: [
+      {
+        proton: { formula: 'CH', multiplicity: 's', amount: 1 },
+        chemShifts: {
+          chloroform_d: 8.02,
+          acetone_d6: 7.96,
+          dmso_d6: 7.95,
+          benzene_d6: 7.63,
+          acetonitrile_d3: 7.92,
+          methanol_d4: 7.97,
+          water_d2: 7.92,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 2.96,
+          acetone_d6: 2.94,
+          dmso_d6: 2.89,
+          benzene_d6: 2.36,
+          acetonitrile_d3: 2.89,
+          methanol_d4: 2.99,
+          water_d2: 3.01,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 2.88,
+          acetone_d6: 2.78,
+          dmso_d6: 2.73,
+          benzene_d6: 1.86,
+          acetonitrile_d3: 2.77,
+          methanol_d4: 2.86,
+          water_d2: 2.85,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Dimethyl sulfoxide',
+    trivialNames: 'DMSO (Methanesulfinyl)methane',
+    molWeight: 78.13,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 2.62,
+          acetone_d6: 2.52,
+          dmso_d6: 2.54,
+          benzene_d6: 1.68,
+          acetonitrile_d3: 2.5,
+          methanol_d4: 2.65,
+          water_d2: 2.71,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: '1,4-Dioxane',
+    trivialNames: '1,4-Dioxacyclohexane',
+    molWeight: 88.11,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 8,
+        },
+        chemShifts: {
+          chloroform_d: 3.71,
+          acetone_d6: 3.59,
+          dmso_d6: 3.57,
+          benzene_d6: 3.35,
+          acetonitrile_d3: 3.6,
+          methanol_d4: 3.66,
+          water_d2: 3.75,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Ethanol',
+    trivialNames: 'EtOH alcohol ethyl alcohol',
+    molWeight: 46.07,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 1.25,
+          acetone_d6: 1.12,
+          dmso_d6: 1.06,
+          benzene_d6: 0.96,
+          acetonitrile_d3: 1.12,
+          methanol_d4: 1.19,
+          water_d2: 1.17,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'q',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 3.72,
+          acetone_d6: 3.57,
+          dmso_d6: 3.44,
+          benzene_d6: 3.34,
+          acetonitrile_d3: 3.54,
+          methanol_d4: 3.6,
+          water_d2: 3.65,
+        },
+      },
+      {
+        proton: { formula: 'OH', multiplicity: 's', amount: 1 },
+        chemShifts: {
+          chloroform_d: 1.32,
+          acetone_d6: 3.39,
+          dmso_d6: 4.63,
+          benzene_d6: null,
+          acetonitrile_d3: 2.47,
+          methanol_d4: null,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Ethyl acetate',
+    trivialNames: 'EtOAc ethyl ethanoate ETAC EA',
+    molWeight: 88.11,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>CO
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 2.05,
+          acetone_d6: 1.97,
+          dmso_d6: 1.99,
+          benzene_d6: 1.65,
+          acetonitrile_d3: 1.97,
+          methanol_d4: 2.01,
+          water_d2: 2.07,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 'q',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 4.12,
+          acetone_d6: 4.05,
+          dmso_d6: 4.03,
+          benzene_d6: 3.89,
+          acetonitrile_d3: 4.06,
+          methanol_d4: 4.09,
+          water_d2: 4.14,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 1.26,
+          acetone_d6: 1.2,
+          dmso_d6: 1.17,
+          benzene_d6: 0.92,
+          acetonitrile_d3: 1.2,
+          methanol_d4: 1.24,
+          water_d2: 1.24,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Ethylene glycol',
+    trivialNames: 'Ethylene alcohol 1,2-Dihydroxyethane',
+    molWeight: 62.07,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 3.76,
+          acetone_d6: 3.28,
+          dmso_d6: 3.34,
+          benzene_d6: 3.41,
+          acetonitrile_d3: 3.51,
+          methanol_d4: 3.59,
+          water_d2: 3.65,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'n-Hexane',
+    trivialNames: '',
+    molWeight: 86.18,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 0.88,
+          acetone_d6: 0.88,
+          dmso_d6: 0.86,
+          benzene_d6: 0.89,
+          acetonitrile_d3: 0.89,
+          methanol_d4: 0.9,
+          water_d2: null,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 8,
+        },
+        chemShifts: {
+          chloroform_d: 1.26,
+          acetone_d6: 1.28,
+          dmso_d6: 1.25,
+          benzene_d6: 1.24,
+          acetonitrile_d3: 1.28,
+          methanol_d4: 1.29,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Hexamethylphosphoramide',
+    trivialNames: 'HMPA',
+    molWeight: 179.2,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 'd',
+          amount: 18,
+        },
+        chemShifts: {
+          chloroform_d: 2.65,
+          acetone_d6: 2.59,
+          dmso_d6: 2.53,
+          benzene_d6: 2.4,
+          acetonitrile_d3: 2.57,
+          methanol_d4: 2.64,
+          water_d2: 2.61,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Methanol',
+    trivialNames: 'MeOH methyl alcohol Hydroxymethane',
+    molWeight: 32.04,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 3.49,
+          acetone_d6: 3.31,
+          dmso_d6: 3.16,
+          benzene_d6: 3.07,
+          acetonitrile_d3: 3.28,
+          methanol_d4: 3.34,
+          water_d2: 3.34,
+        },
+      },
+      {
+        proton: { formula: 'OH', multiplicity: 's', amount: 1 },
+        chemShifts: {
+          chloroform_d: 1.09,
+          acetone_d6: 3.12,
+          dmso_d6: 4.01,
+          benzene_d6: null,
+          acetonitrile_d3: 2.16,
+          methanol_d4: null,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Nitromethane',
+    trivialNames: 'Nitrocarbol',
+    molWeight: 61.04,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 4.33,
+          acetone_d6: 4.43,
+          dmso_d6: 4.42,
+          benzene_d6: 2.94,
+          acetonitrile_d3: 4.31,
+          methanol_d4: 4.34,
+          water_d2: 4.4,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'n-Pentane',
+    trivialNames: '',
+    molWeight: 72.15,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 0.88,
+          acetone_d6: 0.88,
+          dmso_d6: 0.86,
+          benzene_d6: 0.87,
+          acetonitrile_d3: 0.89,
+          methanol_d4: 0.9,
+          water_d2: null,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 1.27,
+          acetone_d6: 1.27,
+          dmso_d6: 1.27,
+          benzene_d6: 1.23,
+          acetonitrile_d3: 1.29,
+          methanol_d4: 1.29,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: '2-Propanol',
+    trivialNames: 'Isopropyl alcohol Isopropanol IPA',
+    molWeight: 60.1,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 'd',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 1.22,
+          acetone_d6: 1.1,
+          dmso_d6: 1.04,
+          benzene_d6: 0.95,
+          acetonitrile_d3: 1.09,
+          methanol_d4: 1.5,
+          water_d2: 1.17,
+        },
+      },
+      {
+        proton: { formula: 'CH', multiplicity: 'm', amount: 1 },
+        chemShifts: {
+          chloroform_d: 4.04,
+          acetone_d6: 3.9,
+          dmso_d6: 3.78,
+          benzene_d6: 3.67,
+          acetonitrile_d3: 3.87,
+          methanol_d4: 3.92,
+          water_d2: 4.02,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Pyridine',
+    trivialNames: 'Azabenzene Azine',
+    molWeight: 79.1,
+    signals: [
+      {
+        proton: { formula: 'CH (2)', multiplicity: 'm', amount: 2 },
+        chemShifts: {
+          chloroform_d: 8.62,
+          acetone_d6: 8.58,
+          dmso_d6: 8.58,
+          benzene_d6: 8.53,
+          acetonitrile_d3: 8.57,
+          methanol_d4: 8.53,
+          water_d2: 8.52,
+        },
+      },
+      {
+        proton: { formula: 'CH (3)', multiplicity: 'm', amount: 2 },
+        chemShifts: {
+          chloroform_d: 7.29,
+          acetone_d6: 7.35,
+          dmso_d6: 7.39,
+          benzene_d6: 6.66,
+          acetonitrile_d3: 7.33,
+          methanol_d4: 7.44,
+          water_d2: 7.45,
+        },
+      },
+      {
+        proton: { formula: 'CH (4)', multiplicity: 'm', amount: 1 },
+        chemShifts: {
+          chloroform_d: 7.68,
+          acetone_d6: 7.76,
+          dmso_d6: 7.79,
+          benzene_d6: 6.98,
+          acetonitrile_d3: 7.73,
+          methanol_d4: 7.85,
+          water_d2: 7.87,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Tetrahydrofuran',
+    trivialNames: 'THF Oxolane',
+    molWeight: 72.11,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 1.85,
+          acetone_d6: 1.79,
+          dmso_d6: 1.76,
+          benzene_d6: 1.4,
+          acetonitrile_d3: 1.8,
+          methanol_d4: 1.87,
+          water_d2: 1.88,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>O
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: 3.76,
+          acetone_d6: 3.63,
+          dmso_d6: 3.6,
+          benzene_d6: 3.57,
+          acetonitrile_d3: 3.64,
+          methanol_d4: 3.71,
+          water_d2: 3.74,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Toluene',
     trivialNames: 'MeBn toluol methylbenzene',
-    molWeight: 92.141,
+    molWeight: 92.14,
     signals: [
       {
         proton: {
@@ -666,7 +1425,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Triethylamine',
     trivialNames: 'TEA',
-    molWeight: 101.193,
+    molWeight: 101.19,
     signals: [
       {
         proton: {
@@ -711,3 +1470,24 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     ],
   },
 ]
+
+// {
+//   id: uuidv4(),
+//   compound: '',
+//   trivialNames: '' ,
+//   molWeight: ,
+//   signals: [
+//     {
+//       proton: { formula: <span><sub></sub></span>, multiplicity: , amount:  },
+//       chemShifts: {
+//         chloroform_d: ,
+//         acetone_d6: ,
+//         dmso_d6: ,
+//         benzene_d6: ,
+//         acetonitrile_d3: ,
+//         methanol_d4: ,
+//         water_d2: ,
+//       },
+//     },
+//   ],
+// },
