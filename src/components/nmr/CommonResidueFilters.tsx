@@ -108,9 +108,10 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
         <Paper color="secondary" variant="outlined" className={classes.resName}>
           <TextField
             fullWidth
-            variant="outlined"
             size="small"
+            variant="outlined"
             color="secondary"
+            inputProps={{ maxLength: 50 }}
             label="Residue name"
             name="residueName"
             value={filters.residueName}
@@ -124,10 +125,10 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
         >
           <TextField
             className={classes.chemShiftItem}
-            variant="outlined"
             size="small"
+            variant="outlined"
             color="secondary"
-            type="number"
+            inputProps={{ maxLength: 6 }}
             label="Chem. shift"
             name="chemShift"
             value={filters.chemShift}
@@ -135,10 +136,10 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
           />
           <TextField
             className={classes.chemShiftItem}
-            variant="outlined"
             size="small"
+            variant="outlined"
             color="secondary"
-            type="number"
+            inputProps={{ maxLength: 6 }}
             label="Deviation"
             name="deviation"
             value={filters.deviation}
@@ -147,8 +148,8 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
           <TextField
             className={classes.chemShiftItem}
             select
-            variant="outlined"
             size="small"
+            variant="outlined"
             color="secondary"
             label="Solvent"
             name="solvent"
@@ -160,8 +161,8 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
           <TextField
             className={classes.chemShiftItem}
             select
-            variant="outlined"
             size="small"
+            variant="outlined"
             color="secondary"
             label="Multiplicity"
             name="multiplicity"

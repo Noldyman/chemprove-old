@@ -66,17 +66,25 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
   const handleChangeFilters = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => {
-    if (event.target.name === 'chemShift' && !filters.deviation) {
-      setFilters((prevValue) => {
-        return {
-          ...prevValue,
-          chemShift: event.target.value,
-          deviation: '0.05',
-        }
-      })
+    const targetName = event.target.name
+    let enteredValue = event.target.value
+
+    if (targetName === 'chemShift' || targetName === 'deviation') {
+      enteredValue = enteredValue.replace(',', '.')
+      if (enteredValue.match(/[^0-9.]/g)) return
+      if (enteredValue.match(/[.]/g) && enteredValue.match(/[.]/g)!.length > 1)
+        return
+    }
+
+    if (targetName === 'chemShift' && !filters.deviation) {
+      setFilters((prevValue) => ({
+        ...prevValue,
+        chemShift: event.target.value,
+        deviation: '0.1',
+      }))
     }
     setFilters((prevValue) => {
-      return { ...prevValue, [event.target.name]: event.target.value }
+      return { ...prevValue, [targetName]: enteredValue }
     })
   }
   const handleClearFilters = () => {
