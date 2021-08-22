@@ -75,11 +75,11 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
         <div className={classes.productDiv}>
           <TextField
             className={classes.molWeight}
-            type="text"
-            label="Molecular weight (g/mol)"
-            variant="outlined"
             size="small"
+            variant="outlined"
             color="secondary"
+            inputProps={{ maxLength: 10 }}
+            label="Molecular weight (g/mol)"
             value={state.product.molWeight}
             onChange={(event) => onChangeMolWeight(event.target.value)}
             onFocus={(event) => event.target.select()}

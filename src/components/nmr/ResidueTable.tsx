@@ -83,9 +83,9 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
       path: 'molWeight',
       content: (item, value) => (
         <TextField
-          color="secondary"
           size="small"
-          type="text"
+          color="secondary"
+          inputProps={{ maxLength: 10 }}
           name="molWeight"
           value={value}
           onChange={(event) => onResidueChange(event, item)}
@@ -98,9 +98,9 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
       path: 'numOfProtons',
       content: (item, value) => (
         <TextField
-          color="secondary"
           size="small"
-          type="text"
+          color="secondary"
+          inputProps={{ maxLength: 3 }}
           name="numOfProtons"
           value={value}
           onChange={(event) => onResidueChange(event, item)}
@@ -113,9 +113,9 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
       path: 'integral',
       content: (item, value) => (
         <TextField
-          color="secondary"
           size="small"
-          type="text"
+          color="secondary"
+          inputProps={{ maxLength: 10 }}
           name="integral"
           value={value}
           onChange={(event) => onResidueChange(event, item)}
