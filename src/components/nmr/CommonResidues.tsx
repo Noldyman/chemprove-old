@@ -23,6 +23,7 @@ const useStyles = makeStyles({
   },
   sources: {
     margin: 'auto',
+    marginTop: '15px',
     width: '50%',
   },
 })
@@ -227,11 +228,23 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
     <div className={classes.root}>
       <ContentBox title="Common residues in standard NMR solvents">
         <Typography align="center">
-          This table shows the chemical shifts of different residues in commonly
-          used NMR solvents. The input fields below can be used to filter the
-          data. Residues can be added to the NMR residue calculator by clicking
-          the add icon.
+          This table shows the chemical shifts (PPM) of different residues in
+          commonly used NMR solvents. The data can be filtered by name or
+          chemical shift. <br />
+          Residues can be added to the NMR residue calculator by clicking the
+          add button.
         </Typography>
+        <div className={classes.sources}>
+          <Button
+            fullWidth
+            variant="outlined"
+            color="secondary"
+            startIcon={<Bookmarks />}
+            onClick={() => setSourceDialogIsOpen(true)}
+          >
+            View sources
+          </Button>
+        </div>
         <CommonResidueFilters
           filters={filters}
           onChangeFilters={handleChangeFilters}
@@ -244,18 +257,6 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
             filteredData={filterData()}
             filters={filters}
           />
-          <Divider className={classes.divider} />
-        </div>
-        <div className={classes.sources}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="secondary"
-            startIcon={<Bookmarks />}
-            onClick={() => setSourceDialogIsOpen(true)}
-          >
-            View sources
-          </Button>
         </div>
       </ContentBox>
       <SourcesDialog
