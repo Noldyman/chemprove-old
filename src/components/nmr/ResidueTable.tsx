@@ -28,7 +28,10 @@ const useStyles = makeStyles({
 interface ResidueTableProps {
   data: IResidue[]
   onDelete: (item: IResidue) => void
-  onResidueChange: (event: React.ChangeEvent, item: any) => void
+  onResidueChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    item: any
+  ) => void
   onSelectResidue: (residue: ICommonResidue | null, item: IResidue) => void
 }
 
@@ -82,7 +85,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
         <TextField
           color="secondary"
           size="small"
-          type="number"
+          type="text"
           name="molWeight"
           value={value}
           onChange={(event) => onResidueChange(event, item)}
@@ -97,7 +100,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
         <TextField
           color="secondary"
           size="small"
-          type="number"
+          type="text"
           name="numOfProtons"
           value={value}
           onChange={(event) => onResidueChange(event, item)}
@@ -112,7 +115,7 @@ const ResidueTable: React.FC<ResidueTableProps> = ({
         <TextField
           color="secondary"
           size="small"
-          type="number"
+          type="text"
           name="integral"
           value={value}
           onChange={(event) => onResidueChange(event, item)}

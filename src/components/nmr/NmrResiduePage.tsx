@@ -65,7 +65,7 @@ const ACTIONS = {
 const reducer = (draftState: IState, action: IAction) => {
   switch (action.type) {
     case ACTIONS.CHANGE_MOLWEIGHT:
-      draftState.product.molWeight = action.payload.event.target.value
+      draftState.product.molWeight = action.payload.input
       calculatePurities(draftState)
       break
     case ACTIONS.ADD_RESIDUE:
@@ -93,7 +93,7 @@ const reducer = (draftState: IState, action: IAction) => {
       )
       draftState.residues[changeIndex] = {
         ...draftState.residues[changeIndex],
-        [action.payload.event.target.name]: action.payload.event.target.value,
+        [action.payload.targetName]: action.payload.enteredValue,
       }
       calculatePurities(draftState)
       break
@@ -110,12 +110,13 @@ const reducer = (draftState: IState, action: IAction) => {
 }
 
 const calculatePurities = (draftState: IState) => {
-  if (!draftState.product.molWeight || draftState.product.molWeight === '0') {
-    draftState.product.purity.molPercent = 'NaN'
-    draftState.product.purity.wtPercent = 'NaN'
-    draftState.residues.forEach((r) => {
-      r.purity.molPercent = 'NaN'
-      r.purity.wtPercent = 'NaN'
+  if (
+    !draftState.product.molWeight ||
+    parseFloat(draftState.product.molWeight) === 0
+  ) {
+    draftState.product.purity = { molPercent: '', wtPercent: '' }
+    draftState.residues.forEach((res) => {
+      res.purity = { molPercent: '', wtPercent: '' }
     })
     return
   }
@@ -165,17 +166,40 @@ const NmrResiduePage: React.FC = () => {
     residueName: '',
   })
 
-  const handleMolWeightChange = (event: React.ChangeEvent) => {
+  const handleMolWeightChange = (value: string) => {
+    value = value.replace(',', '.')
+    if (value.match(/[^0-9.]/g)) return
+    if (value.match(/[.]/g) && value.match(/[.]/g)!.length > 1) return
+
     dispatch({
       type: ACTIONS.CHANGE_MOLWEIGHT,
-      payload: { event: event },
+      payload: { input: value },
     })
   }
 
-  const handleChangeResidue = (event: React.ChangeEvent, item: any) => {
+  const handleChangeResidue = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    item: any
+  ) => {
+    const targetName = event.target.name
+    let enteredValue = event.target.value
+
+    if (targetName === 'molWeight' || targetName === 'integral') {
+      enteredValue = enteredValue.replace(',', '.')
+      if (enteredValue.match(/[^0-9.]/g)) return
+      if (enteredValue.match(/[.]/g) && enteredValue.match(/[.]/g)!.length > 1)
+        return
+    } else {
+      if (enteredValue.match(/[^0-9]/g)) return
+    }
+
     dispatch({
       type: ACTIONS.CHANGE_RESIDUE,
-      payload: { event: event, item: item },
+      payload: {
+        targetName: targetName,
+        enteredValue: enteredValue,
+        item: item,
+      },
     })
   }
 

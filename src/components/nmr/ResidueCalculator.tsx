@@ -40,8 +40,11 @@ const useStyles = makeStyles((theme) => ({
 
 interface ResidueCalculatorProps {
   state: IState
-  onChangeMolWeight: (event: React.ChangeEvent) => void
-  onChangeResidue: (event: React.ChangeEvent, item: any) => void
+  onChangeMolWeight: (value: string) => void
+  onChangeResidue: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    item: any
+  ) => void
   onDeleteResidue: (item: any) => void
   onAddResidue: () => void
   onSelectResidue: (residue: ICommonResidue | null, item: IResidue) => void
@@ -72,13 +75,13 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
         <div className={classes.productDiv}>
           <TextField
             className={classes.molWeight}
-            type="number"
+            type="text"
             label="Molecular weight (g/mol)"
             variant="outlined"
             size="small"
             color="secondary"
             value={state.product.molWeight}
-            onChange={onChangeMolWeight}
+            onChange={(event) => onChangeMolWeight(event.target.value)}
             onFocus={(event) => event.target.select()}
           />
           <span>
