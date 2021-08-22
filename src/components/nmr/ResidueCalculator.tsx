@@ -63,12 +63,13 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
   return (
     <ContentBox title="NMR residue calculator">
       <Typography align="center">
-        This tool can be used to calculate the purity of your product based on a
-        NMR spectrum. <br />
+        This tool can be used to calculate the purity of your product based on
+        NMR analysis. <br />
         Specify the molecular weight of your product. Then, add the residues you
-        observe on NMR and fill out their integrals. The purity of your product
-        and the percentages of each residue will be automatically calculated.
-        The common residue table below can be used to identify your residues.
+        observe in your NMR spectrum and fill out their integrals. The purity of
+        your product and the percentages of each residue will be automatically
+        calculated. The common residue table below can be used to identify your
+        residues.
       </Typography>
       <Paper variant="outlined" className={classes.productPaper}>
         <div className={classes.productDiv}>
