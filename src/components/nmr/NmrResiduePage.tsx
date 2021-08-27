@@ -111,7 +111,7 @@ const reducer = (draftState: IState, action: IAction) => {
 
 const calculatePurities = (draftState: IState) => {
   if (
-    !draftState.product.molWeight ||
+    isNaN(parseFloat(draftState.product.molWeight)) ||
     parseFloat(draftState.product.molWeight) === 0
   ) {
     draftState.product.purity = { molPercent: '', wtPercent: '' }

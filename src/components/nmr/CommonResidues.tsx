@@ -116,6 +116,9 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
       const shift = parseFloat(filters.chemShift)
       const dev = parseFloat(filters.deviation) || 0
 
+      if (isNaN(parseFloat(filters.chemShift)))
+        return [H_NMR_COMMON_RESIDUES[0], ...data]
+
       if (filters.solvent && filters.multiplicity) {
         data.forEach((res) => {
           res.signals.forEach((sig) => {
