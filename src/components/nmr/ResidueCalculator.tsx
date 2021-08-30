@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   makeStyles,
   Typography,
@@ -6,12 +6,18 @@ import {
   Divider,
   Button,
   Paper,
+  Tooltip,
+  Snackbar,
 } from '@material-ui/core'
-import { AddCircleOutline } from '@material-ui/icons'
+import { Alert } from '@material-ui/lab'
+import { AddCircleOutline, FileCopy } from '@material-ui/icons'
 import { ContentBox } from '../common/ContentBox'
 import { ResidueTable } from './ResidueTable'
 import { IResidue, IState } from './NmrResiduePage'
-import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
+import {
+  H_NMR_COMMON_RESIDUES,
+  ICommonResidue,
+} from '../../data/H_NMR_RESIDUES'
 
 const useStyles = makeStyles((theme) => ({
   productPaper: {
@@ -34,7 +40,12 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: 'auto',
+    marginBottom: '20px',
     width: '50%',
+  },
+  puritySentence: {
+    margin: '20px auto auto auto',
+    width: '95%',
   },
 }))
 
@@ -59,6 +70,70 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
   onSelectResidue,
 }) => {
   const classes = useStyles()
+  const [sentenceIsCopied, setSentenceIsCopied] = useState({
+    snackbarOpen: false,
+    success: false,
+  })
+
+  const renderResidueName = (residueId: string) => {
+    if (!residueId) return 'unnamed residue'
+    return H_NMR_COMMON_RESIDUES.find(
+      (r) => r.id === residueId
+    )!.compound.toLocaleLowerCase()
+  }
+
+  const renderPuritySentence = () => {
+    if (state.residues.length < 1) return
+    if (state.residues.length === 1) {
+      const res = state.residues[0]
+      const molPerc = parseFloat(res.purity.molPercent).toFixed(2)
+      const wtPerc = parseFloat(res.purity.wtPercent).toFixed(2)
+      if (isNaN(parseFloat(molPerc))) return
+
+      return `Product contains ${renderResidueName(
+        res.residue
+      )} (${molPerc} mol% / ${wtPerc} wt%).`
+    } else {
+      let sentence = 'Product contains '
+      state.residues.forEach((res, index) => {
+        const molPerc = parseFloat(res.purity.molPercent).toFixed(2)
+        const wtPerc = parseFloat(res.purity.wtPercent).toFixed(2)
+
+        if (isNaN(parseFloat(molPerc))) {
+          sentence = ''
+          return
+        }
+
+        const residueSentence = `${renderResidueName(
+          res.residue
+        )} (${molPerc} mol% / ${wtPerc} wt%)`
+
+        if (state.residues.length - 1 === index) {
+          sentence += `and ${residueSentence}.`
+        } else if (state.residues.length - 2 === index) {
+          sentence += `${residueSentence} `
+        } else {
+          sentence += `${residueSentence}, `
+        }
+      })
+      return sentence
+    }
+  }
+
+  const handleCopyPuritySentence = async (sentence: string | undefined) => {
+    if (!sentence) return
+
+    try {
+      await navigator.clipboard.writeText(sentence)
+      setSentenceIsCopied({ snackbarOpen: true, success: true })
+    } catch {
+      setSentenceIsCopied({ snackbarOpen: true, success: false })
+    }
+  }
+
+  const handleCloseCopySnackbar = () => {
+    setSentenceIsCopied((prevValue) => ({ ...prevValue, snackbarOpen: false }))
+  }
 
   return (
     <ContentBox title="NMR residue calculator">
@@ -120,6 +195,41 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
           Add new residue
         </Button>
       </div>
+      {renderPuritySentence() && (
+        <div>
+          <Divider />
+          <div
+            className={classes.puritySentence}
+            onClick={() => handleCopyPuritySentence(renderPuritySentence())}
+          >
+            <Tooltip title="Copy to clipboard" arrow>
+              <Alert
+                variant="outlined"
+                severity="info"
+                icon={<FileCopy />}
+                style={{ cursor: 'pointer' }}
+              >
+                {renderPuritySentence()}
+              </Alert>
+            </Tooltip>
+          </div>
+          <Snackbar
+            open={sentenceIsCopied.snackbarOpen}
+            autoHideDuration={1500}
+            onClose={handleCloseCopySnackbar}
+          >
+            <Alert
+              severity={sentenceIsCopied.success ? 'info' : 'error'}
+              variant="filled"
+              onClose={handleCloseCopySnackbar}
+            >
+              {sentenceIsCopied.success
+                ? 'Copied to clipboard'
+                : 'Failed to copy to clipboard'}
+            </Alert>
+          </Snackbar>
+        </div>
+      )}
     </ContentBox>
   )
 }

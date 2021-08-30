@@ -41,16 +41,16 @@ const newResidue = (
     molWeight: molWeight || '0',
     numOfProtons: numOfProtons || '1',
     integral: '0',
-    purity: { molPercent: '0', wtPercent: '0' },
+    purity: { molPercent: '', wtPercent: '' },
   }
 }
 
 const initialState: IState = {
   product: {
     molWeight: '',
-    purity: { molPercent: '0', wtPercent: '0' },
+    purity: { molPercent: '', wtPercent: '' },
   },
-  residues: [newResidue('unknown')],
+  residues: [newResidue('')],
 }
 
 const ACTIONS = {
@@ -210,7 +210,7 @@ const NmrResiduePage: React.FC = () => {
   const handleAddResidue = () => {
     dispatch({
       type: ACTIONS.ADD_RESIDUE,
-      payload: { residueName: 'unknown' },
+      payload: { residueName: '' },
     })
   }
 
