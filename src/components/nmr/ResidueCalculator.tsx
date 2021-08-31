@@ -96,6 +96,8 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
       const res = filteredResidues[0]
       const molPerc = parseFloat(res.purity.molPercent).toFixed(2)
       const wtPerc = parseFloat(res.purity.wtPercent).toFixed(2)
+      if (isNaN(parseFloat(molPerc)) || isNaN(parseFloat(wtPerc))) return
+
       return `Product contains ${renderResidueName(
         res.residue
       )} (${molPerc} mol% / ${wtPerc} wt%).`
@@ -104,6 +106,11 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
       filteredResidues.forEach((res, index) => {
         const molPerc = parseFloat(res.purity.molPercent).toFixed(2)
         const wtPerc = parseFloat(res.purity.wtPercent).toFixed(2)
+
+        if (isNaN(parseFloat(molPerc)) || isNaN(parseFloat(wtPerc))) {
+          sentence = ''
+          return
+        }
 
         const residueSpecs = `${renderResidueName(
           res.residue
