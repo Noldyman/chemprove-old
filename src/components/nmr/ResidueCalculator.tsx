@@ -83,37 +83,38 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
   }
 
   const renderPuritySentence = () => {
-    if (state.residues.length < 1) return
-    if (state.residues.length === 1) {
-      const res = state.residues[0]
+    const filteredResidues = state.residues.filter(
+      (r) => parseFloat(r.integral) > 0
+    )
+
+    if (
+      filteredResidues.length < 1 ||
+      isNaN(parseFloat(state.product.molWeight))
+    )
+      return
+    if (filteredResidues.length === 1) {
+      const res = filteredResidues[0]
       const molPerc = parseFloat(res.purity.molPercent).toFixed(2)
       const wtPerc = parseFloat(res.purity.wtPercent).toFixed(2)
-      if (isNaN(parseFloat(molPerc))) return
-
       return `Product contains ${renderResidueName(
         res.residue
       )} (${molPerc} mol% / ${wtPerc} wt%).`
     } else {
       let sentence = 'Product contains '
-      state.residues.forEach((res, index) => {
+      filteredResidues.forEach((res, index) => {
         const molPerc = parseFloat(res.purity.molPercent).toFixed(2)
         const wtPerc = parseFloat(res.purity.wtPercent).toFixed(2)
 
-        if (isNaN(parseFloat(molPerc))) {
-          sentence = ''
-          return
-        }
-
-        const residueSentence = `${renderResidueName(
+        const residueSpecs = `${renderResidueName(
           res.residue
         )} (${molPerc} mol% / ${wtPerc} wt%)`
 
-        if (state.residues.length - 1 === index) {
-          sentence += `and ${residueSentence}.`
-        } else if (state.residues.length - 2 === index) {
-          sentence += `${residueSentence} `
+        if (filteredResidues.length - 1 === index) {
+          sentence += `and ${residueSpecs}.`
+        } else if (filteredResidues.length - 2 === index) {
+          sentence += `${residueSpecs} `
         } else {
-          sentence += `${residueSentence}, `
+          sentence += `${residueSpecs}, `
         }
       })
       return sentence
@@ -206,7 +207,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
               <Alert
                 variant="outlined"
                 severity="info"
-                icon={<FileCopy />}
+                icon={<FileCopy fontSize="small" />}
                 style={{ cursor: 'pointer' }}
               >
                 {renderPuritySentence()}
@@ -219,7 +220,7 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
             onClose={handleCloseCopySnackbar}
           >
             <Alert
-              severity={sentenceIsCopied.success ? 'info' : 'error'}
+              severity={sentenceIsCopied.success ? 'success' : 'error'}
               variant="filled"
               onClose={handleCloseCopySnackbar}
             >
