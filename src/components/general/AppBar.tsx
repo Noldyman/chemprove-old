@@ -4,9 +4,10 @@ import {
   AppBar as TitleBar,
   Toolbar,
   Typography,
-  Switch,
+  Tooltip,
+  IconButton,
 } from '@material-ui/core'
-import { NightsStay } from '@material-ui/icons'
+import { NightsStay, Brightness7 } from '@material-ui/icons'
 
 const useStyles = makeStyles({
   settings: {
@@ -17,21 +18,29 @@ const useStyles = makeStyles({
 })
 
 interface AppBarProps {
-  isDarkTheme: boolean
+  isThemeDark: boolean
   onThemeToggle: () => void
 }
 
-const AppBar: React.FC<AppBarProps> = ({ isDarkTheme, onThemeToggle }) => {
+const AppBar: React.FC<AppBarProps> = ({ isThemeDark, onThemeToggle }) => {
   const classes = useStyles()
+
+  const renderThemeButton = () => {
+    const toTheme = `Switch to ${isThemeDark ? 'light theme' : 'dark theme'}`
+    return (
+      <Tooltip title={toTheme} placement="left" arrow>
+        <IconButton style={{ color: '#e0e0e0' }} onClick={onThemeToggle}>
+          {isThemeDark ? <Brightness7 /> : <NightsStay />}
+        </IconButton>
+      </Tooltip>
+    )
+  }
 
   return (
     <TitleBar position="static">
       <Toolbar>
         <Typography variant="h4">Chemprove</Typography>
-        <div className={classes.settings}>
-          <NightsStay fontSize="large" />
-          <Switch size="small" checked={isDarkTheme} onChange={onThemeToggle} />
-        </div>
+        <div className={classes.settings}>{renderThemeButton()}</div>
       </Toolbar>
     </TitleBar>
   )
