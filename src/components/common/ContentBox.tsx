@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
   },
   divider: {
-    margin: '10px 0px 10px 0px',
+    margin: '10px 0px 20px 0px',
   },
 }))
 

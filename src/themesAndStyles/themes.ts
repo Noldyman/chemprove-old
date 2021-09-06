@@ -1,4 +1,5 @@
 import { createTheme } from '@material-ui/core'
+import { SportsRugbySharp } from '@material-ui/icons'
 
 export const lightTheme = createTheme({
   palette: {
@@ -18,6 +19,7 @@ export const lightTheme = createTheme({
     text: {
       primary: '#616161',
     },
+    divider: 'rgba(0,0,0,0.4)',
   },
 })
 
@@ -36,5 +38,6 @@ export const darkTheme = createTheme({
     text: {
       primary: '#e0e0e0',
     },
+    divider: 'rgba(255,255,255,0.4)',
   },
 })

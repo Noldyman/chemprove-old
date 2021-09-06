@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.divider,
     display: 'flex',
     textAlign: 'center',
+    flexDirection: 'column',
   },
 }))
 

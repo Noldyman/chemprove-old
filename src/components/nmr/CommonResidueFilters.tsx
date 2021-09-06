@@ -1,37 +1,36 @@
 import React from 'react'
-import {
-  makeStyles,
-  TextField,
-  MenuItem,
-  Button,
-  Paper,
-} from '@material-ui/core'
+import { makeStyles, TextField, MenuItem, Button } from '@material-ui/core'
 import { HighlightOff } from '@material-ui/icons'
 import { v4 as uuidv4 } from 'uuid'
+import { AppFieldset } from '../common/AppFieldset'
+import { AppDivider } from '../common/AppDivider'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: '20px auto 20px auto',
+  filters: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    minWidth: '100%',
+  },
+  solvent: {
+    width: '20%',
+    padding: '10px',
   },
   resName: {
     width: '35%',
     padding: '10px',
   },
   chemShifts: {
-    width: '60%',
+    width: '45%',
     padding: '10px',
     display: 'flex',
     justifyContent: 'space-between',
   },
   chemShiftItem: {
-    width: '24%',
+    width: '30%',
   },
   button: {
-    margin: 'auto',
-    marginBottom: '20px',
+    margin: '10px auto 10px auto',
     width: '50%',
   },
 }))
@@ -94,8 +93,7 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
       filters.chemShift ||
       filters.deviation ||
       filters.multiplicity ||
-      filters.residueName ||
-      filters.solvent
+      filters.residueName
     ) {
       return true
     }
@@ -103,9 +101,27 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
   }
 
   return (
-    <div>
-      <div className={classes.root}>
-        <Paper color="secondary" variant="outlined" className={classes.resName}>
+    <AppFieldset title="Filter residue table">
+      <div className={classes.filters}>
+        <div className={classes.solvent}>
+          <TextField
+            fullWidth
+            select
+            size="small"
+            variant="outlined"
+            color="secondary"
+            label="Solvent"
+            name="solvent"
+            value={filters.solvent}
+            onChange={(event) => onChangeFilters(event)}
+          >
+            {renderMenuItems(nmrSolvents)}
+          </TextField>
+        </div>
+        <div>
+          <AppDivider vertical={true} />
+        </div>
+        <div className={classes.resName}>
           <TextField
             fullWidth
             size="small"
@@ -117,12 +133,11 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
             value={filters.residueName}
             onChange={(event) => onChangeFilters(event)}
           />
-        </Paper>
-        <Paper
-          color="secondary"
-          variant="outlined"
-          className={classes.chemShifts}
-        >
+        </div>
+        <div>
+          <AppDivider vertical={true} />
+        </div>
+        <div className={classes.chemShifts}>
           <TextField
             className={classes.chemShiftItem}
             size="small"
@@ -151,19 +166,6 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
             size="small"
             variant="outlined"
             color="secondary"
-            label="Solvent"
-            name="solvent"
-            value={filters.solvent}
-            onChange={(event) => onChangeFilters(event)}
-          >
-            {renderMenuItems(nmrSolvents)}
-          </TextField>
-          <TextField
-            className={classes.chemShiftItem}
-            select
-            size="small"
-            variant="outlined"
-            color="secondary"
             label="Multiplicity"
             name="multiplicity"
             value={filters.multiplicity}
@@ -171,22 +173,24 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
           >
             {renderMenuItems(multiplicities)}
           </TextField>
-        </Paper>
+        </div>
       </div>
-      <div className={classes.button}>
+      <div>
         {filtersAreActive() && (
-          <Button
-            fullWidth
-            variant="contained"
-            color="secondary"
-            startIcon={<HighlightOff />}
-            onClick={onClearFilters}
-          >
-            Clear filters
-          </Button>
+          <div className={classes.button}>
+            <Button
+              fullWidth
+              variant="contained"
+              color="secondary"
+              startIcon={<HighlightOff />}
+              onClick={onClearFilters}
+            >
+              Clear filters
+            </Button>
+          </div>
         )}
       </div>
-    </div>
+    </AppFieldset>
   )
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles, Typography, Divider, Button } from '@material-ui/core'
+import { makeStyles, Typography, Button } from '@material-ui/core'
 import { Bookmarks } from '@material-ui/icons'
 import { ContentBox } from '../common/ContentBox'
 import { CommonResiduesTable } from './CommonResiduesTable'
@@ -10,6 +10,7 @@ import {
 import { CommonResidueFilters } from './CommonResidueFilters'
 import _ from 'lodash'
 import { SourcesDialog } from './SourcesDialog'
+import { AppDivider } from '../common/AppDivider'
 
 const useStyles = makeStyles({
   root: {
@@ -248,12 +249,12 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
             View sources
           </Button>
         </div>
+        <AppDivider />
         <CommonResidueFilters
           filters={filters}
           onChangeFilters={handleChangeFilters}
           onClearFilters={handleClearFilters}
         />
-        <Divider />
         <div className={classes.table}>
           <CommonResiduesTable
             onAddResidue={onAddResidue}
