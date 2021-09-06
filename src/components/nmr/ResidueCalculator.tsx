@@ -3,49 +3,40 @@ import {
   makeStyles,
   Typography,
   TextField,
-  Divider,
   Button,
-  Paper,
   Tooltip,
   Snackbar,
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { AddCircleOutline, FileCopy } from '@material-ui/icons'
 import { ContentBox } from '../common/ContentBox'
+import { AppFieldset } from '../common/AppFieldset'
 import { ResidueTable } from './ResidueTable'
 import { IResidue, IState } from './NmrResiduePage'
 import {
   H_NMR_COMMON_RESIDUES,
   ICommonResidue,
 } from '../../data/H_NMR_RESIDUES'
+import { AppDivider } from '../common/AppDivider'
 
 const useStyles = makeStyles((theme) => ({
-  productPaper: {
-    padding: '10px',
-    margin: '20px auto 20px auto',
-    width: '500px',
-  },
   productDiv: {
-    margin: 'auto',
+    margin: '20px auto 20px auto',
+    width: '550px',
+  },
+  productSpecs: {
+    padding: '10px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   molWeight: {
-    width: '220px',
-  },
-  table: {
-    margin: '20px auto 20px auto',
-    width: '95%',
+    width: '50%',
   },
   button: {
     margin: 'auto',
-    marginBottom: '20px',
+    marginTop: '20px',
     width: '50%',
-  },
-  puritySentence: {
-    margin: '20px auto auto auto',
-    width: '95%',
   },
 }))
 
@@ -154,25 +145,26 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
         calculated. The common residue table below can be used to identify your
         residues.
       </Typography>
-      <Paper variant="outlined" className={classes.productPaper}>
-        <div className={classes.productDiv}>
-          <TextField
-            className={classes.molWeight}
-            size="small"
-            variant="outlined"
-            color="secondary"
-            inputProps={{ maxLength: 10 }}
-            label="Molecular weight (g/mol)"
-            value={state.product.molWeight}
-            onChange={(event) => onChangeMolWeight(event.target.value)}
-            onFocus={(event) => event.target.select()}
-          />
-          <span>
-            {`Purity: ${
-              !isNaN(parseFloat(state.product.purity.molPercent))
-                ? parseFloat(state.product.purity.molPercent).toFixed(2)
-                : '-'
-            }
+      <div className={classes.productDiv}>
+        <AppFieldset title="Product">
+          <div className={classes.productSpecs}>
+            <TextField
+              className={classes.molWeight}
+              size="small"
+              variant="outlined"
+              color="secondary"
+              inputProps={{ maxLength: 10 }}
+              label="Molecular weight (g/mol)"
+              value={state.product.molWeight}
+              onChange={(event) => onChangeMolWeight(event.target.value)}
+              onFocus={(event) => event.target.select()}
+            />
+            <span>
+              {`Purity: ${
+                !isNaN(parseFloat(state.product.purity.molPercent))
+                  ? parseFloat(state.product.purity.molPercent).toFixed(2)
+                  : '-'
+              }
           mol%
           ${
             !isNaN(parseFloat(state.product.purity.wtPercent))
@@ -180,18 +172,17 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
               : '-'
           }
           wt%`}
-          </span>
-        </div>
-      </Paper>
-      <Divider />
-      <div className={classes.table}>
-        <ResidueTable
-          data={state.residues}
-          onResidueChange={onChangeResidue}
-          onDelete={onDeleteResidue}
-          onSelectResidue={onSelectResidue}
-        />
+            </span>
+          </div>
+        </AppFieldset>
       </div>
+      <AppDivider />
+      <ResidueTable
+        data={state.residues}
+        onResidueChange={onChangeResidue}
+        onDelete={onDeleteResidue}
+        onSelectResidue={onSelectResidue}
+      />
       <div className={classes.button}>
         <Button
           fullWidth
@@ -205,11 +196,8 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
       </div>
       {renderPuritySentence() && (
         <div>
-          <Divider />
-          <div
-            className={classes.puritySentence}
-            onClick={() => handleCopyPuritySentence(renderPuritySentence())}
-          >
+          <AppDivider />
+          <div onClick={() => handleCopyPuritySentence(renderPuritySentence())}>
             <Tooltip title="Copy to clipboard" arrow>
               <Alert
                 variant="outlined"

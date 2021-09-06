@@ -1,5 +1,4 @@
 import { createTheme } from '@material-ui/core'
-import { SportsRugbySharp } from '@material-ui/icons'
 
 export const lightTheme = createTheme({
   palette: {
