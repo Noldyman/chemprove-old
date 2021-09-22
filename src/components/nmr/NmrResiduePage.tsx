@@ -74,6 +74,14 @@ const reducer = (draftState: IState, action: IAction) => {
       break
     case ACTIONS.ADD_COMMON_RESIDUE:
       const [id, molWeight, numOfProtons] = action.payload
+      if (
+        draftState.residues.length === 1 &&
+        draftState.residues[0].molWeight === '0' &&
+        draftState.residues[0].numOfProtons === '1' &&
+        draftState.residues[0].integral === '0'
+      ) {
+        draftState.residues.splice(0, 1)
+      }
       draftState.residues.push(newResidue(id, molWeight, numOfProtons))
       calculatePurities(draftState)
       break
@@ -85,6 +93,7 @@ const reducer = (draftState: IState, action: IAction) => {
         molWeight: newItem.resMolWeight,
         numOfProtons: newItem.resNumOfProtons,
       }
+
       calculatePurities(draftState)
       break
     case ACTIONS.CHANGE_RESIDUE:
@@ -274,7 +283,10 @@ const NmrResiduePage: React.FC = () => {
     })
   }
 
-  const handleSelectSignal = (residue: ICommonResidue, signalIndex: number) => {
+  const handleSelectSignal = async (
+    residue: ICommonResidue,
+    signalIndex: number
+  ) => {
     if (selectSignalResidue.isViaSelector) {
       const newItem = {
         resId: residue.id,
@@ -287,16 +299,26 @@ const NmrResiduePage: React.FC = () => {
         payload: { index: selectSignalResidue.residueIndex, newItem: newItem },
       })
     } else {
-      handleAddResidue()
-
+      let newItemIndex = state.residues.length - 1
       const newItem = {
         resId: residue.id,
         resMolWeight: residue.molWeight,
         resNumOfProtons: residue.signals[signalIndex].proton.amount,
       }
+
+      if (
+        newItemIndex !== 0 ||
+        state.residues[0].molWeight !== '0' ||
+        state.residues[0].numOfProtons !== '1' ||
+        state.residues[0].integral !== '0'
+      ) {
+        newItemIndex++
+        handleAddResidue()
+      }
+
       dispatch({
         type: ACTIONS.AUTOFILL_RESIDUE,
-        payload: { index: state.residues.length, newItem: newItem },
+        payload: { index: newItemIndex, newItem: newItem },
       })
       setAddedResidue({ open: true, residueName: residue.compound })
     }
