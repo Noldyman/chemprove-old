@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import { Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
+import { v4 as uuidv4 } from 'uuid'
 import { useImmerReducer } from 'use-immer'
 import { ResidueCalculator } from './ResidueCalculator'
 import { CommonResidues } from './CommonResidues'
@@ -156,6 +156,9 @@ const calculatePurities = (draftState: IState) => {
 
 const NmrResiduePage: React.FC = () => {
   const [state, dispatch] = useImmerReducer(reducer, initialState)
+  const [selectedSolvent, setSelectedSolvent] = useState(
+    localStorage.getItem('selectedSolvent') || 'chloroform_d'
+  )
   const [selectSignalResidue, setSelectSignalResidue] = useState<{
     residue: ICommonResidue | null
     isViaSelector: boolean
@@ -166,7 +169,7 @@ const NmrResiduePage: React.FC = () => {
     residueName: '',
   })
 
-  const handleMolWeightChange = (value: string) => {
+  const handleChangeMolWeight = (value: string) => {
     value = value.replace(',', '.')
     if (value.match(/[^0-9.]/g)) return
     if (value.match(/[.]/g) && value.match(/[.]/g)!.length > 1) return
@@ -175,6 +178,11 @@ const NmrResiduePage: React.FC = () => {
       type: ACTIONS.CHANGE_MOLWEIGHT,
       payload: { input: value },
     })
+  }
+
+  const handleChangeSolvent = (value: string) => {
+    setSelectedSolvent(value)
+    localStorage.setItem('selectedSolvent', value)
   }
 
   const handleChangeResidue = (
@@ -305,15 +313,21 @@ const NmrResiduePage: React.FC = () => {
     <div>
       <ResidueCalculator
         state={state}
-        onChangeMolWeight={handleMolWeightChange}
+        onChangeMolWeight={handleChangeMolWeight}
         onChangeResidue={handleChangeResidue}
         onDeleteResidue={handleDeleteResidue}
         onAddResidue={handleAddResidue}
         onSelectResidue={handleSelectResidue}
       />
-      <CommonResidues onAddResidue={handleAddCommonResidue} />
+      <CommonResidues
+        onAddResidue={handleAddCommonResidue}
+        selectedSolvent={selectedSolvent}
+        onChangeSolvent={(value: string) => handleChangeSolvent(value)}
+      />
       <SelectSignalDialog
         residue={selectSignalResidue.residue}
+        selectedSolvent={selectedSolvent}
+        onSolventChange={(value: string) => handleChangeSolvent(value)}
         onClose={() =>
           setSelectSignalResidue({ residue: null, isViaSelector: false })
         }

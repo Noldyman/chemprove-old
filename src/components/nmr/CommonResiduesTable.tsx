@@ -1,11 +1,11 @@
 import React from 'react'
-import { v4 as uuidv4 } from 'uuid'
 import { makeStyles, IconButton, Tooltip } from '@material-ui/core'
 import { PlaylistAdd } from '@material-ui/icons'
+import { v4 as uuidv4 } from 'uuid'
+import _ from 'lodash'
 import { AppTable, IColumnObj } from '../common/AppTable'
 import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
-import _ from 'lodash'
-import { IFilters } from './CommonResidues'
+import { IFilters, NmrSolvents } from './CommonResidues'
 
 const useStyles = makeStyles((theme) => ({
   filterHit: {
@@ -24,12 +24,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface CommonResiduesTableProps {
+  selectedSolvent: string
   onAddResidue: (item: ICommonResidue) => void
   filteredData: ICommonResidue[]
   filters: IFilters
 }
 
 const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
+  selectedSolvent,
   onAddResidue,
   filteredData,
   filters,
@@ -39,78 +41,44 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
   const checkFilterHit = (signal: ISignalObj, path: string) => {
     if (filters.chemShift) {
       const currentValue = _.get(signal, path)
-      const shift = parseFloat(filters.chemShift)
-      const dev = parseFloat(filters.deviation) || 0
+      const filterShift = parseFloat(filters.chemShift)
+      const filterDev = parseFloat(filters.deviation) || 0
 
-      if (filters.solvent && filters.multiplicity) {
+      if (filters.multiplicity) {
         if (typeof currentValue === 'object') {
           if (
-            path.includes(filters.solvent) &&
+            path.includes(selectedSolvent as NmrSolvents) &&
             signal.proton.multiplicity === filters.multiplicity &&
             currentValue &&
-            currentValue.highShift >= shift - dev &&
-            currentValue.lowShift <= shift + dev
+            currentValue.highShift >= filterShift - filterDev &&
+            currentValue.lowShift <= filterShift + filterDev
           )
             return true
         } else {
           if (
-            path.includes(filters.solvent) &&
+            path.includes(selectedSolvent as NmrSolvents) &&
             signal.proton.multiplicity === filters.multiplicity &&
             currentValue &&
-            currentValue >= shift - dev &&
-            currentValue <= shift + dev
-          )
-            return true
-        }
-      } else if (filters.solvent) {
-        if (typeof currentValue === 'object') {
-          if (
-            path.includes(filters.solvent) &&
-            currentValue &&
-            currentValue.highShift >= shift - dev &&
-            currentValue.lowShift <= shift + dev
-          )
-            return true
-        } else {
-          if (
-            path.includes(filters.solvent) &&
-            currentValue &&
-            currentValue >= shift - dev &&
-            currentValue <= shift + dev
-          )
-            return true
-        }
-      } else if (filters.multiplicity) {
-        if (typeof currentValue === 'object') {
-          if (
-            signal.proton.multiplicity === filters.multiplicity &&
-            currentValue &&
-            currentValue.highShift >= shift - dev &&
-            currentValue.lowShift <= shift + dev
-          )
-            return true
-        } else {
-          if (
-            signal.proton.multiplicity === filters.multiplicity &&
-            currentValue &&
-            currentValue >= shift - dev &&
-            currentValue <= shift + dev
+            currentValue >= filterShift - filterDev &&
+            currentValue <= filterShift + filterDev
           )
             return true
         }
       } else {
         if (typeof currentValue === 'object') {
           if (
+            path.includes(selectedSolvent as NmrSolvents) &&
             currentValue &&
-            currentValue.highShift >= shift - dev &&
-            currentValue.lowShift <= shift + dev
+            currentValue.highShift >= filterShift - filterDev &&
+            currentValue.lowShift <= filterShift + filterDev
           )
             return true
         } else {
           if (
+            path.includes(selectedSolvent as NmrSolvents) &&
             currentValue &&
-            currentValue >= shift - dev &&
-            currentValue <= shift + dev
+            currentValue >= filterShift - filterDev &&
+            currentValue <= filterShift + filterDev
           )
             return true
         }
@@ -118,93 +86,62 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     }
   }
 
-  const renderStackableValues = (item: ICommonResidue, path: string) => {
-    return (
-      <div style={{ lineHeight: 1.8 }}>
-        {item.signals.map((signal) => {
-          const value = _.get(signal, path)
-          if (value && typeof value === 'object') {
-            return (
-              <Tooltip
-                key={uuidv4()}
-                arrow
-                placement="top"
-                title={`${value.highShift.toFixed(
-                  2
-                )} - ${value.lowShift.toFixed(2)}`}
-              >
-                <span
-                  key={uuidv4()}
-                  className={
-                    item.compound !== 'Solvent peaks' &&
-                    checkFilterHit(signal, path)
-                      ? classes.filterHit
-                      : classes.standardValue
-                  }
-                >
-                  <em>
-                    {' '}
-                    <u>{((value.lowShift + value.highShift) / 2).toFixed(2)}</u>
-                  </em>
-                  <br />
-                </span>
-              </Tooltip>
-            )
-          }
+  const renderChemShifts = (item: ICommonResidue, path: string) => (
+    <div style={{ lineHeight: 2 }}>
+      {item.signals.map((signal) => {
+        const value = _.get(signal, path)
+        if (value === undefined) {
+          return (
+            <span>
+              No data available
+              <br />
+            </span>
+          )
+        } else if (value && typeof value === 'object') {
           return (
             <span
               key={uuidv4()}
               className={
-                item.compound !== 'Solvent peaks' &&
-                checkFilterHit(signal, path)
+                item.compound !== 'Solvent peak' && checkFilterHit(signal, path)
                   ? classes.filterHit
                   : classes.standardValue
               }
             >
-              {value ? value.toFixed(2) : null}
+              {`${value.lowShift.toFixed(2)} - ${value.highShift.toFixed(2)}`}
               <br />
             </span>
           )
-        })}
-      </div>
-    )
-  }
+        }
+        return (
+          <span
+            key={uuidv4()}
+            className={
+              item.compound !== 'Solvent peak' && checkFilterHit(signal, path)
+                ? classes.filterHit
+                : classes.standardValue
+            }
+          >
+            {value ? value.toFixed(2) : '-'}
+            <br />
+          </span>
+        )
+      })}
+    </div>
+  )
 
-  const renderProtons = (item: ICommonResidue) => {
-    return (
-      <div style={{ lineHeight: 1.8 }}>
-        {item.signals.map((signal) => {
-          if (item.compound !== 'Solvent peaks') {
-            return (
-              <span key={uuidv4()}>
-                {signal.proton.formula}
-                <br />
-              </span>
-            )
-          }
-          return null
-        })}
-      </div>
-    )
-  }
-
-  const renderMultiplicities = (item: ICommonResidue) => {
-    return (
-      <div style={{ lineHeight: 1.8 }}>
-        {item.signals.map((signal) => {
-          if (item.compound !== 'Solvent peaks') {
-            return (
-              <span key={uuidv4()}>
-                {signal.proton.multiplicity} ({signal.proton.amount}H)
-                <br />
-              </span>
-            )
-          }
-          return null
-        })}
-      </div>
-    )
-  }
+  const renderStackableItems = (item: ICommonResidue, path: string) => (
+    <div style={{ lineHeight: 2 }}>
+      {item.signals.map((signal) => (
+        <span key={uuidv4()}>
+          {_.get(signal, path)}
+          {path.includes('amount') && item.compound !== 'Solvent peak'
+            ? 'H'
+            : null}
+          <br />
+        </span>
+      ))}
+    </div>
+  )
 
   const columns: IColumnObj[] = [
     {
@@ -214,59 +151,30 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     {
       label: 'Proton',
       path: 'signals',
-      content: (item, value) => renderProtons(item),
+      content: (item, value) => renderStackableItems(item, 'proton.formula'),
     },
     {
-      label: 'Mult. (#H)',
+      label: 'Multiplicity',
       path: 'signals',
 
-      content: (item, value) => renderMultiplicities(item),
+      content: (item, value) =>
+        renderStackableItems(item, 'proton.multiplicity'),
     },
     {
-      label: `Chloroform d`,
+      label: 'Number of protons',
       path: 'signals',
-      content: (item, value) =>
-        renderStackableValues(item, 'chemShifts.chloroform_d'),
+
+      content: (item, value) => renderStackableItems(item, 'proton.amount'),
     },
     {
-      label: 'Acetone d6',
+      label: 'Chemical shift (PPM)',
       path: 'signals',
       content: (item, value) =>
-        renderStackableValues(item, 'chemShifts.acetone_d6'),
-    },
-    {
-      label: 'DMSO d6',
-      path: 'signals',
-      content: (item, value) =>
-        renderStackableValues(item, 'chemShifts.dmso_d6'),
-    },
-    {
-      label: 'Benzene d6',
-      path: 'signals',
-      content: (item, value) =>
-        renderStackableValues(item, 'chemShifts.benzene_d6'),
-    },
-    {
-      label: 'Acetonitrile d3',
-      path: 'signals',
-      content: (item, value) =>
-        renderStackableValues(item, 'chemShifts.acetonitrile_d3'),
-    },
-    {
-      label: 'Methanol d4',
-      path: 'signals',
-      content: (item, value) =>
-        renderStackableValues(item, 'chemShifts.methanol_d4'),
-    },
-    {
-      label: 'Water d2',
-      path: 'signals',
-      content: (item, value) =>
-        renderStackableValues(item, 'chemShifts.water_d2'),
+        renderChemShifts(item, `chemShifts.${selectedSolvent as NmrSolvents}`),
     },
     {
       content: (item) => {
-        if (item.compound !== 'Solvent peaks') {
+        if (item.compound !== 'Solvent peak') {
           return (
             <Tooltip
               key={uuidv4()}

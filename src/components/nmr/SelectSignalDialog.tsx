@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   makeStyles,
   Dialog,
@@ -14,10 +14,11 @@ import {
   Button,
   TableBody,
 } from '@material-ui/core'
-import { v4 as uuidv4 } from 'uuid'
-import { nmrSolvents } from './CommonResidueFilters'
 import { KeyboardArrowRight } from '@material-ui/icons'
+import { v4 as uuidv4 } from 'uuid'
 import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
+import { NmrSolvents } from './CommonResidues'
+import { nmrSolvents } from './CommonResidueFilters'
 
 const useStyles = makeStyles({
   content: {
@@ -39,37 +40,25 @@ const useStyles = makeStyles({
   },
 })
 
-export type NmrSolvents =
-  | 'chloroform_d'
-  | 'acetone_d6'
-  | 'dmso_d6'
-  | 'benzene_d6'
-  | 'acetonitrile_d3'
-  | 'methanol_d4'
-  | 'water_d2'
-
 interface SelectSignalDialogProps {
   residue: ICommonResidue | null
+  selectedSolvent: string
+  onSolventChange: (value: string) => void
   onClose: () => void
   onSelectSignal: (residue: ICommonResidue, signalIndex: number) => void
 }
 
 const SelectSignalDialog: React.FC<SelectSignalDialogProps> = ({
   residue,
+  selectedSolvent,
+  onSolventChange,
   onClose,
   onSelectSignal,
 }) => {
   const classes = useStyles()
 
-  const [selectedSolvent, setSelectedSolvent] =
-    useState<NmrSolvents>('chloroform_d')
-
-  const handleSelectSolvent = (value: NmrSolvents) => {
-    setSelectedSolvent(value)
-  }
-
   const renderChemShifts = (signal: ISignalObj) => {
-    const chemShift = signal.chemShifts[selectedSolvent]
+    const chemShift = signal.chemShifts[selectedSolvent as NmrSolvents]
     if (chemShift) {
       if (typeof chemShift === 'object') {
         return `${chemShift.highShift.toFixed(
@@ -101,7 +90,7 @@ const SelectSignalDialog: React.FC<SelectSignalDialogProps> = ({
               label="Solvent"
               value={selectedSolvent}
               onChange={(event) =>
-                handleSelectSolvent(event.target.value as NmrSolvents)
+                onSolventChange(event.target.value as NmrSolvents)
               }
             >
               {nmrSolvents.map((s) => (

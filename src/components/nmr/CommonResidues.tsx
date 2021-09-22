@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { makeStyles, Typography, Button } from '@material-ui/core'
 import { Bookmarks } from '@material-ui/icons'
-import { ContentBox } from '../common/ContentBox'
-import { CommonResiduesTable } from './CommonResiduesTable'
+import _ from 'lodash'
 import {
   H_NMR_COMMON_RESIDUES,
   ICommonResidue,
 } from '../../data/H_NMR_RESIDUES'
-import { CommonResidueFilters } from './CommonResidueFilters'
-import _ from 'lodash'
-import { SourcesDialog } from './SourcesDialog'
+import { ContentBox } from '../common/ContentBox'
 import { AppDivider } from '../common/AppDivider'
+import { CommonResiduesTable } from './CommonResiduesTable'
+import { CommonResidueFilters } from './CommonResidueFilters'
+import { SourcesDialog } from './SourcesDialog'
 
 const useStyles = makeStyles({
   root: {
@@ -30,7 +30,6 @@ const useStyles = makeStyles({
 })
 
 export type NmrSolvents =
-  | ''
   | 'chloroform_d'
   | 'acetone_d6'
   | 'dmso_d6'
@@ -43,7 +42,6 @@ type Multiplicities = '' | 's' | 'd' | 't' | 'q' | 'm'
 
 export interface IFilters {
   residueName: string
-  solvent: NmrSolvents
   chemShift: string
   deviation: string
   multiplicity: Multiplicities
@@ -51,14 +49,19 @@ export interface IFilters {
 
 interface CommonResiduesProps {
   onAddResidue: (residue: ICommonResidue) => void
+  selectedSolvent: string
+  onChangeSolvent: (value: string) => void
 }
 
-const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
+const CommonResidues: React.FC<CommonResiduesProps> = ({
+  onAddResidue,
+  selectedSolvent,
+  onChangeSolvent,
+}) => {
   const classes = useStyles()
 
   const [filters, setFilters] = useState<IFilters>({
     residueName: '',
-    solvent: '',
     chemShift: '',
     deviation: '',
     multiplicity: '',
@@ -92,7 +95,6 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
   const handleClearFilters = () => {
     setFilters({
       residueName: '',
-      solvent: '',
       chemShift: '',
       deviation: '',
       multiplicity: '',
@@ -120,11 +122,11 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
       if (isNaN(parseFloat(filters.chemShift)))
         return [H_NMR_COMMON_RESIDUES[0], ...data]
 
-      if (filters.solvent && filters.multiplicity) {
+      if (filters.multiplicity) {
         data.forEach((res) => {
           res.signals.forEach((sig) => {
-            if (filters.solvent === '') return
-            const chemShiftAtSolvent = sig.chemShifts[filters.solvent]
+            const chemShiftAtSolvent =
+              sig.chemShifts[selectedSolvent as NmrSolvents]
             if (typeof chemShiftAtSolvent === 'object') {
               if (
                 sig.proton.multiplicity === filters.multiplicity &&
@@ -144,87 +146,35 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
                 matchingResidueId.push(res.id)
               }
             }
-          })
-        })
-      } else if (filters.solvent) {
-        data.forEach((res) => {
-          res.signals.forEach((sig) => {
-            if (filters.solvent === '') return
-            const chemShiftAtSolvent = sig.chemShifts[filters.solvent]
-            if (typeof chemShiftAtSolvent === 'object') {
-              if (
-                chemShiftAtSolvent &&
-                chemShiftAtSolvent.highShift >= shift - dev &&
-                chemShiftAtSolvent.lowShift <= shift + dev
-              ) {
-                matchingResidueId.push(res.id)
-              }
-            } else {
-              if (
-                chemShiftAtSolvent &&
-                chemShiftAtSolvent >= shift - dev &&
-                chemShiftAtSolvent <= shift + dev
-              ) {
-                matchingResidueId.push(res.id)
-              }
-            }
-          })
-        })
-      } else if (filters.multiplicity) {
-        data.forEach((res) => {
-          res.signals.forEach((sig) => {
-            _.values(sig.chemShifts).forEach((chemShift) => {
-              if (typeof chemShift === 'object') {
-                if (
-                  sig.proton.multiplicity === filters.multiplicity &&
-                  chemShift &&
-                  chemShift.highShift >= shift - dev &&
-                  chemShift.lowShift <= shift + dev
-                ) {
-                  matchingResidueId.push(res.id)
-                }
-              } else {
-                if (
-                  sig.proton.multiplicity === filters.multiplicity &&
-                  chemShift &&
-                  chemShift >= shift - dev &&
-                  chemShift <= shift + dev
-                ) {
-                  matchingResidueId.push(res.id)
-                }
-              }
-            })
           })
         })
       } else {
         data.forEach((res) => {
           res.signals.forEach((sig) => {
-            _.values(sig.chemShifts).forEach((chemShift) => {
-              if (typeof chemShift === 'object') {
-                if (
-                  chemShift &&
-                  chemShift.highShift >= shift - dev &&
-                  chemShift.lowShift <= shift + dev
-                ) {
-                  matchingResidueId.push(res.id)
-                }
-              } else {
-                if (
-                  chemShift &&
-                  chemShift >= shift - dev &&
-                  chemShift <= shift + dev
-                ) {
-                  matchingResidueId.push(res.id)
-                }
+            const chemShiftAtSolvent =
+              sig.chemShifts[selectedSolvent as NmrSolvents]
+            if (typeof chemShiftAtSolvent === 'object') {
+              if (
+                chemShiftAtSolvent &&
+                chemShiftAtSolvent.highShift >= shift - dev &&
+                chemShiftAtSolvent.lowShift <= shift + dev
+              ) {
+                matchingResidueId.push(res.id)
               }
-            })
+            } else {
+              if (
+                chemShiftAtSolvent &&
+                chemShiftAtSolvent >= shift - dev &&
+                chemShiftAtSolvent <= shift + dev
+              ) {
+                matchingResidueId.push(res.id)
+              }
+            }
           })
         })
       }
-
       data = data.filter((res) => matchingResidueId.includes(res.id))
     }
-
     return [H_NMR_COMMON_RESIDUES[0], ...data]
   }
 
@@ -232,11 +182,12 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
     <div className={classes.root}>
       <ContentBox title="Common residues in standard NMR solvents">
         <Typography align="center">
-          This table shows the chemical shifts (PPM) of different residues in
-          commonly used NMR solvents. The data can be filtered by name or
-          chemical shift. <br />
-          Residues can be added to the NMR residue calculator by clicking the
-          add button.
+          This table shows the chemical shifts of common solvents and residues
+          in <sup>1</sup>H NMR spectroscopy. Select the deuterated solvent that
+          was used for your analysis. Most commonly used NMR solvents are
+          included. In order to identify your residues, the data can be filtered
+          by name or chemical shift. When a residue is identified, it can be
+          added to the NMR residue calculator by clicking the add button.
         </Typography>
         <div className={classes.sources}>
           <Button
@@ -252,11 +203,14 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({ onAddResidue }) => {
         <AppDivider />
         <CommonResidueFilters
           filters={filters}
+          selectedSolvent={selectedSolvent}
+          onChangeSolvent={onChangeSolvent}
           onChangeFilters={handleChangeFilters}
           onClearFilters={handleClearFilters}
         />
         <div className={classes.table}>
           <CommonResiduesTable
+            selectedSolvent={selectedSolvent}
             onAddResidue={onAddResidue}
             filteredData={filterData()}
             filters={filters}

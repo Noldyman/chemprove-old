@@ -9,15 +9,15 @@ import {
 } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import { AddCircleOutline, FileCopy } from '@material-ui/icons'
-import { ContentBox } from '../common/ContentBox'
-import { AppFieldset } from '../common/AppFieldset'
-import { ResidueTable } from './ResidueTable'
-import { IResidue, IState } from './NmrResiduePage'
 import {
   H_NMR_COMMON_RESIDUES,
   ICommonResidue,
 } from '../../data/H_NMR_RESIDUES'
+import { ContentBox } from '../common/ContentBox'
+import { AppFieldset } from '../common/AppFieldset'
 import { AppDivider } from '../common/AppDivider'
+import { ResidueTable } from './ResidueTable'
+import { IResidue, IState } from './NmrResiduePage'
 
 const useStyles = makeStyles((theme) => ({
   productDiv: {
@@ -159,6 +159,9 @@ const ResidueCalculator: React.FC<ResidueCalculatorProps> = ({
               onChange={(event) => onChangeMolWeight(event.target.value)}
               onFocus={(event) => event.target.select()}
             />
+            <div>
+              <AppDivider vertical={true} />
+            </div>
             <span>
               {`Purity: ${
                 !isNaN(parseFloat(state.product.purity.molPercent))

@@ -56,11 +56,12 @@ const multiplicities = [
 interface CommonResidueFiltersProps {
   filters: {
     residueName: string
-    solvent: string
     chemShift: string
     deviation: string
     multiplicity: string
   }
+  selectedSolvent: string
+  onChangeSolvent: (value: string) => void
   onChangeFilters: (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void
@@ -69,23 +70,30 @@ interface CommonResidueFiltersProps {
 
 const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
   filters,
+  selectedSolvent,
+  onChangeSolvent,
   onChangeFilters,
   onClearFilters,
 }) => {
   const classes = useStyles()
 
-  const renderMenuItems = (Arr: { name: string; value: string }[]) => {
+  const renderMenuItems = (
+    Arr: { name: string; value: string }[],
+    includeNone: boolean
+  ) => {
     const menuItems = Arr.map((c) => (
       <MenuItem value={c.value} key={uuidv4()}>
         {c.name}
       </MenuItem>
     ))
-    return [
-      <MenuItem value="" key={uuidv4()}>
-        <em>None</em>
-      </MenuItem>,
-      ...menuItems,
-    ]
+    if (includeNone)
+      return [
+        <MenuItem value="" key={uuidv4()}>
+          <em>None</em>
+        </MenuItem>,
+        ...menuItems,
+      ]
+    return [...menuItems]
   }
 
   const filtersAreActive = () => {
@@ -112,10 +120,11 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
             color="secondary"
             label="Solvent"
             name="solvent"
-            value={filters.solvent}
-            onChange={(event) => onChangeFilters(event)}
+            style={{ textAlign: 'left' }}
+            value={selectedSolvent}
+            onChange={(event) => onChangeSolvent(event.target.value)}
           >
-            {renderMenuItems(nmrSolvents)}
+            {renderMenuItems(nmrSolvents, false)}
           </TextField>
         </div>
         <div>
@@ -168,10 +177,11 @@ const CommonResidueFilters: React.FC<CommonResidueFiltersProps> = ({
             color="secondary"
             label="Multiplicity"
             name="multiplicity"
+            style={{ textAlign: 'left' }}
             value={filters.multiplicity}
             onChange={(event) => onChangeFilters(event)}
           >
-            {renderMenuItems(multiplicities)}
+            {renderMenuItems(multiplicities, true)}
           </TextField>
         </div>
       </div>
