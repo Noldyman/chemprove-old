@@ -16,10 +16,13 @@ import {
 const useStyles = makeStyles({
   autocomplete: {
     width: 300,
-    '@media (max-width: 1300px)': {
+    '@media (max-width: 1100px)': {
+      width: 280,
+    },
+    '@media (max-width: 900px)': {
       width: 250,
     },
-    '@media (max-width: 1205px)': {
+    '@media (max-width: 800px)': {
       width: 220,
     },
   },
