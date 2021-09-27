@@ -38,7 +38,7 @@ export type NmrSolvents =
   | 'methanol_d4'
   | 'water_d2'
 
-type Multiplicities = '' | 's' | 'd' | 't' | 'q' | 'm'
+type Multiplicities = '' | 's' | 'd' | 'dd' | 't' | 'q' | 'sept' | 'nonet' | 'm'
 
 export interface IFilters {
   residueName: string

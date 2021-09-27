@@ -86,18 +86,30 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     }
   }
 
-  const renderChemShifts = (item: ICommonResidue, path: string) => (
-    <div style={{ lineHeight: 2 }}>
-      {item.signals.map((signal) => {
-        const value = _.get(signal, path)
-        if (value === undefined) {
-          return (
-            <span>
-              No data available
-              <br />
-            </span>
-          )
-        } else if (value && typeof value === 'object') {
+  const renderChemShifts = (item: ICommonResidue, path: string) => {
+    if (item.signals.find((signal) => _.get(signal, path) === undefined)) {
+      return <span>No data available</span>
+    }
+    return (
+      <div style={{ lineHeight: 2 }}>
+        {item.signals.map((signal) => {
+          const value = _.get(signal, path)
+          if (value && typeof value === 'object') {
+            return (
+              <span
+                key={uuidv4()}
+                className={
+                  item.compound !== 'Solvent peak' &&
+                  checkFilterHit(signal, path)
+                    ? classes.filterHit
+                    : classes.standardValue
+                }
+              >
+                {`${value.highShift.toFixed(2)} - ${value.lowShift.toFixed(2)}`}
+                <br />
+              </span>
+            )
+          }
           return (
             <span
               key={uuidv4()}
@@ -107,27 +119,14 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
                   : classes.standardValue
               }
             >
-              {`${value.lowShift.toFixed(2)} - ${value.highShift.toFixed(2)}`}
+              {value ? value.toFixed(2) : '-'}
               <br />
             </span>
           )
-        }
-        return (
-          <span
-            key={uuidv4()}
-            className={
-              item.compound !== 'Solvent peak' && checkFilterHit(signal, path)
-                ? classes.filterHit
-                : classes.standardValue
-            }
-          >
-            {value ? value.toFixed(2) : '-'}
-            <br />
-          </span>
-        )
-      })}
-    </div>
-  )
+        })}
+      </div>
+    )
+  }
 
   const renderStackableItems = (item: ICommonResidue, path: string) => (
     <div style={{ lineHeight: 2 }}>

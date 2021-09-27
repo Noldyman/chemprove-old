@@ -48,8 +48,11 @@ export const nmrSolvents = [
 const multiplicities = [
   { name: 's', value: 's' },
   { name: 'd', value: 'd' },
+  { name: 'dd', value: 'dd' },
   { name: 't', value: 't' },
   { name: 'q', value: 'q' },
+  { name: 'sept', value: 'sept' },
+  { name: 'nonet', value: 'nonet' },
   { name: 'm', value: 'm' },
 ]
 
