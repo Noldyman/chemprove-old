@@ -5,11 +5,13 @@ import { Alert } from '@material-ui/lab'
 import { AppBar } from './components/general/AppBar'
 import { lightTheme, darkTheme } from './themesAndStyles/themes'
 import { NmrResiduePage } from './components/nmr/NmrResiduePage'
+import { ContactDialog } from './components/general/ContactDialog'
 
 function App() {
   const [isThemeDark, setIsThemeDark] = useState(
     localStorage.getItem('isThemeDark') === 'true' || false
   )
+  const [contactIsOpen, setContactIsOpen] = useState(false)
 
   useEffect(() => {
     if (!localStorage.getItem('isThemeDark')) {
@@ -23,6 +25,10 @@ function App() {
     localStorage.setItem('isThemeDark', (!isDarkTheme).toString())
   }
 
+  const handleContactToggle = () => {
+    setContactIsOpen((prevValue) => !prevValue)
+  }
+
   return (
     <ThemeProvider
       theme={
@@ -31,7 +37,11 @@ function App() {
     >
       <CssBaseline />
       <div className="App">
-        <AppBar isThemeDark={isThemeDark} onThemeToggle={handleThemeToggle} />
+        <AppBar
+          isThemeDark={isThemeDark}
+          onThemeToggle={handleThemeToggle}
+          onContactClick={handleContactToggle}
+        />
         <div className="content">
           <Alert
             severity="error"
@@ -45,6 +55,10 @@ function App() {
           </Alert>
           <NmrResiduePage />
         </div>
+        <ContactDialog
+          contactIsOpen={contactIsOpen}
+          onClose={handleContactToggle}
+        />
       </div>
     </ThemeProvider>
   )
