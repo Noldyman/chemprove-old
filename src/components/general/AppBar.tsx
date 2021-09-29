@@ -7,7 +7,7 @@ import {
   Tooltip,
   IconButton,
 } from '@material-ui/core'
-import { NightsStay, Brightness7 } from '@material-ui/icons'
+import { NightsStay, Brightness7, ContactMail } from '@material-ui/icons'
 
 const useStyles = makeStyles({
   settings: {
@@ -20,19 +20,26 @@ const useStyles = makeStyles({
 interface AppBarProps {
   isThemeDark: boolean
   onThemeToggle: () => void
+  onContactClick: () => void
 }
 
-const AppBar: React.FC<AppBarProps> = ({ isThemeDark, onThemeToggle }) => {
+const AppBar: React.FC<AppBarProps> = ({
+  isThemeDark,
+  onThemeToggle,
+  onContactClick,
+}) => {
   const classes = useStyles()
 
   const renderThemeButton = () => {
     const toTheme = `Switch to ${isThemeDark ? 'light theme' : 'dark theme'}`
     return (
-      <Tooltip title={toTheme} placement="left" arrow>
-        <IconButton style={{ color: '#e0e0e0' }} onClick={onThemeToggle}>
-          {isThemeDark ? <Brightness7 /> : <NightsStay />}
-        </IconButton>
-      </Tooltip>
+      <div>
+        <Tooltip title={toTheme} placement="left" arrow>
+          <IconButton style={{ color: '#e0e0e0' }} onClick={onThemeToggle}>
+            {isThemeDark ? <Brightness7 /> : <NightsStay />}
+          </IconButton>
+        </Tooltip>
+      </div>
     )
   }
 
@@ -40,7 +47,16 @@ const AppBar: React.FC<AppBarProps> = ({ isThemeDark, onThemeToggle }) => {
     <TitleBar position="static">
       <Toolbar>
         <Typography variant="h4">Chemprove</Typography>
-        <div className={classes.settings}>{renderThemeButton()}</div>
+        <div className={classes.settings}>
+          <div>
+            <Tooltip title="Contact" placement="left" arrow>
+              <IconButton style={{ color: '#e0e0e0' }} onClick={onContactClick}>
+                <ContactMail />
+              </IconButton>
+            </Tooltip>
+          </div>
+        </div>
+        {renderThemeButton()}
       </Toolbar>
     </TitleBar>
   )
