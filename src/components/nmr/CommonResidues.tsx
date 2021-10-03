@@ -182,12 +182,12 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({
     <div className={classes.root}>
       <ContentBox title="Common residues in standard NMR solvents">
         <Typography align="center">
-          This table shows the chemical shifts of common solvents and residues
-          in <sup>1</sup>H NMR spectroscopy. Select the deuterated solvent that
-          was used for your analysis. Most commonly used NMR solvents are
-          included. In order to identify your residues, the data can be filtered
-          by name or chemical shift. When a residue is identified, it can be
-          added to the NMR residue calculator by clicking the add button.
+          This table shows the chemical shifts of common residual solvents and
+          residues in <sup>1</sup>H NMR spectroscopy. The table can be used to
+          identify your residues. First, select the deuterated solvent that was
+          used for your analysis. Then, filter the data by name or chemical
+          shift. When a residue is identified, it can be added to the NMR
+          residue calculator by clicking the add button.
         </Typography>
         <div className={classes.sources}>
           <Button
