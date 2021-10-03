@@ -35,7 +35,7 @@ const AppBar: React.FC<AppBarProps> = ({
     return (
       <div>
         <Tooltip title={toTheme} placement="left" arrow>
-          <IconButton style={{ color: '#e0e0e0' }} onClick={onThemeToggle}>
+          <IconButton style={{ color: '#fff' }} onClick={onThemeToggle}>
             {isThemeDark ? <Brightness7 /> : <NightsStay />}
           </IconButton>
         </Tooltip>
@@ -46,11 +46,13 @@ const AppBar: React.FC<AppBarProps> = ({
   return (
     <TitleBar position="static">
       <Toolbar>
-        <Typography variant="h4">Chemprove</Typography>
+        <Typography variant="h4" style={{ color: '#fff' }}>
+          Chemprove
+        </Typography>
         <div className={classes.settings}>
           <div>
             <Tooltip title="Contact" placement="left" arrow>
-              <IconButton style={{ color: '#e0e0e0' }} onClick={onContactClick}>
+              <IconButton style={{ color: '#fff' }} onClick={onContactClick}>
                 <ContactMail />
               </IconButton>
             </Tooltip>
