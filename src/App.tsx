@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { ThemeProvider } from '@material-ui/styles'
 import { CssBaseline } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
 import { AppBar } from './components/general/AppBar'
 import { lightTheme, darkTheme } from './themesAndStyles/themes'
 import { NmrResiduePage } from './components/nmr/NmrResiduePage'
@@ -43,16 +42,6 @@ function App() {
           onContactClick={handleContactToggle}
         />
         <div className="content">
-          <Alert
-            severity="error"
-            variant="outlined"
-            style={{
-              margin: '35px auto auto auto',
-            }}
-          >
-            Keep in mind that this website is still under construction. The site
-            will be regularly updated.
-          </Alert>
           <NmrResiduePage />
         </div>
         <ContactDialog
