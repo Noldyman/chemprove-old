@@ -120,6 +120,11 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
               }
             >
               {value ? value.toFixed(2) : '-'}
+              {/* I know, very ugly...  check if is MeCN in CDCl3, cause its the only chemshift with a comment. */}
+              {selectedSolvent === 'chloroform_d' &&
+              item.compound === 'Acetonitrile'
+                ? '*'
+                : null}
               <br />
             </span>
           )

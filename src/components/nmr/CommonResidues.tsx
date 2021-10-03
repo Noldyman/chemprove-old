@@ -215,6 +215,15 @@ const CommonResidues: React.FC<CommonResiduesProps> = ({
             filteredData={filterData()}
             filters={filters}
           />
+          {selectedSolvent === 'chloroform_d' && (
+            <div style={{ marginTop: '35px' }}>
+              <span>
+                * According to the publications that were used for this table,
+                the chemical shift of Acetonitrile is 2.10 PPM in Chloroform{' '}
+                <em>d</em>. However, the experimental value is 2.01 PPM.
+              </span>
+            </div>
+          )}
         </div>
       </ContentBox>
       <SourcesDialog
