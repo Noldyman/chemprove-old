@@ -405,6 +405,91 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'tert-Amyl methyl ether',
+    trivialNames: 'TAME',
+    molWeight: 102.18,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              OCH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 3.18,
+          acetone_d6: 3.1,
+          dmso_d6: 3.05,
+          acetonitrile_d3: 3.1,
+          methanol_d4: 3.17,
+          water_d2: 3.2,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'q',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 1.49,
+          acetone_d6: 1.46,
+          dmso_d6: 1.42,
+          acetonitrile_d3: 1.46,
+          methanol_d4: 1.51,
+          water_d2: 1.55,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              C(CH<sub>3</sub>)<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 1.13,
+          acetone_d6: 1.07,
+          dmso_d6: 1.05,
+          acetonitrile_d3: 1.08,
+          methanol_d4: 1.13,
+          water_d2: 1.17,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>C<b>H</b>
+              <sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 0.87,
+          acetone_d6: 0.82,
+          dmso_d6: 0.79,
+          acetonitrile_d3: 0.83,
+          methanol_d4: 0.86,
+          water_d2: 0.85,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Anisole',
     trivialNames: 'Methoxybenzene',
     molWeight: 108.14,
@@ -832,54 +917,6 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
           acetonitrile_d3: 2.18,
           methanol_d4: null,
           water_d2: null,
-        },
-      },
-    ],
-  },
-  {
-    id: uuidv4(),
-    compound: 'tert-Butyl methyl ether',
-    trivialNames: 'MTBE Methyl tert-butyl ether',
-    molWeight: 88.15,
-    signals: [
-      {
-        proton: {
-          formula: (
-            <span>
-              CCH<sub>3</sub>
-            </span>
-          ),
-          multiplicity: 's',
-          amount: 9,
-        },
-        chemShifts: {
-          chloroform_d: 1.19,
-          acetone_d6: 1.13,
-          dmso_d6: 1.11,
-          benzene_d6: 1.07,
-          acetonitrile_d3: 1.14,
-          methanol_d4: 1.15,
-          water_d2: 1.21,
-        },
-      },
-      {
-        proton: {
-          formula: (
-            <span>
-              OCH<sub>3</sub>
-            </span>
-          ),
-          multiplicity: 's',
-          amount: 3,
-        },
-        chemShifts: {
-          chloroform_d: 3.22,
-          acetone_d6: 3.13,
-          dmso_d6: 3.08,
-          benzene_d6: 3.04,
-          acetonitrile_d3: 3.13,
-          methanol_d4: 3.2,
-          water_d2: 3.22,
         },
       },
     ],
@@ -1834,6 +1871,85 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Ethyl benzene',
+    trivialNames: '',
+    molWeight: 106.17,
+    signals: [
+      {
+        proton: { formula: 'CH (3,5)', multiplicity: 'm', amount: 2 },
+        chemShifts: {
+          chloroform_d: { highShift: 7.3, lowShift: 7.26 },
+          acetone_d6: { highShift: 7.29, lowShift: 7.25 },
+          dmso_d6: { highShift: 7.29, lowShift: 7.26 },
+          acetonitrile_d3: { highShift: 7.3, lowShift: 7.25 },
+          methanol_d4: { highShift: 7.26, lowShift: 7.22 },
+          water_d2: null,
+        },
+      },
+      {
+        proton: { formula: 'CH (2,6)', multiplicity: 'm', amount: 2 },
+        chemShifts: {
+          chloroform_d: { highShift: 7.23, lowShift: 7.15 },
+          acetone_d6: { highShift: 7.22, lowShift: 7.19 },
+          dmso_d6: { highShift: 7.22, lowShift: 7.14 },
+          acetonitrile_d3: { highShift: 7.23, lowShift: 7.21 },
+          methanol_d4: { highShift: 7.18, lowShift: 7.16 },
+          water_d2: null,
+        },
+      },
+      {
+        proton: { formula: 'CH (4)', multiplicity: 'm', amount: 1 },
+        chemShifts: {
+          chloroform_d: { highShift: 7.23, lowShift: 7.15 },
+          acetone_d6: { highShift: 7.17, lowShift: 7.13 },
+          dmso_d6: { highShift: 7.22, lowShift: 7.14 },
+          acetonitrile_d3: { highShift: 7.19, lowShift: 7.14 },
+          methanol_d4: { highShift: 7.14, lowShift: 7.1 },
+          water_d2: null,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'q',
+          amount: 2,
+        },
+        chemShifts: {
+          chloroform_d: 2.65,
+          acetone_d6: 2.63,
+          dmso_d6: 2.6,
+          acetonitrile_d3: 2.63,
+          methanol_d4: 2.62,
+          water_d2: null,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 't',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 1.24,
+          acetone_d6: 1.2,
+          dmso_d6: 1.17,
+          acetonitrile_d3: 1.21,
+          methanol_d4: 1.21,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Ethylene',
     trivialNames: 'Ethene',
     molWeight: 28.05,
@@ -2599,6 +2715,121 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: '2-Methyl tetrahydrofuran',
+    trivialNames: 'Methyl THF',
+    molWeight: 86.13,
+    signals: [
+      {
+        proton: { formula: 'CH', multiplicity: 'm', amount: 1 },
+        chemShifts: {
+          chloroform_d: 3.94,
+          acetone_d6: 3.83,
+          dmso_d6: 3.82,
+          acetonitrile_d3: 3.85,
+          methanol_d4: 3.95,
+          water_d2: 4.03,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              OC<b>H</b>H
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 1,
+        },
+        chemShifts: {
+          chloroform_d: 3.89,
+          acetone_d6: 3.78,
+          dmso_d6: 3.75,
+          acetonitrile_d3: 3.79,
+          methanol_d4: 3.86,
+          water_d2: 3.88,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              OCH<b>H</b>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 1,
+        },
+        chemShifts: {
+          chloroform_d: 3.71,
+          acetone_d6: 3.58,
+          dmso_d6: 3.55,
+          acetonitrile_d3: 3.6,
+          methanol_d4: 3.7,
+          water_d2: 3.74,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              OCH<sub>2</sub>C<b>H</b>
+              <sub>2</sub>, C<b>H</b>HCH
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: { highShift: 2.03, lowShift: 1.81 },
+          acetone_d6: { highShift: 2.0, lowShift: 1.75 },
+          dmso_d6: { highShift: 1.97, lowShift: 1.72 },
+          acetonitrile_d3: { highShift: 2.0, lowShift: 1.76 },
+          methanol_d4: { highShift: 2.06, lowShift: 1.85 },
+          water_d2: { highShift: 2.11, lowShift: 1.86 },
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<b>H</b>CH
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 1,
+        },
+        chemShifts: {
+          chloroform_d: 1.41,
+          acetone_d6: 1.34,
+          dmso_d6: 1.31,
+          acetonitrile_d3: 1.35,
+          methanol_d4: 1.42,
+          water_d2: 1.47,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 'd',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 1.23,
+          acetone_d6: 1.14,
+          dmso_d6: 1.12,
+          acetonitrile_d3: 1.15,
+          methanol_d4: 1.2,
+          water_d2: 1.23,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Nitromethane',
     trivialNames: 'Nitrocarbol',
     molWeight: 61.04,
@@ -2821,6 +3052,86 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
+    compound: 'Propylene',
+    trivialNames: 'propene',
+    molWeight: 42.08,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 3,
+        },
+        chemShifts: {
+          chloroform_d: 1.73,
+          benzene_d6: 1.55,
+          acetone_d6: 1.68,
+          dmso_d6: 1.68,
+          acetonitrile_d3: 1.7,
+          methanol_d4: 1.7,
+          water_d2: 1.7,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              C<b>H</b>H
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 1,
+        },
+        chemShifts: {
+          chloroform_d: 4.94,
+          benzene_d6: 4.95,
+          acetone_d6: 4.9,
+          dmso_d6: 4.94,
+          acetonitrile_d3: 4.93,
+          methanol_d4: 4.91,
+          water_d2: 4.95,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<b>H</b>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 1,
+        },
+        chemShifts: {
+          chloroform_d: 5.03,
+          benzene_d6: 5.01,
+          acetone_d6: 5.0,
+          dmso_d6: 5.03,
+          acetonitrile_d3: 5.04,
+          methanol_d4: 5.01,
+          water_d2: 5.06,
+        },
+      },
+      {
+        proton: { formula: 'CH', multiplicity: 'm', amount: 1 },
+        chemShifts: {
+          chloroform_d: 5.83,
+          benzene_d6: 5.72,
+          acetone_d6: 5.81,
+          dmso_d6: 5.8,
+          acetonitrile_d3: 5.85,
+          methanol_d4: 5.82,
+          water_d2: 5.9,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
     compound: 'Pyridine',
     trivialNames: 'Azabenzene Azine',
     molWeight: 79.1,
@@ -2951,6 +3262,52 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
           acetonitrile_d3: 1.61,
           methanol_d4: 1.72,
           water_d2: 1.87,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: 'Sulfolane',
+    trivialNames: 'Tetramethylene sulfone',
+    molWeight: 120.17,
+    signals: [
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>SO<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: { highShift: 3.05, lowShift: 3.02 },
+          acetone_d6: { highShift: 2.97, lowShift: 2.93 },
+          dmso_d6: { highShift: 3.01, lowShift: 2.97 },
+          acetonitrile_d3: { highShift: 2.96, lowShift: 2.92 },
+          methanol_d4: { highShift: 3.03, lowShift: 2.99 },
+          water_d2: { highShift: 3.19, lowShift: 3.15 },
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>2</sub>
+            </span>
+          ),
+          multiplicity: 'm',
+          amount: 4,
+        },
+        chemShifts: {
+          chloroform_d: { highShift: 2.25, lowShift: 2.21 },
+          acetone_d6: { highShift: 2.21, lowShift: 2.17 },
+          dmso_d6: { highShift: 2.09, lowShift: 2.05 },
+          acetonitrile_d3: { highShift: 2.16, lowShift: 2.12 },
+          methanol_d4: { highShift: 2.21, lowShift: 2.18 },
+          water_d2: { highShift: 2.26, lowShift: 2.22 },
         },
       },
     ],
@@ -3111,6 +3468,131 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
       },
     ],
   },
+  {
+    id: uuidv4(),
+    compound: '1,2-Xylene',
+    trivialNames: '',
+    molWeight: 106.17,
+    signals: [
+      {
+        proton: { formula: 'CH', multiplicity: 'm', amount: 4 },
+        chemShifts: {
+          chloroform_d: { highShift: 7.14, lowShift: 7.08 },
+          acetone_d6: { highShift: 7.12, lowShift: 7.03 },
+          dmso_d6: { highShift: 7.14, lowShift: 7.04 },
+          acetonitrile_d3: { highShift: 7.15, lowShift: 7.05 },
+          methanol_d4: { highShift: 7.1, lowShift: 7.01 },
+          water_d2: null,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 2.26,
+          acetone_d6: 2.23,
+          dmso_d6: 2.21,
+          acetonitrile_d3: 2.25,
+          methanol_d4: 2.24,
+          water_d2: null,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: '1,3-Xylene',
+    trivialNames: '',
+    molWeight: 106.17,
+    signals: [
+      {
+        proton: { formula: 'CH (5)', multiplicity: 't', amount: 1 },
+        chemShifts: {
+          chloroform_d: 7.15,
+          acetone_d6: 7.11,
+          dmso_d6: 7.13,
+          acetonitrile_d3: 7.13,
+          methanol_d4: 7.08,
+          water_d2: 7.24,
+        },
+      },
+      {
+        proton: { formula: 'CH (2,4,6)', multiplicity: 'm', amount: 3 },
+        chemShifts: {
+          chloroform_d: { highShift: 7.0, lowShift: 6.96 },
+          acetone_d6: { highShift: 6.99, lowShift: 6.94 },
+          dmso_d6: { highShift: 6.99, lowShift: 6.95 },
+          acetonitrile_d3: { highShift: 7.01, lowShift: 6.96 },
+          methanol_d4: { highShift: 6.97, lowShift: 6.92 },
+          water_d2: { highShift: 7.14, lowShift: 7.07 },
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 2.32,
+          acetone_d6: 2.27,
+          dmso_d6: 2.26,
+          acetonitrile_d3: 2.28,
+          methanol_d4: 2.27,
+          water_d2: 2.31,
+        },
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    compound: '1,4-Xylene',
+    trivialNames: '',
+    molWeight: 106.17,
+    signals: [
+      {
+        proton: { formula: 'CH', multiplicity: 's', amount: 4 },
+        chemShifts: {
+          chloroform_d: 7.06,
+          acetone_d6: 7.05,
+          dmso_d6: 7.05,
+          acetonitrile_d3: 7.06,
+          methanol_d4: 7.02,
+          water_d2: 7.18,
+        },
+      },
+      {
+        proton: {
+          formula: (
+            <span>
+              CH<sub>3</sub>
+            </span>
+          ),
+          multiplicity: 's',
+          amount: 6,
+        },
+        chemShifts: {
+          chloroform_d: 2.31,
+          acetone_d6: 2.26,
+          dmso_d6: 2.24,
+          acetonitrile_d3: 2.27,
+          methanol_d4: 2.26,
+          water_d2: 2.3,
+        },
+      },
+    ],
+  },
 ]
 
 // {
@@ -3125,6 +3607,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
 //         chloroform_d: ,
 //         acetone_d6: ,
 //         dmso_d6: ,
+//         benzene_d6
 //         acetonitrile_d3: ,
 //         methanol_d4: ,
 //         water_d2: ,
