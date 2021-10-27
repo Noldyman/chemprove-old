@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles, IconButton, Tooltip } from '@material-ui/core'
-import { PlaylistAdd } from '@material-ui/icons'
+import { InfoOutlined, PlaylistAdd } from '@material-ui/icons'
 import { v4 as uuidv4 } from 'uuid'
 import _ from 'lodash'
 import { AppTable, IColumnObj } from '../common/AppTable'
 import { ICommonResidue, ISignalObj } from '../../data/H_NMR_RESIDUES'
 import { IFilters, NmrSolvents } from './CommonResidues'
+import { ResidueInfoPopover } from './ResidueInfoPopover'
 
 const useStyles = makeStyles((theme) => ({
   filterHit: {
@@ -37,6 +38,18 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
   filters,
 }) => {
   const classes = useStyles()
+
+  const [residueInfo, setResidueInfo] = useState<ICommonResidue | null>(null)
+  const [infoAnchorElement, setInfoAnchorElement] =
+    useState<HTMLDivElement | null>(null)
+
+  const handleOpenResInfo = async (
+    event: React.MouseEvent<HTMLDivElement>,
+    residue: ICommonResidue
+  ) => {
+    await setInfoAnchorElement(event.currentTarget)
+    setResidueInfo(residue)
+  }
 
   const checkFilterHit = (signal: ISignalObj, path: string) => {
     if (filters.chemShift) {
@@ -153,6 +166,30 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
       path: 'compound',
     },
     {
+      content: (item) => {
+        if (item.smiles) {
+          return (
+            <div
+              style={{ width: 'fit-content' }}
+              onClick={(event) => handleOpenResInfo(event, item)}
+            >
+              <Tooltip
+                key={uuidv4()}
+                arrow
+                placement="top"
+                title="Show residue information"
+              >
+                <IconButton color="secondary">
+                  <InfoOutlined />
+                </IconButton>
+              </Tooltip>
+            </div>
+          )
+        }
+        return null
+      },
+    },
+    {
       label: 'Proton',
       path: 'signals',
       content: (item, value) => renderStackableItems(item, 'proton.formula'),
@@ -202,7 +239,16 @@ const CommonResiduesTable: React.FC<CommonResiduesTableProps> = ({
     },
   ]
 
-  return <AppTable columns={columns} data={filteredData} />
+  return (
+    <div>
+      <AppTable columns={columns} data={filteredData} />
+      <ResidueInfoPopover
+        residue={residueInfo}
+        onClose={() => setResidueInfo(null)}
+        anchorEl={infoAnchorElement}
+      />
+    </div>
+  )
 }
 
 export { CommonResiduesTable }
