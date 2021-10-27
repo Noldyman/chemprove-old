@@ -3,6 +3,21 @@
   <head>
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <title>Chemprove</title>
+    <script src="https://unpkg.com/@rdkit/rdkit/Code/MinimalLib/dist/RDKit_minimal.js"></script>
+
+    <script>
+      window
+        .initRDKitModule()
+        .then(function (RDKitModule) {
+          console.log('RDKit version: ' + RDKitModule.version())
+          window.RDKitModule = RDKitModule
+        })
+        .catch((err) => {
+          alert(
+            'Failed to load plugin. Chemical structures cannot be viewed...'
+          )
+        })
+    </script>
   </head>
   <body>
     <div id="root"></div>
