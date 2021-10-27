@@ -33,6 +33,7 @@ export interface ICommonResidue {
   id: string
   compound: string
   trivialNames: string
+  smiles?: string
   molWeight: number | null
   signals: ISignalObj[]
 }
@@ -83,6 +84,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Water',
     trivialNames: 'H2O',
+    smiles: 'O',
     molWeight: 18.02,
     signals: [
       {
@@ -111,6 +113,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Acetic acid',
     trivialNames: 'AcOH glacial ethanoic',
+    smiles: 'CC(=O)O',
     molWeight: 60.05,
     signals: [
       {
@@ -139,6 +142,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Acetic anhydride',
     trivialNames: 'Acetyl acetate',
+    smiles: 'CC(=O)OC(=O)C',
     molWeight: 102.09,
     signals: [
       {
@@ -166,6 +170,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Acetone',
     trivialNames: 'propanone',
+    smiles: 'CC(=O)C',
     molWeight: 58.08,
     signals: [
       {
@@ -194,6 +199,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Acetonitrile',
     trivialNames: 'ACN MeCN',
+    smiles: 'CC#N',
     molWeight: 41.05,
     signals: [
       {
@@ -222,6 +228,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'iso-Amyl acetate',
     trivialNames: 'Isopentyl acetate',
+    smiles: 'O=C(OCCC(C)C)C',
     molWeight: 130.19,
     signals: [
       {
@@ -318,6 +325,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'iso-Amyl alcohol',
     trivialNames: 'Isopentanol',
+    smiles: 'OCCC(C)C',
     molWeight: 88.15,
     signals: [
       {
@@ -407,6 +415,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'tert-Amyl methyl ether',
     trivialNames: 'TAME',
+    smiles: 'O(C(C)(C)CC)C',
     molWeight: 102.18,
     signals: [
       {
@@ -492,6 +501,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Anisole',
     trivialNames: 'Methoxybenzene',
+    smiles: 'COc1ccccc1',
     molWeight: 108.14,
     signals: [
       {
@@ -541,6 +551,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Benzene',
     trivialNames: '',
+    smiles: 'c1ccccc1',
     molWeight: 78.11,
     signals: [
       {
@@ -561,6 +572,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'BHT',
     trivialNames: '2,6-Dimethyl-4-tert-butylphenol',
+    smiles: 'Cc1cc(C(C)(C)C)cc(c1O)C',
     molWeight: 178.27,
     signals: [
       {
@@ -633,6 +645,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '2-Butanone',
     trivialNames: 'Methylethylketone MEK Methylacetone Methylpropanone',
+    smiles: 'CC(=O)CC',
     molWeight: 72.11,
     signals: [
       {
@@ -703,6 +716,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'iso-Butyl acetate',
     trivialNames: '',
+    smiles: 'O=C(OCC(C)C)C',
     molWeight: 116.16,
     signals: [
       {
@@ -779,6 +793,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'n-Butyl acetate',
     trivialNames: 'Butile',
+    smiles: 'CCCCOC(=O)C',
     molWeight: 116.16,
     signals: [
       {
@@ -885,6 +900,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'tert-Butyl alcohol',
     trivialNames: 'tBuOH 2-methylpropan-2-ol methyl-2-propanol tert-butanol',
+    smiles: 'OC(C)(C)C',
     molWeight: 74.12,
     signals: [
       {
@@ -925,6 +941,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Chlorobenzene',
     trivialNames: 'phenyl chloride',
+    smiles: 'c1ccc(cc1)Cl',
     molWeight: 112.56,
     signals: [
       {
@@ -944,6 +961,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Chloroform',
     trivialNames: 'trichloromethane TCM Methyl trichloride',
+    smiles: 'C(Cl)(Cl)Cl',
     molWeight: 119.37,
     signals: [
       {
@@ -962,8 +980,9 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   },
   {
     id: uuidv4(),
-    compound: '16-Crown-6',
+    compound: '18-Crown-6',
     trivialNames: '',
+    smiles: 'O1CCOCCOCCOCCOCCOCC1',
     molWeight: 264.32,
     signals: [
       {
@@ -992,6 +1011,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Cyclohexane',
     trivialNames: 'Hexanaphthene',
+    smiles: 'C1CCCCC1',
     molWeight: 84.16,
     signals: [
       {
@@ -1020,6 +1040,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Cyclohexanone',
     trivialNames: 'pimelic ketone',
+    smiles: 'C1CCCCC1(=O)',
     molWeight: 98.15,
     signals: [
       {
@@ -1085,6 +1106,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Cyclopentyl methyl ether',
     trivialNames: 'CPME Methoxycyclopentane',
+    smiles: 'COC1CCCC1',
     molWeight: 100.16,
     signals: [
       {
@@ -1142,6 +1164,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'p-Cymene',
     trivialNames: 'Paracymene 4-Isopropyltoluene',
+    smiles: 'c1cc(ccc1C(C)C)C',
     molWeight: 134.22,
     signals: [
       {
@@ -1219,6 +1242,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '1,2-Dichloroethane',
     trivialNames: 'ethylene dichloride EDC',
+    smiles: 'ClCCCl',
     molWeight: 98.95,
     signals: [
       {
@@ -1247,6 +1271,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Dichloromethane',
     trivialNames: 'DCM methylene chloride',
+    smiles: 'ClCCl',
     molWeight: 84.93,
     signals: [
       {
@@ -1275,6 +1300,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Diethyl ether',
     trivialNames: 'ethoxy ethane',
+    smiles: 'CCOCC',
     molWeight: 74.12,
     signals: [
       {
@@ -1323,6 +1349,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Diglyme',
     trivialNames: 'bis(2-methoxyethyl) ether Diethylene glycol dimethyl ether',
+    smiles: 'COCCOCCOC',
     molWeight: 134.18,
     signals: [
       {
@@ -1391,6 +1418,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '1,2-Dimethoxyethane',
     trivialNames: 'Glyme Monoglyme dimethyl glycol dimethyl ether DME',
+    smiles: 'COCCOC',
     molWeight: 90.12,
     signals: [
       {
@@ -1439,6 +1467,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Dimethylacetamide',
     trivialNames: 'DMAc DMA N,N-Dimethylacetamide',
+    smiles: 'CN(C)C(=O)C',
     molWeight: 87.12,
     signals: [
       {
@@ -1507,6 +1536,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Dimethyl carbonate',
     trivialNames: 'DMC',
+    smiles: 'COC(=O)OC',
     molWeight: 90.08,
     signals: [
       {
@@ -1534,6 +1564,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Dimethylformamide',
     trivialNames: 'DMF N,N-Dimethylformamide',
+    smiles: 'CN(C)C(=O)',
     molWeight: 73.1,
     signals: [
       {
@@ -1594,6 +1625,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Dimethyl sulfoxide',
     trivialNames: 'DMSO (Methanesulfinyl)methane',
+    smiles: 'CS(=O)C',
     molWeight: 78.13,
     signals: [
       {
@@ -1622,6 +1654,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '1,4-Dioxane',
     trivialNames: '1,4-Dioxacyclohexane',
+    smiles: 'O1CCOCC1',
     molWeight: 88.11,
     signals: [
       {
@@ -1650,6 +1683,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'DMPU',
     trivialNames: '1,3-Dimethyl-3,4,5,6-tetrahydro-2(1H)-pyrimidinone',
+    smiles: 'O=C1N(C)CCCN1C',
     molWeight: 128.18,
     signals: [
       {
@@ -1715,6 +1749,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethane',
     trivialNames: '',
+    smiles: 'CC',
     molWeight: 30.07,
     signals: [
       {
@@ -1743,6 +1778,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethanol',
     trivialNames: 'EtOH alcohol ethyl alcohol',
+    smiles: 'CCO',
     molWeight: 46.07,
     signals: [
       {
@@ -1803,6 +1839,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethyl acetate',
     trivialNames: 'EtOAc ETAC EA',
+    smiles: 'CCOC(=O)C',
     molWeight: 88.11,
     signals: [
       {
@@ -1873,6 +1910,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethyl benzene',
     trivialNames: '',
+    smiles: 'c1ccccc1(CC)',
     molWeight: 106.17,
     signals: [
       {
@@ -1952,6 +1990,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethylene',
     trivialNames: 'Ethene',
+    smiles: 'C=C',
     molWeight: 28.05,
     signals: [
       {
@@ -1980,6 +2019,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethylene glycol',
     trivialNames: 'Ethylene alcohol 1,2-Dihydroxyethane',
+    smiles: 'OCCO',
     molWeight: 62.07,
     signals: [
       {
@@ -2022,6 +2062,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethylene glycol diacetate',
     trivialNames: '',
+    smiles: 'CC(=O)OCCOC(=O)C',
     molWeight: 146.14,
     signals: [
       {
@@ -2068,6 +2109,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'L-Ethyl lactate',
     trivialNames: 'Acytol',
+    smiles: 'C[C@H](O)C(OCC)=O',
     molWeight: 118.13,
     signals: [
       {
@@ -2157,6 +2199,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Ethyl tert-butyl ether',
     trivialNames: 'ETBE',
+    smiles: 'O(C(C)(C)C)CC',
     molWeight: 102.18,
     signals: [
       {
@@ -2222,6 +2265,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Formic acid',
     trivialNames: 'Methanoic acid',
+    smiles: 'O=CO',
     molWeight: 46.03,
     signals: [
       {
@@ -2241,6 +2285,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'n-Heptane',
     trivialNames: 'Septane',
+    smiles: 'CCCCCCC',
     molWeight: 100.21,
     signals: [
       {
@@ -2287,6 +2332,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Hexamethylbenzene',
     trivialNames: 'Mellitene',
+    smiles: 'c1(c(c(c(c(c1C)C)C)C)C)C',
     molWeight: 162.28,
     signals: [
       {
@@ -2315,6 +2361,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Hexamethyldisiloxane',
     trivialNames: 'HMDSO Bis(trimethylsilyl) ether',
+    smiles: 'O([Si](C)(C)C)[Si](C)(C)C',
     molWeight: 162.38,
     signals: [
       {
@@ -2342,6 +2389,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
   {
     id: uuidv4(),
     compound: 'Hexamethylphosphoramide',
+    smiles: 'O=P(N(C)C)(N(C)C)N(C)C',
     trivialNames: 'HMPA',
     molWeight: 179.2,
     signals: [
@@ -2371,6 +2419,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'n-Hexane',
     trivialNames: '',
+    smiles: 'CCCCCC',
     molWeight: 86.18,
     signals: [
       {
@@ -2419,6 +2468,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Hydrogen',
     trivialNames: 'H2',
+    smiles: '[HH]',
     molWeight: 2.02,
     signals: [
       {
@@ -2447,6 +2497,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Imidazole',
     trivialNames: '',
+    smiles: 'c1cnc[nH]1',
     molWeight: 68.08,
     signals: [
       {
@@ -2480,6 +2531,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Methane',
     trivialNames: '',
+    smiles: 'C',
     molWeight: 16.04,
     signals: [
       {
@@ -2508,6 +2560,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Methanol',
     trivialNames: 'MeOH methyl alcohol Hydroxymethane',
+    smiles: 'CO',
     molWeight: 32.04,
     signals: [
       {
@@ -2548,6 +2601,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Methyl acetate',
     trivialNames: '',
+    smiles: 'O=C(OC)C',
     molWeight: 74.08,
     signals: [
       {
@@ -2594,6 +2648,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Methyl iso-butyl ketone',
     trivialNames: 'MIBK',
+    smiles: 'CC(C)CC(=O)C',
     molWeight: 100.16,
     signals: [
       {
@@ -2671,6 +2726,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Methyl tert-butyl ether',
     trivialNames: 'MTBE',
+    smiles: 'O(C(C)(C)C)C',
     molWeight: 88.15,
     signals: [
       {
@@ -2717,6 +2773,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '2-Methyl tetrahydrofuran',
     trivialNames: 'Methyl THF',
+    smiles: 'O1C(C)CCC1',
     molWeight: 86.13,
     signals: [
       {
@@ -2832,6 +2889,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Nitromethane',
     trivialNames: 'Nitrocarbol',
+    smiles: 'C[N+](=O)[O-]',
     molWeight: 61.04,
     signals: [
       {
@@ -2860,6 +2918,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'n-Pentane',
     trivialNames: '',
+    smiles: 'CCCCC',
     molWeight: 72.15,
     signals: [
       {
@@ -2908,6 +2967,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Propane',
     trivialNames: '',
+    smiles: 'CCC',
     molWeight: 44.1,
     signals: [
       {
@@ -2956,6 +3016,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'iso-Propanol',
     trivialNames: 'Isopropyl alcohol Isopropanol IPA',
+    smiles: 'OC(C)C',
     molWeight: 60.1,
     signals: [
       {
@@ -2996,6 +3057,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'iso-Propyl acetate',
     trivialNames: '',
+    smiles: 'CC(=O)OC(C)C',
     molWeight: 102.13,
     signals: [
       {
@@ -3054,6 +3116,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Propylene',
     trivialNames: 'propene',
+    smiles: 'CC=C',
     molWeight: 42.08,
     signals: [
       {
@@ -3134,6 +3197,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Pyridine',
     trivialNames: 'Azabenzene Azine',
+    smiles: 'c1ccncc1',
     molWeight: 79.1,
     signals: [
       {
@@ -3178,6 +3242,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Pyrrole',
     trivialNames: 'Azole Imidole',
+    smiles: '[nH]1cccc1',
     molWeight: 67.09,
     signals: [
       {
@@ -3222,6 +3287,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Pyrrolidine',
     trivialNames: 'Tetrahydropyrrole Azolidine Prolamine',
+    smiles: 'C1CCNC1',
     molWeight: 71.12,
     signals: [
       {
@@ -3270,6 +3336,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Sulfolane',
     trivialNames: 'Tetramethylene sulfone',
+    smiles: 'C1CCS(=O)(=O)C1',
     molWeight: 120.17,
     signals: [
       {
@@ -3316,6 +3383,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Tetrahydrofuran',
     trivialNames: 'THF Oxolane',
+    smiles: 'O1CCCC1',
     molWeight: 72.11,
     signals: [
       {
@@ -3364,6 +3432,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Toluene',
     trivialNames: 'MeBn toluol methylbenzene',
+    smiles: 'c1ccccc1C',
     molWeight: 92.14,
     signals: [
       {
@@ -3424,6 +3493,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: 'Triethylamine',
     trivialNames: 'TEA',
+    smiles: 'CCN(CC)CC',
     molWeight: 101.19,
     signals: [
       {
@@ -3472,6 +3542,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '1,2-Xylene',
     trivialNames: '',
+    smiles: 'Cc1c(C)cccc1',
     molWeight: 106.17,
     signals: [
       {
@@ -3510,6 +3581,8 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '1,3-Xylene',
     trivialNames: '',
+    smiles: 'Cc1cc(C)ccc1',
+
     molWeight: 106.17,
     signals: [
       {
@@ -3559,6 +3632,7 @@ export const H_NMR_COMMON_RESIDUES: ICommonResidue[] = [
     id: uuidv4(),
     compound: '1,4-Xylene',
     trivialNames: '',
+    smiles: 'Cc1ccc(C)cc1',
     molWeight: 106.17,
     signals: [
       {
