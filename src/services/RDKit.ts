@@ -18,9 +18,25 @@ const getMW = (smiles: string) => {
   return mw.toFixed(2)
 }
 
+const getMolFormulaString = (smiles: string) => {
+  const inchi: string = getMol(smiles).get_inchi()
+  let formulaString = ''
+  let fwSlashCount = 0
+
+  for (let i = 0; i < inchi.length; i++) {
+    if (inchi[i] === '/') fwSlashCount++
+    if (fwSlashCount === 1 && inchi[i] !== '/') {
+      formulaString += inchi[i]
+    }
+  }
+
+  return formulaString
+}
+
 const RDKit = {
   drawStructure: drawStructure,
   getMW: getMW,
+  getMolFormulaString: getMolFormulaString,
 }
 
 export default RDKit

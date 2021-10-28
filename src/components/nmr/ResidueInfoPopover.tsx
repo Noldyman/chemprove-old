@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles, Popover, Typography, Divider } from '@material-ui/core'
 import { ICommonResidue } from '../../data/H_NMR_RESIDUES'
 import RDKit from '../../services/RDKit'
+import parseHTML from 'html-react-parser'
 
 const useStyles = makeStyles((theme) => {
   const dividerColor = theme.palette.divider
@@ -45,6 +46,21 @@ const ResidueInfoPopover: React.FC<ResidueInfoPopoverProps> = ({
 }) => {
   const classes = useStyles()
 
+  const createMolecularFormula = (smiles: string) => {
+    const formulaString = RDKit.getMolFormulaString(smiles)
+    let htmlString = ''
+
+    for (let i = 0; i < formulaString.length; i++) {
+      if (!isNaN(parseFloat(formulaString[i]))) {
+        htmlString += `<sub>${formulaString[i]}</sub>`
+      } else {
+        htmlString += formulaString[i]
+      }
+    }
+
+    return <span>{parseHTML(htmlString)}</span>
+  }
+
   return (
     <Popover
       open={Boolean(residue)}
@@ -70,6 +86,11 @@ const ResidueInfoPopover: React.FC<ResidueInfoPopoverProps> = ({
             {RDKit.drawStructure(residue.smiles)}
           </div>
           <div className={classes.info}>
+            <div style={{ margin: '20px' }}>
+              <b>Mol. formula</b>
+              <br />
+              {createMolecularFormula(residue.smiles)}
+            </div>
             <div style={{ margin: '20px' }}>
               <b>Mol. weight</b>
               <br />
