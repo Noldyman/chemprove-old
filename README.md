@@ -1,3 +1,4 @@
-# Chemprove
+# Chemprove-old
 
-Chemprove will be a website that hosts usefull utilities for organic chemists. Hopefully this will succeed and this will be the first website i'll even horst. The chemprove.com domain is already registered, so as we say in dutch, thats a stick behind the door to finish what i started.
+This is the first version of Chemprove that I created. This website contained a tool that helped out with NMR analysis (an analysis technique that is often used in organic chemistry).
+This was my first substantial React project, but it was a bit messy and hard to maintain. I wanted to add some features to the website, so I decided to create [a new project](https://github.com/Noldyman/chemprove). This new version of chemprove is hosted at https://chemprove.com.
